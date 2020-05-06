@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+
+<generatorConfiguration>
+
+    <context id="context" targetRuntime="MyBatis3">
+
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://58.87.74.112:3306/2019net?serverTimezone=UTC"
+                        userId="manage"
+                        password="upc2020">
+        </jdbcConnection>
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="cn.edu.upc.manage.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置 放在resource文件夹下-->
+        <sqlMapGenerator targetPackage="mapping" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.edu.upc.manage.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 相关表的配置 -->
+
+        <!--<table tableName="view_message_state" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="project" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="message" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="progress" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="work_place" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="group_ex" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="group_user" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="manage" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="area" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--<table tableName="role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false"/>-->
+        <!--<table tableName="rights" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false"/>-->
+    </context>
+</generatorConfiguration>

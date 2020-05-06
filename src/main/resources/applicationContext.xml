@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载properties文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties"/>
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 扫描model包 -->
+        <property name="typeAliasesPackage" value="cn.edu.upc.manage.model"/>
+        <!-- 扫描sql配置文件:mapper需要的xml文件-->
+        <property name="mapperLocations" value="classpath:mapping/*.xml"/>
+    </bean>
+
+    <!-- Mapper动态代理开发，扫描dao接口包-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 给出需要扫描Dao接口包 -->
+        <property name="basePackage" value="cn.edu.upc.manage.dao"/>
+    </bean>
+
+    <!-- 事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!--    shiro配置-董志涵-->
+
+    <!--    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
+    <!--        <property name="realm" ref="shiroDbRealm" />-->
+    <!--    </bean>-->
+
+    <!--    &lt;!&ndash;2. 配置 CacheManager. 2.1需要加入 ehcache 的 jar 包及配置文件. &ndash;&gt;-->
+    <!--    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"> </bean>-->
+
+    <!--    &lt;!&ndash;3.配置realm 自定义的Realm&ndash;&gt;-->
+    <!--    &lt;!&ndash;-->
+    <!--        Shiro 从从Realm获取安全数据（如用户、角色、权限），就是说SecurityManager要验证用户身份，-->
+    <!--        那么它需要从Realm获取相应的用户进行比较以确定用户身份是否合法；-->
+    <!--        也需要从Realm得到用户相应的角色/权限进行验证用户是否能进行操作；-->
+    <!--        可以把Realm看成DataSource ， 即安全数据源-->
+    <!--    &ndash;&gt;-->
+    <!--    <bean id="shiroDbRealm" class="cn.edu.upc.dzh.shiro.ShiroRealm"></bean>-->
+
+    <!--    &lt;!&ndash;4.配置lifecycleBeanPostProcessor，可以自动调用spring ioc 容器中的shiro bean 的生命周期方法  &ndash;&gt;-->
+    <!--    &lt;!&ndash; 开启Shiro注解的Spring配置方式的beans。在lifecycleBeanPostProcessor之后运行 &ndash;&gt;-->
+    <!--    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />-->
+
+    <!--    &lt;!&ndash;5. 启用 IOC 容器中使用 shiro 的注解. 但必须在配置了 LifecycleBeanPostProcessor 之后才可以使用. &ndash;&gt;-->
+    <!--    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"-->
+    <!--          depends-on="lifecycleBeanPostProcessor">-->
+    <!--        <property name="proxyTargetClass" value="true" />-->
+    <!--    </bean>-->
+
+    <!--    &lt;!&ndash; Shiro Filter id值和web.xml文件配置的过滤器名称相同 &ndash;&gt;-->
+    <!--    <bean id="shiroFilter"-->
+    <!--          class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+    <!--        <property name="securityManager" ref="securityManager" />-->
+    <!--        &lt;!&ndash; 登录页面 &ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="loginUrl" value="/login.jsp" />&ndash;&gt;-->
+
+    <!--        <property name="loginUrl" value="/web/pleaseLogin" />-->
+    <!--        &lt;!&ndash; 登录成功页面 &ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="successUrl" value="/WEB-INF/views/home.jsp"/>&ndash;&gt;-->
+    <!--        &lt;!&ndash; 没有权限的页面 &ndash;&gt;-->
+    <!--        <property name="unauthorizedUrl" value="/web/noAuth"/>-->
+
+    <!--        &lt;!&ndash;        <property  name="filters">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <map>&ndash;&gt;-->
+    <!--        &lt;!&ndash;                <entry key="anon" value-ref="CrosFilter"/>&ndash;&gt;-->
+    <!--        &lt;!&ndash;                &lt;!&ndash;                <entry key="anon" value-ref="LogInterceptor"/>&ndash;&gt;&ndash;&gt;-->
+    <!--        &lt;!&ndash;                &lt;!&ndash;                <entry key="anon" value-ref="Cros"/>&ndash;&gt;&ndash;&gt;-->
+    <!--        &lt;!&ndash;            </map>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </property>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="filterChainDefinitionMap">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <map>&ndash;&gt;-->
+    <!--        &lt;!&ndash;                <entry key="anon" value="anon"/>&ndash;&gt;-->
+    <!--        &lt;!&ndash;                <entry key="authc" value="authc"/>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            </map>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </property>&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;-->
+    <!--          配置哪些页面需要受保护.-->
+    <!--          以及访问这些页面需要的权限.-->
+    <!--          1). anon 可以被匿名访问-->
+    <!--          2). authc 必须认证(即登录)后才可能访问的页面.-->
+    <!--          3). logout 登出.-->
+    <!--          4). roles 角色过滤器-->
+    <!--      &ndash;&gt;-->
+    <!--        <property name="filterChainDefinitions">-->
+    <!--            <value>-->
+    <!--                &lt;!&ndash; 登录可匿名访问 &ndash;&gt;-->
+    <!--                &lt;!&ndash;                /static/**= anon&ndash;&gt;-->
+    <!--                /web/login = anon-->
+    <!--                /web/logout = anon-->
+    <!--                /web/sendCode = anon-->
+    <!--                /web/codeMaching = anon-->
+    <!--                /web/register= anon-->
+
+    <!--                &lt;!&ndash;                /**=anon&ndash;&gt;-->
+    <!--                &lt;!&ndash;                /teamStructure/getTeamStructure=authc&ndash;&gt;-->
+    <!--                &lt;!&ndash;                /project2/**=authc&ndash;&gt;-->
+
+
+    <!--                &lt;!&ndash; 其他的需要授权访问authc &ndash;&gt;-->
+
+    <!--                /**=authc-->
+    <!--            </value>-->
+    <!--        </property>-->
+
+    <!--        <property  name="filters">-->
+    <!--            <map>-->
+    <!--                <entry key="anon" value-ref="CrosFilter"/>-->
+    <!--                &lt;!&ndash;                <entry key="anon" value-ref="LogInterceptor"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <entry key="anon" value-ref="Cros"/>&ndash;&gt;-->
+    <!--            </map>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+
+
+    <!--    &lt;!&ndash; 会话管理器 &ndash;&gt;-->
+    <!--    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
+    <!--        &lt;!&ndash; 设置超时时间 &ndash;&gt;-->
+    <!--        <property name="globalSessionTimeout" value="20000"/>-->
+    <!--        <property name="deleteInvalidSessions" value="true"/>-->
+    <!--        <property name="sessionValidationSchedulerEnabled" value="true"/>-->
+    <!--        <property name="sessionIdCookieEnabled" value="true"/>-->
+    <!--    </bean>-->
+
+    <!--    &lt;!&ndash;    <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor">&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <property name="securityManager" ref="securityManager"/>&ndash;&gt;-->
+    <!--    &lt;!&ndash;    </bean>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash;    <bean name="/someService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <property name="service" ref="someService"/>&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <property name="serviceInterface" value="com.pkg.service.SomeService"/>&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <property name="remoteInvocationExecutor" ref="secureRemoteInvocationExecutor"/>&ndash;&gt;-->
+    <!--    &lt;!&ndash;    </bean>&ndash;&gt;-->
+
+    <!--    &lt;!&ndash; 开启Shiro注解的Spring配置方式的beans。在lifecycleBeanPostProcessor之后运行 &ndash;&gt;-->
+    <!--    <bean-->
+    <!--            class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+    <!--        <property name="securityManager" ref="securityManager" />-->
+    <!--    </bean>-->
+
+    <!--    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">-->
+    <!--        <property name="ProxyTargetClass" value="true"/>-->
+    <!--    </bean>-->
+
+    <!--    &lt;!&ndash; shiro为集成spring &ndash;&gt;-->
+    <!--    &lt;!&ndash;    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">&ndash;&gt;-->
+    <!--    &lt;!&ndash;        <property name="exceptionMappings">&ndash;&gt;-->
+    <!--    &lt;!&ndash;            <props>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                &lt;!&ndash; 无权限跳转到登陆页，可自行定义 &ndash;&gt;&ndash;&gt;-->
+    <!--    &lt;!&ndash;&lt;!&ndash;                <prop key="org.apache.shiro.authz.UnauthorizedException">/forgetPassword</prop>&ndash;&gt;&ndash;&gt;-->
+    <!--    &lt;!&ndash;            </props>&ndash;&gt;-->
+    <!--    &lt;!&ndash;        </property>&ndash;&gt;-->
+    <!--    &lt;!&ndash;    </bean>&ndash;&gt;-->
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
