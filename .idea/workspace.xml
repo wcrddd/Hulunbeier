@@ -2,13 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84421b59-8c5e-4aa1-aa11-b0145bc978ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-generator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-generator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,7 +46,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588686203338</updated>
-      <workItem from="1588686207456" duration="3463000" />
+      <workItem from="1588686207456" duration="5897000" />
     </task>
     <servers />
   </component>
@@ -45,21 +54,21 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="220" key="GridCell.Tab.0.bottom" timestamp="1588751796172">
+    <state width="1398" height="220" key="GridCell.Tab.0.bottom" timestamp="1588937847047">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="220" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1588751796172" />
-    <state width="1398" height="220" key="GridCell.Tab.0.center" timestamp="1588751796169">
+    <state width="1398" height="220" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1588937847047" />
+    <state width="1398" height="220" key="GridCell.Tab.0.center" timestamp="1588937847043">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="220" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1588751796169" />
-    <state width="1398" height="220" key="GridCell.Tab.0.left" timestamp="1588751796167">
+    <state width="1398" height="220" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1588937847043" />
+    <state width="1398" height="220" key="GridCell.Tab.0.left" timestamp="1588937847040">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="220" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1588751796167" />
-    <state width="1398" height="220" key="GridCell.Tab.0.right" timestamp="1588751796169">
+    <state width="1398" height="220" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1588937847040" />
+    <state width="1398" height="220" key="GridCell.Tab.0.right" timestamp="1588937847046">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="220" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1588751796169" />
+    <state width="1398" height="220" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1588937847046" />
   </component>
 </project>

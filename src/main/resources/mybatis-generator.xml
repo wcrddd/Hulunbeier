@@ -9,7 +9,7 @@
 
         <!-- 数据库的相关配置 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://58.87.74.112:3306/2019net?serverTimezone=UTC"
+                        connectionURL="jdbc:mysql://58.87.74.112:3306/hulunbeier2020?serverTimezone=UTC"
                         userId="manage"
                         password="upc2020">
         </jdbcConnection>
@@ -48,7 +48,7 @@
         <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
         <!--<table tableName="role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
         <!--enableUpdateByExample="false"/>-->
-        <!--<table tableName="rights" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-        <!--enableUpdateByExample="false"/>-->
+        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>
