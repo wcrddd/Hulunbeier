@@ -1,6 +1,6 @@
 package cn.edu.upc.dzh.service.impl;
 
-import cn.edu.upc.dzh.service.GuideService;
+import cn.edu.upc.dzh.service.GuideService2;
 import cn.edu.upc.manage.dao.GuideMapper;
 import cn.edu.upc.manage.dao.GuideUnitRelationMapper;
 import cn.edu.upc.manage.model.Guide;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class GuideServiceImpl implements GuideService {
+public class GuideService2Impl implements GuideService2 {
     @Autowired
     private GuideMapper guideMapper;
     @Autowired

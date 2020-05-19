@@ -48,7 +48,9 @@
         <!--enableSelectByExample="false" enableUpdateByExample="false"/>-->
         <!--<table tableName="role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
         <!--enableUpdateByExample="false"/>-->
-        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-        enableUpdateByExample="false"/>
+<!--        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--        enableUpdateByExample="false"/>-->
+        <table tableName="project_type" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

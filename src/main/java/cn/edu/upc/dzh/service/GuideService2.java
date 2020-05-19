@@ -5,7 +5,7 @@ import cn.edu.upc.manage.model.GuideUnitRelation;
 
 import java.util.List;
 
-public interface GuideService {
+public interface GuideService2 {
     public int insertGuide(Guide guide);
     public void inserGuideUnitRelation(GuideUnitRelation guideUnitRelation);
     public List<Guide> getGuideByUnitId(int unitId);
