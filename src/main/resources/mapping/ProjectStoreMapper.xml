@@ -42,6 +42,19 @@
     approve, approve_time, opinion, constru_unit_id, create_time, del_flag, operator, 
     operator_ip, operator_time
   </sql>
+
+<!--  增加项目-->
+  <insert id="addProject">
+    insert into project_store(guide_id, project_name, build_year,
+      place, project_type, invest_direction,
+      industry_direction, implement_dept, invest_estimate,
+      content) values (#{guideId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{buildYear,jdbcType=VARCHAR},
+      #{place,jdbcType=VARCHAR}, #{projectType,jdbcType=INTEGER}, #{investDirection,jdbcType=VARCHAR},
+      #{industryDirection,jdbcType=VARCHAR}, #{implementDept,jdbcType=VARCHAR}, #{investEstimate,jdbcType=REAL},
+      #{content,jdbcType=VARCHAR})
+  </insert>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
