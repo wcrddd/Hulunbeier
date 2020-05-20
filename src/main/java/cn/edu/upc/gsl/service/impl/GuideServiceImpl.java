@@ -7,6 +7,10 @@ import cn.edu.upc.manage.model.Guide;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -21,11 +25,19 @@ public class GuideServiceImpl implements GuideService {
     GuideMapper guideMapper;
 
 
+    /**
+     * 获取所有指南
+     * 查询符合条件的指南
+     *
+     * @param title
+     * @param documentId
+     * @return
+     */
     @Override
     public List<Guide> getGuideList(String title, String documentId) {
         List<Guide> guideList;
         //当这没有传参时和当传参为空时，都返回全部指南
-        if (title == null || documentId ==null) {
+        if (title == null || documentId == null) {
             guideList = guideMapper.selectAllGuide();
         } else if ("".equals(title) && "".equals(documentId)) {
             guideList = guideMapper.selectAllGuide();
@@ -41,5 +53,7 @@ public class GuideServiceImpl implements GuideService {
         }
         return guideList;
     }
+
+
 
 }
