@@ -6,7 +6,7 @@ import cn.edu.upc.manage.model.ProjectStore;
  * @author gsl
  * @date 2020/5/18
  */
-public interface ProjectStoreService {
+public interface ProjectStoreAuditService {
 
 
     /**

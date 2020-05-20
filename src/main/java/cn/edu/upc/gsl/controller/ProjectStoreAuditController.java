@@ -1,6 +1,6 @@
 package cn.edu.upc.gsl.controller;
 
-import cn.edu.upc.gsl.service.ProjectStoreService;
+import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/project",method = {RequestMethod.GET,RequestMethod.POST})
 public class ProjectStoreAuditController {
     @Autowired
-    ProjectStoreService projectStoreService;
+    ProjectStoreAuditService projectStoreAuditService;
 
     /**
      * 项目申报（建设单位）
@@ -26,7 +26,7 @@ public class ProjectStoreAuditController {
     @RequestMapping(value = "/addProject")
     @ResponseBody
     public CommonReturnType addProject(@RequestBody ProjectStore projectStore){
-        projectStoreService.addProject(projectStore);
+        projectStoreAuditService.addProject(projectStore);
         return CommonReturnType.create(null,"项目申报成功，等待审批");
     }
 }

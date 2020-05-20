@@ -1,6 +1,6 @@
 package cn.edu.upc.gsl.controller;
 
-import cn.edu.upc.gsl.service.GuideServiceAudit;
+import cn.edu.upc.gsl.service.GuideService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.Guide;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 public class GuideController {
 
     @Autowired
-    GuideServiceAudit guideServiceAudit;
+    GuideService guideService;
     /**
      * 项目单位（查询）获取指南列表
      * @param guide
@@ -31,7 +31,7 @@ public class GuideController {
     public CommonReturnType getGuides(@RequestBody Guide guide) {
         String title = guide.getTitle();
         String documentId = guide.getDocumentId();
-        List<Guide> guideList = guideServiceAudit.getGuideList(title,documentId);
+        List<Guide> guideList = guideService.getGuideList(title,documentId);
         return CommonReturnType.create(guideList);
     }
 }

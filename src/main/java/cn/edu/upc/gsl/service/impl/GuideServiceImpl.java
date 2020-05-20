@@ -1,7 +1,7 @@
 package cn.edu.upc.gsl.service.impl;
 
 
-import cn.edu.upc.gsl.service.GuideServiceAudit;
+import cn.edu.upc.gsl.service.GuideService;
 import cn.edu.upc.manage.dao.GuideMapper;
 import cn.edu.upc.manage.model.Guide;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2020/5/13
  */
 @Service
-public class GuideServiceAuditImpl implements GuideServiceAudit {
+public class GuideServiceImpl implements GuideService {
 
     @Resource
     GuideMapper guideMapper;
