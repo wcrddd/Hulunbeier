@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @CrossOrigin
 @Controller
-@RequestMapping(value = "/file", method = {RequestMethod.GET, RequestMethod.POST})
+@RequestMapping(value = "/file2", method = {RequestMethod.GET, RequestMethod.POST})
 public class FileController {
 
     @Autowired

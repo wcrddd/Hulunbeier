@@ -31,8 +31,8 @@
     </sql>
 
     <!--  获取所有-->
-    <select id="selectAllGuide" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from guide where del_flag = 0
+    <select id="selectAllGuide"  resultMap="BaseResultMap">
+    select * from guide   where del_flag = 0 LIMIT #{startLine},#{pageSize}
     </select>
     <!--根据文件号查询-->
     <select id="selectByDocumentId" parameterType="java.lang.String" resultMap="BaseResultMap">
