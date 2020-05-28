@@ -9,4 +9,5 @@ public interface GuideService2 {
     public int insertGuide(Guide guide);
     public void inserGuideUnitRelation(GuideUnitRelation guideUnitRelation);
     public List<Guide> getGuideByUnitId(int unitId);
+    public List<Guide> selectGuide(int unitId,String title,String documentId);
 }

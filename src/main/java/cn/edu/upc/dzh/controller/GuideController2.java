@@ -31,8 +31,10 @@ public class GuideController2 {
         Guide guide = new Guide();
         guide.setTitle(param.getString("title"));
         guide.setDocumentId(param.getString("documentId"));
-        guide.setPublishTime(param.getString("publishTime"));
-        guide.setEndTime(param.getString("endTime"));
+//        guide.setPublishTime(param.getString("publishTime"));
+//        guide.setEndTime(param.getString("endTime"));
+        guide.setPublishTime(param.getDate("publishTime"));
+        guide.setEndTime(param.getDate("endTime"));
         guide.setContent(param.getString("content"));
         guide.setAppendix(param.getString("appendix"));
         int guideId= guideService2.insertGuide(guide);
@@ -55,6 +57,17 @@ public class GuideController2 {
 //        int unitId=user.getDepartmentUnitId();
         int unitId=1;
         List<Guide> guideList= guideService2.getGuideByUnitId(unitId);
+        return CommonReturnType.create(guideList);
+    }
+
+    @RequestMapping("/selectGuide")//
+    @ResponseBody
+    public CommonReturnType selectGuide(@RequestBody JSONObject param){
+//        guideService.insertGuide(guide);
+        int unitId=1;
+        String title=param.getString("title");
+        String documentId=param.getString("documentId");
+        List<Guide> guideList=guideService2.selectGuide(unitId,title,documentId);
         return CommonReturnType.create(guideList);
     }
 }

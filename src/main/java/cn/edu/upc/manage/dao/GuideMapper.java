@@ -5,15 +5,15 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-import java.util.List;
-
 public interface GuideMapper {
 
     /**
      * 获取所有指南
+     * @param startLine 起始行号
+     * @param pageSize 每页大小
      * @return
      */
-    List<Guide> selectAllGuide();
+    List<Guide> selectAllGuide(@Param("startLine") Integer startLine,@Param("pageSize") Integer pageSize);
     /**
      * 根据指南标题 模糊查询列表
      * @param title
@@ -87,4 +87,6 @@ public interface GuideMapper {
     List<Guide> getGuideByUnitId(int unitId);
 
     int selectLastInsert();
+
+    List<Guide> selectGuide(@Param("unitId") int unitId,@Param("title") String title, @Param("documentId") String documentId);
 }
