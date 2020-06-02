@@ -348,6 +348,6 @@
   </select>
 
   <select id="searchProjectStore" parameterType="cn.edu.upc.manage.model.ProjectStore" resultMap="BaseResultMap">
-       select * from  project_store where apply_type= 1 and project_name= #{projectName}
+       select * from  project_store where apply_type= 1 and project_name= #{projectName} and build_year=#{buildYear} and approve=1git
   </select>
 </mapper>
