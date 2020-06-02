@@ -42,6 +42,37 @@
     approve, approve_time, opinion, constru_unit_id, create_time, del_flag, operator, 
     operator_ip, operator_time
   </sql>
+
+<!-- 只根据项目名称模糊查询 -->
+  <select id="selectByProjectName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from project_store where del_flag = 0
+    and project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by project_name
+  </select>
+<!--只根据建设年份查询-->
+  <select id="selectByBuildYear" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from project_store where del_flag = 0
+    and build_year like concat ('%',#{buildYear,jdbcType = VARCHAR},'%') order by build_year
+  </select>
+
+<!--同时根据两个条件查询-->
+  <select id="selectByProjectNameAndBuildYear" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from project_store where del_flag = 0
+    and project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
+    and build_year like concat('%',#{buildYear,jdbcType = VARCHAR},'%')
+  </select>
+
+<!--  增加项目-->
+  <insert id="addProject">
+    insert into project_store(guide_id, project_name, build_year,
+      place, project_type, invest_direction,
+      industry_direction, implement_dept, invest_estimate,
+      content) values (#{guideId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{buildYear,jdbcType=VARCHAR},
+      #{place,jdbcType=VARCHAR}, #{projectType,jdbcType=INTEGER}, #{investDirection,jdbcType=VARCHAR},
+      #{industryDirection,jdbcType=VARCHAR}, #{implementDept,jdbcType=VARCHAR}, #{investEstimate,jdbcType=REAL},
+      #{content,jdbcType=VARCHAR})
+  </insert>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -344,7 +375,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectProjectStore" resultMap="BaseResultMap">
-       select * from  project_store
+       select * from  project_store where del_flag = 0
   </select>
 
   <select id="searchProjectStore" parameterType="cn.edu.upc.manage.model.ProjectStore" resultMap="BaseResultMap">

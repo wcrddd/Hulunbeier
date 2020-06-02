@@ -42,7 +42,11 @@
         <!--数据库连接池-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
+    <!-- 文件上传解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="5242440"/>    <!--设置最大支持的上传文件大小 B-->
+    </bean>
 
     <!--    shiro配置-董志涵-->
 
@@ -136,7 +140,6 @@
     <!--            </map>-->
     <!--        </property>-->
     <!--    </bean>-->
-
 
 
     <!--    &lt;!&ndash; 会话管理器 &ndash;&gt;-->

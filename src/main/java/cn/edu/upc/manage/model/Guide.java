@@ -1,5 +1,8 @@
 package cn.edu.upc.manage.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Guide {
@@ -37,6 +40,8 @@ public class Guide {
      *
      * @mbg.generated Fri May 08 19:37:32 CST 2020
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date publishTime;
 
     /**
@@ -46,6 +51,8 @@ public class Guide {
      *
      * @mbg.generated Fri May 08 19:37:32 CST 2020
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date endTime;
 
     /**
@@ -55,6 +62,7 @@ public class Guide {
      *
      * @mbg.generated Fri May 08 19:37:32 CST 2020
      */
+
     private String content;
 
     /**
