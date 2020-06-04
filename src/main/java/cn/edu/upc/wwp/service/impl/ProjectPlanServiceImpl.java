@@ -19,6 +19,11 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
 
 
     @Override
+    public List<ProjectPlan> selectProjectPlan() {
+        return projectPlanMapper.selectProjectPlan();
+    }
+
+    @Override
     public void insertProjectPlan(ProjectPlan projectPlan) {
         projectPlan.setOperator("test");
         projectPlanMapper.insertSelective(projectPlan);

@@ -23,4 +23,13 @@ public class ProjectPlanController {
         projectPlanService.insertProjectPlan(projectPlan);
         return  CommonReturnType.create(null);
     }
+
+
+    @RequestMapping("/selectProjectPlan")
+
+    @ResponseBody
+    public CommonReturnType select(){
+        List<ProjectPlan> list1=  projectPlanService.selectProjectPlan();
+        return  CommonReturnType.create(list1);
+    }
 }

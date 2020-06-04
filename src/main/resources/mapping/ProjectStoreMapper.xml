@@ -375,10 +375,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectProjectStore" resultMap="BaseResultMap">
-       select * from  project_store where del_flag = 0 and build_year=#{buildYear} and approve=1 and apply_type= 1
+       select * from  project_store where del_flag = 0 and approve=1 and apply_type= 1
   </select>
 
   <select id="searchProjectStore" parameterType="cn.edu.upc.manage.model.ProjectStore" resultMap="BaseResultMap">
-       select * from  project_store where apply_type= 1 and project_name= #{projectName}
+       select * from  project_store where apply_type= 1 and project_name= #{projectName} and approve=1
   </select>
 </mapper>

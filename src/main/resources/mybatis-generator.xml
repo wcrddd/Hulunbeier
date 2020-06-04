@@ -52,11 +52,11 @@
 <!--        enableUpdateByExample="false"/>-->
 
 <!--        <table tableName="project_store" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-               enableUpdateByExample="false"/>
-
-
-<!--        <table tableName="project_type" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
+
+
+        <table tableName="construction" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
 
     </context>
 </generatorConfiguration>
