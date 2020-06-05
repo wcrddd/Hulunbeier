@@ -40,6 +40,7 @@ public class FileController2 {
     @RequestMapping(value = "/download")
     @ResponseBody
     public CommonReturnType downloadAppendix(@Param("path") String path, HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("路径："+path);
         fileService2.downloadFile(path,request,response);
         return CommonReturnType.create(null, "下载完成");
     }

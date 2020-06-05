@@ -28,6 +28,8 @@ public class ProjectStoreAuditController {
     @RequestMapping(value = "/addProject")
     @ResponseBody
     public CommonReturnType addProject(@RequestBody ProjectStore projectStore){
+        int unitId=1;
+        projectStore.setConstruUnitId(unitId);
         projectStoreAuditService.addProject(projectStore);
         return CommonReturnType.create(null,"项目申报成功，等待审批");
     }

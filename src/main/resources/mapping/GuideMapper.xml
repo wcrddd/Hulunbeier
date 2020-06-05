@@ -251,4 +251,8 @@ select guide_id from guide_unit_relation where unit_id=#{unitId}
 select guide_id from guide_unit_relation where unit_id=#{unitId}
 ) and document_id like concat('%',#{documentId},'%') and title like concat('%',#{title},'%')
     </select>
+
+    <update id="deleteGuide">
+        update guide set del_flag=#{guideId}
+    </update>
 </mapper>

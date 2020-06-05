@@ -50,7 +50,7 @@
         <!--enableUpdateByExample="false"/>-->
 <!--        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--        enableUpdateByExample="false"/>-->
-<!--        <table tableName="project_type" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--        <table tableName="right_role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
     </context>
 </generatorConfiguration>

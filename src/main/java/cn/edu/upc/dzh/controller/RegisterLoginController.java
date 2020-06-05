@@ -32,7 +32,7 @@ public class RegisterLoginController {
         if(registerLoginService.selectByUsername(user.getUserName())!=null){
             return CommonReturnType.create("用户名已存在");
         }else if(registerLoginService.selectByEmail(user.getEmail())!=null){
-            return CommonReturnType.create("用户名已存在");
+            return CommonReturnType.create("邮箱已存在");
         }else{
             user.setPassword(MD5Util.md5(user.getPassword()));
             registerLoginService.insertUser(user);

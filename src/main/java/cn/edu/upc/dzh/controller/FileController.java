@@ -15,7 +15,7 @@ import java.util.Date;
 @RequestMapping(value="/file",method = {RequestMethod.POST,RequestMethod.GET})
 public class FileController {
 //    public static String saveUrl ="/Users/weixj/Desktop/hlb/";
-public static String saveUrl ="/root/apache-tomcat-9.0.31/webapps/hl/";
+public static String saveUrl ="/root/tomcat90/webapps/hl/";
     @RequestMapping("/uploadFile")
     @ResponseBody
     public CommonReturnType uploadFile(@RequestParam("file") MultipartFile file) throws IOException {

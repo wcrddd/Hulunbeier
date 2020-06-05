@@ -1,6 +1,7 @@
 package cn.edu.upc.dzh.controller;
 
 import cn.edu.upc.dzh.service.GuideService2;
+import cn.edu.upc.dzh.service.RightService;
 import cn.edu.upc.dzh.service.UserService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.Guide;
@@ -69,5 +70,14 @@ public class GuideController2 {
         String documentId=param.getString("documentId");
         List<Guide> guideList=guideService2.selectGuide(unitId,title,documentId);
         return CommonReturnType.create(guideList);
+    }
+
+    @RequestMapping("/deleteGuide")//
+    @ResponseBody
+    public CommonReturnType deleteGuide(@RequestBody JSONObject param){
+//        guideService.insertGuide(guide);
+        int guideId=param.getInteger("guideId");
+        guideService2.deleteGuide(guideId);
+        return CommonReturnType.create(null,null,0,"删除成功");
     }
 }

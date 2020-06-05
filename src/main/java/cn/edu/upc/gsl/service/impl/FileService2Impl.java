@@ -32,7 +32,8 @@ public class FileService2Impl implements FileService2 {
             //String pathTest = "D:\\UPC\\offer"+"\\"+fileName;
             //转码，免得文件名中文乱码(有时候加上反而会乱码)
             // fileName = URLEncoder.encode(fileName,"UTF-8");
-
+            System.out.println("路径："+path);
+            System.out.println("路径："+path.trim());
             //从路径中获取文件名称，trim：去除字符串前后的空格
             File tempFile = new File(path.trim());
             String filename = tempFile.getName();
