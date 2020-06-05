@@ -40,9 +40,9 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
         List<ProjectStore> projectStoreList;
         //当没有传参时和当传参为空时，都返回全部项目
         if (projectName == null || buildYear == null) {
-            projectStoreList = projectStoreMapper.selectProjectStore();
+            projectStoreList = projectStoreMapper.selectAllProject();
         } else if ("".equals(projectName) && "".equals(buildYear)) {
-            projectStoreList = projectStoreMapper.selectProjectStore();
+            projectStoreList = projectStoreMapper.selectAllProject();
         } else if ((!"".equals(projectName)) && "".equals(buildYear)) {
             //只根据项目名称查询
             projectStoreList = projectStoreMapper.selectByProjectName(projectName);

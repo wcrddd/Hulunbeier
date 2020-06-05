@@ -30,9 +30,9 @@
         operator, operator_ip, operator_time
     </sql>
 
-    <!--  获取所有-->
+    <!--获取所有，简单分页-->
     <select id="selectAllGuide"  resultMap="BaseResultMap">
-    select * from guide   where del_flag = 0 LIMIT #{startLine},#{pageSize}
+    select * from guide where del_flag = 0 LIMIT #{startLine},#{pageSize}
     </select>
     <!--根据文件号查询-->
     <select id="selectByDocumentId" parameterType="java.lang.String" resultMap="BaseResultMap">

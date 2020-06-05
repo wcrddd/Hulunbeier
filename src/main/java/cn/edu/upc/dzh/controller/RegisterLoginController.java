@@ -92,16 +92,17 @@ public class RegisterLoginController {
 
     }
 
+    /**
+     * 退出登录
+     * 清楚session即可
+     * @param session
+     * @return
+     */
     @RequestMapping("/logout")
     @ResponseBody
     public CommonReturnType logout(HttpSession session){
-
-
-//    Subject subject = SecurityUtils.getSubject();
-//    subject.logout();
         session.invalidate();
         return CommonReturnType.create("退出成功");
-
     }
 
     /**
@@ -116,7 +117,6 @@ public class RegisterLoginController {
     public CommonReturnType sendCode(@RequestBody JSONObject jsonObject,final HttpServletRequest request) throws Exception {
         final String email=jsonObject.getString("email");
 //        String realName=jsonObject.getString("realName");
-
 //        User user=userService.selectByEmail(email);
         User user=registerLoginService.selectByEmail(email);
 
