@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ProjectStoreMapper {
 
+    List<ProjectStore> selectAllProject();
+
     List<ProjectStore> selectByProjectNameAndBuildYear(@Param("projectName") String projectName, @Param("buildYear") String buildYear);
 
     List<ProjectStore> selectByProjectName(String projectName);
