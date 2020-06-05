@@ -46,4 +46,9 @@ public class GuideService2Impl implements GuideService2 {
     public void deleteGuide(int guideId){
         guideMapper.deleteGuide(guideId);
     }
+
+    @Override
+    public List<Guide> getAllGuide(){
+        return guideMapper.getAllGuide();
+    }
 }

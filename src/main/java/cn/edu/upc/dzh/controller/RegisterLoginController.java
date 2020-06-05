@@ -140,6 +140,32 @@ public class RegisterLoginController {
     }
 
     /**
+     * 匹配验证码并修改密码
+     * @param jsonObject
+     * @param request
+     * @return
+     */
+    @RequestMapping("/codeMaching")
+    @ResponseBody
+    public CommonReturnType codeMaching(@RequestBody JSONObject jsonObject, final HttpServletRequest request){
+        String email=jsonObject.getString("email");
+        String code=jsonObject.getString("code");
+        String newPassword= MD5Util.md5(jsonObject.getString("password"));
+        HttpSession session=request.getSession();
+        String rightCode=session.getAttribute("code").toString();
+        System.out.println(code+"   "+rightCode);
+
+        if(rightCode.equals(code)){
+            registerLoginService.changePasswordByEmail(newPassword,email);
+            return CommonReturnType.create("验证成功");
+        }else {
+            return CommonReturnType.create("验证失败");
+        }
+
+
+    }
+
+    /**
      * 创建验证码
      * @return
      */

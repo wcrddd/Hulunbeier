@@ -238,7 +238,7 @@
     <select id="getGuideByUnitId" resultMap="BaseResultMap">
     select * from guide where id in(
 select guide_id from guide_unit_relation where unit_id=#{unitId}
-)
+)and del_flag=0
 
   </select>
 
@@ -253,6 +253,10 @@ select guide_id from guide_unit_relation where unit_id=#{unitId}
     </select>
 
     <update id="deleteGuide">
-        update guide set del_flag=#{guideId}
+        update guide set del_flag=#{guideId} where id=#{guideId}
     </update>
+
+    <select id="getAllGuide" resultMap="BaseResultMap">
+        select * from guide where del_flag=0
+    </select>
 </mapper>
