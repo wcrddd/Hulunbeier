@@ -1,4 +1,4 @@
-package cn.edu.upc.dzh.controller;
+package cn.edu.upc.wwp.controller;
 
 import cn.edu.upc.manage.common.CommonReturnType;
 import org.springframework.stereotype.Controller;
@@ -12,16 +12,15 @@ import java.util.Date;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value="/file",method = {RequestMethod.POST,RequestMethod.GET})
-public class FileController {
-
-    //    public static String saveUrl ="/Users/weixj/Desktop/hlb/";
+@RequestMapping(value="/upFile",method = {RequestMethod.POST,RequestMethod.GET})
+public class UpFileController {
+    //服务器的根目录
     public static String saveUrl ="/root/apache-tomcat-9.0.31/webapps/hl/";
-
     @RequestMapping("/uploadFile")
     @ResponseBody
     public CommonReturnType uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         String type="guide";
+        //获取系统当前的时间，按照时间分类创建文件夹
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
         String currentTime = dateFormat.format( now );
@@ -32,9 +31,14 @@ public class FileController {
         if(!filed.exists()){
             filed.mkdirs();
         }
+        //时间+随机数+后缀名重新命名防止重名
         String filename = System.currentTimeMillis()+(int)(1+Math.random()*1000)+fileName.substring(fileName.lastIndexOf("."));
+        //把文件上传到指定文件夹下面
         file.transferTo(new File(filed.getAbsolutePath(),filename));
         System.out.println(currentTime+"/"+type+"/"+filename);
         return CommonReturnType.create(currentTime+"/"+type+"/"+filename);
     }
+
+
+
 }

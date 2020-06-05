@@ -375,10 +375,22 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectProjectStore" resultMap="BaseResultMap">
-       select * from  project_store where del_flag = 0
+       select * from  project_store where del_flag = 0 and approve=1 and
+       build_year=year(CURRENT_DATE)
+       and apply_type= 1
   </select>
 
   <select id="searchProjectStore" parameterType="cn.edu.upc.manage.model.ProjectStore" resultMap="BaseResultMap">
-       select * from  project_store where apply_type= 1 and project_name= #{projectName}
+       select * from  project_store
+        where
+              apply_type= 1
+        and
+             approve=1
+        and
+             del_flag = 0
+--        模糊查询
+        <if test="projectName != null ">
+                and  project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by project_name
+       </if>
   </select>
 </mapper>
