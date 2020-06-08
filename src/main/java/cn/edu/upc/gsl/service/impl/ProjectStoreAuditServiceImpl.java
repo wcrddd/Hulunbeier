@@ -37,6 +37,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      */
     @Override
     public List<ProjectStore> getProject(String projectName, String buildYear) {
+        System.out.println("projectName:"+projectName+" buildYear:"+buildYear);
         List<ProjectStore> projectStoreList;
         //当没有传参时和当传参为空时，都返回全部项目
         if (projectName == null || buildYear == null) {

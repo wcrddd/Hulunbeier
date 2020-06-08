@@ -30,7 +30,7 @@
     <result column="operator" jdbcType="VARCHAR" property="operator" />
     <result column="operator_ip" jdbcType="VARCHAR" property="operatorIp" />
     <result column="operator_time" jdbcType="TIMESTAMP" property="operatorTime" />
-      <result column="name" jdbcType="VARCHAR" property="constructionUnitName"/>
+
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -43,9 +43,12 @@
     approve, approve_time, opinion, constru_unit_id, create_time, del_flag, operator,
     operator_ip, operator_time
   </sql>
+  <resultMap id="ProjectStoreWithUnitName" type="cn.edu.upc.manage.model.ProjectStoreWithUnitName" extends="BaseResultMap">
+    <result column="name" jdbcType="VARCHAR" property="constructionUnitName"/>
+  </resultMap>
 
 <!-- 返回所有项目库中的项目,返回中加上建设单位名称-->
-    <select id="selectAllProject" resultMap="BaseResultMap">
+    <select id="selectAllProject" resultMap="ProjectStoreWithUnitName">
         select project_store.*,construction_unit.name
         from project_store,construction_unit
         where project_store.constru_unit_id = construction_unit.id
@@ -53,22 +56,31 @@
         order by id desc
     </select>
 <!-- 只根据项目名称模糊查询 -->
-  <select id="selectByProjectName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from project_store where del_flag = 0
-    and project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by project_name
+  <select id="selectByProjectName" parameterType="java.lang.String" resultMap="ProjectStoreWithUnitName">
+      select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0
+        and project_name like concat('%',#{projectName},'%') order by project_name
   </select>
 <!--只根据建设年份查询-->
-  <select id="selectByBuildYear" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from project_store where del_flag = 0
-    and build_year like concat ('%',#{buildYear,jdbcType = VARCHAR},'%') order by build_year
+  <select id="selectByBuildYear" parameterType="java.lang.String" resultMap="ProjectStoreWithUnitName">
+    select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0
+        and build_year like concat ('%',#{buildYear,jdbcType = VARCHAR},'%') order by build_year
   </select>
 
 <!--同时根据两个条件查询-->
-  <select id="selectByProjectNameAndBuildYear" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from project_store where del_flag = 0
-    and project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
-    and build_year like concat('%',#{buildYear,jdbcType = VARCHAR},'%')
-    order BY id
+  <select id="selectByProjectNameAndBuildYear" parameterType="java.lang.String" resultMap="ProjectStoreWithUnitName">
+    select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0
+        and project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
+        and build_year like concat('%',#{buildYear,jdbcType = VARCHAR},'%')
+        order BY id
   </select>
 
 <!--  增加项目-->
