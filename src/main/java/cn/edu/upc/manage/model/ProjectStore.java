@@ -9,14 +9,14 @@ public class ProjectStore {
      * 增加建设单位名称
      * @return
      */
-    private String constructionUnitName;
-    public String getConstructionUnitName() {
-        return constructionUnitName;
-    }
-
-    public void setConstructionUnitName(String constructionUnitName) {
-        this.constructionUnitName = constructionUnitName;
-    }
+//    private String constructionUnitName;
+//    public String getConstructionUnitName() {
+//        return constructionUnitName;
+//    }
+//
+//    public void setConstructionUnitName(String constructionUnitName) {
+//        this.constructionUnitName = constructionUnitName;
+//    }
 
 
 

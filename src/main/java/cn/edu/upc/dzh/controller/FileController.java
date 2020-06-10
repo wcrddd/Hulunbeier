@@ -35,4 +35,44 @@ public class FileController {
         System.out.println(currentTime+"/"+type+"/"+filename);
         return CommonReturnType.create(currentTime+"/"+type+"/"+filename);
     }
+
+    @RequestMapping("/uploadProjectPlan")
+    @ResponseBody
+    public CommonReturnType uploadProjectPlan(@RequestParam("file") MultipartFile file) throws IOException {
+        String type="projectPlan";
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+        String currentTime = dateFormat.format( now );
+
+        String fileName=file.getOriginalFilename();
+        System.out.println("源文件名："+fileName);
+        File filed=new File(saveUrl+currentTime+"/"+type);
+        if(!filed.exists()){
+            filed.mkdirs();
+        }
+        String filename = System.currentTimeMillis()+(int)(1+Math.random()*1000)+fileName.substring(fileName.lastIndexOf("."));
+        file.transferTo(new File(filed.getAbsolutePath(),filename));
+        System.out.println(currentTime+"/"+type+"/"+filename);
+        return CommonReturnType.create(currentTime+"/"+type+"/"+filename);
+    }
+
+    @RequestMapping("/uploadFeasibility")
+    @ResponseBody
+    public CommonReturnType uploadFeasibility(@RequestParam("file") MultipartFile file) throws IOException {
+        String type="feasibility";
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+        String currentTime = dateFormat.format( now );
+
+        String fileName=file.getOriginalFilename();
+        System.out.println("源文件名："+fileName);
+        File filed=new File(saveUrl+currentTime+"/"+type);
+        if(!filed.exists()){
+            filed.mkdirs();
+        }
+        String filename = System.currentTimeMillis()+(int)(1+Math.random()*1000)+fileName.substring(fileName.lastIndexOf("."));
+        file.transferTo(new File(filed.getAbsolutePath(),filename));
+        System.out.println(currentTime+"/"+type+"/"+filename);
+        return CommonReturnType.create(currentTime+"/"+type+"/"+filename);
+    }
 }

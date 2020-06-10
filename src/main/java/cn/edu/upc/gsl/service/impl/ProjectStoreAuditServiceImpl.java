@@ -23,9 +23,13 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      *
      * @param projectStore
      */
+//    @Override
+//    public int addProject(ProjectStore projectStore) {
+//        return projectStoreMapper.addProject(projectStore);
+//    }
     @Override
     public int addProject(ProjectStore projectStore) {
-        return projectStoreMapper.addProject(projectStore);
+        return projectStoreMapper.insertSelective(projectStore);
     }
 
     /**

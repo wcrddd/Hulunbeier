@@ -55,11 +55,21 @@ public class GuideController2 {
     @RequestMapping("/getGuideByUnitId")
     @ResponseBody
     public CommonReturnType getGuideByUnitId(HttpSession session) throws ParseException {
-//        int userId=1;
-        int userId= SysUser.getCurrentUserUnitId(session);
+        int userId=1;
+//        int userId= SysUser.getCurrentUserUnitId(session);
         User user=userService.selectByPrimaryKey(userId);
 //        int unitId=user.getDepartmentUnitId();
         int unitId=1;
+        List<Guide> guideList= guideService2.getGuideByUnitId(unitId);
+        return CommonReturnType.create(guideList);
+    }
+
+    @RequestMapping("/getGuideByUnitId2")
+    @ResponseBody
+    public CommonReturnType getGuideByUnitId2(HttpSession session) throws ParseException {
+
+        int unitId= SysUser.getCurrentUserUnitId(session);
+
         List<Guide> guideList= guideService2.getGuideByUnitId(unitId);
         return CommonReturnType.create(guideList);
     }
