@@ -32,7 +32,7 @@ public class RegisterLoginController {
         if(registerLoginService.selectByUsername(user.getUserName())!=null){
             return CommonReturnType.create("用户名已存在");
         }else if(registerLoginService.selectByEmail(user.getEmail())!=null){
-            return CommonReturnType.create("用户名已存在");
+            return CommonReturnType.create("邮箱已存在");
         }else{
             user.setPassword(MD5Util.md5(user.getPassword()));
             registerLoginService.insertUser(user);
@@ -92,16 +92,17 @@ public class RegisterLoginController {
 
     }
 
+    /**
+     * 退出登录
+     * 清楚session即可
+     * @param session
+     * @return
+     */
     @RequestMapping("/logout")
     @ResponseBody
     public CommonReturnType logout(HttpSession session){
-
-
-//    Subject subject = SecurityUtils.getSubject();
-//    subject.logout();
         session.invalidate();
         return CommonReturnType.create("退出成功");
-
     }
 
     /**
@@ -116,7 +117,6 @@ public class RegisterLoginController {
     public CommonReturnType sendCode(@RequestBody JSONObject jsonObject,final HttpServletRequest request) throws Exception {
         final String email=jsonObject.getString("email");
 //        String realName=jsonObject.getString("realName");
-
 //        User user=userService.selectByEmail(email);
         User user=registerLoginService.selectByEmail(email);
 
@@ -136,6 +136,32 @@ public class RegisterLoginController {
         }else {
             return CommonReturnType.create("邮箱没有注册");
         }
+
+    }
+
+    /**
+     * 匹配验证码并修改密码
+     * @param jsonObject
+     * @param request
+     * @return
+     */
+    @RequestMapping("/codeMaching")
+    @ResponseBody
+    public CommonReturnType codeMaching(@RequestBody JSONObject jsonObject, final HttpServletRequest request){
+        String email=jsonObject.getString("email");
+        String code=jsonObject.getString("code");
+        String newPassword= MD5Util.md5(jsonObject.getString("password"));
+        HttpSession session=request.getSession();
+        String rightCode=session.getAttribute("code").toString();
+        System.out.println(code+"   "+rightCode);
+
+        if(rightCode.equals(code)){
+            registerLoginService.changePasswordByEmail(newPassword,email);
+            return CommonReturnType.create("验证成功");
+        }else {
+            return CommonReturnType.create("验证失败");
+        }
+
 
     }
 

@@ -51,8 +51,6 @@
 <!--        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--        enableUpdateByExample="false"/>-->
 
-<!--        <table tableName="project_store" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--               enableUpdateByExample="false"/>-->
 
 
         <table tableName="contract_information" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"

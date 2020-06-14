@@ -23,9 +23,13 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      *
      * @param projectStore
      */
+//    @Override
+//    public int addProject(ProjectStore projectStore) {
+//        return projectStoreMapper.addProject(projectStore);
+//    }
     @Override
     public int addProject(ProjectStore projectStore) {
-        return projectStoreMapper.addProject(projectStore);
+        return projectStoreMapper.insertSelective(projectStore);
     }
 
     /**
@@ -37,12 +41,13 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      */
     @Override
     public List<ProjectStore> getProject(String projectName, String buildYear) {
+        System.out.println("projectName:"+projectName+" buildYear:"+buildYear);
         List<ProjectStore> projectStoreList;
         //当没有传参时和当传参为空时，都返回全部项目
         if (projectName == null || buildYear == null) {
-            projectStoreList = projectStoreMapper.selectProjectStore();
+            projectStoreList = projectStoreMapper.selectAllProject();
         } else if ("".equals(projectName) && "".equals(buildYear)) {
-            projectStoreList = projectStoreMapper.selectProjectStore();
+            projectStoreList = projectStoreMapper.selectAllProject();
         } else if ((!"".equals(projectName)) && "".equals(buildYear)) {
             //只根据项目名称查询
             projectStoreList = projectStoreMapper.selectByProjectName(projectName);

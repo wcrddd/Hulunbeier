@@ -40,4 +40,15 @@ public class GuideService2Impl implements GuideService2 {
     public List<Guide> selectGuide(int unitId,String title,String documentId){
         return guideMapper.selectGuide(unitId,title,documentId);
     }
+
+    @Transactional
+    @Override
+    public void deleteGuide(int guideId){
+        guideMapper.deleteGuide(guideId);
+    }
+
+    @Override
+    public List<Guide> getAllGuide(){
+        return guideMapper.getAllGuide();
+    }
 }

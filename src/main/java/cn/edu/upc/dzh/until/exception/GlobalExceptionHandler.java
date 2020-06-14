@@ -39,10 +39,10 @@ public class GlobalExceptionHandler {
             responseData.put("errCode","10004");
             responseData.put("errMsg","您还没登录，请登录");
         }
-        else if(e instanceof HttpMessageNotReadableException){
-            responseData.put("errCode","10005");
-            responseData.put("errMsg","数据格式有误");
-        }
+//        else if(e instanceof HttpMessageNotReadableException){
+//            responseData.put("errCode","10005");
+//            responseData.put("errMsg","数据格式有误");
+//        }
         else if(e instanceof BadSqlGrammarException){
             responseData.put("errCode","10006");
             responseData.put("errMsg","SQL语句有误");

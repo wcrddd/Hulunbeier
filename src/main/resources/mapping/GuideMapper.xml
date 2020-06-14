@@ -30,9 +30,9 @@
         operator, operator_ip, operator_time
     </sql>
 
-    <!--  获取所有-->
+    <!--获取所有，简单分页-->
     <select id="selectAllGuide"  resultMap="BaseResultMap">
-    select * from guide   where del_flag = 0 LIMIT #{startLine},#{pageSize}
+    select * from guide where del_flag = 0 LIMIT #{startLine},#{pageSize}
     </select>
     <!--根据文件号查询-->
     <select id="selectByDocumentId" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -238,7 +238,7 @@
     <select id="getGuideByUnitId" resultMap="BaseResultMap">
     select * from guide where id in(
 select guide_id from guide_unit_relation where unit_id=#{unitId}
-)
+)and del_flag=0
 
   </select>
 
@@ -250,5 +250,13 @@ select guide_id from guide_unit_relation where unit_id=#{unitId}
         select * from guide where id in(
 select guide_id from guide_unit_relation where unit_id=#{unitId}
 ) and document_id like concat('%',#{documentId},'%') and title like concat('%',#{title},'%')
+    </select>
+
+    <update id="deleteGuide">
+        update guide set del_flag=#{guideId} where id=#{guideId}
+    </update>
+
+    <select id="getAllGuide" resultMap="BaseResultMap">
+        select * from guide where del_flag=0
     </select>
 </mapper>
