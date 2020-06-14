@@ -15,4 +15,12 @@ public class UserServiceImpl implements UserService {
     public User selectByPrimaryKey(Integer id){
         return userMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public void updateUserPassword(User recordPassword) {
+        if(recordPassword.getOperator()=="admin"){
+            userMapper.updateByPrimaryKeySelective(recordPassword);
+        }
+
+    }
 }
