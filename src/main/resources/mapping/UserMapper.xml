@@ -230,4 +230,8 @@
   <update id="changePassword" >
     update user set password='${newPassword}' where id='${id}'
   </update>
+
+  <update id="deleteUser">
+    update user set del_flag='${userId}' where id='${userId}'
+  </update>
 </mapper>
