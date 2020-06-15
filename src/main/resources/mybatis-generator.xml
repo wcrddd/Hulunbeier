@@ -53,7 +53,7 @@
 
 
 
-        <table tableName="construction" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="view_rights_role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
 
     </context>

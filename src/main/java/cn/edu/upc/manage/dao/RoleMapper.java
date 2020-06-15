@@ -2,6 +2,7 @@ package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.Right;
 import cn.edu.upc.manage.model.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,4 +58,8 @@ public interface RoleMapper {
     List<Role> getAllRole();
 
     void deleteRole(int roleId);
+
+    int selectLastInsert();
+
+    void updatetRoleName(@Param("id") int id, @Param("roleName") String roleName);
 }
