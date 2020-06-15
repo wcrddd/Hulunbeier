@@ -65,4 +65,28 @@ public class ProjectStoreAuditController {
         projectStoreAuditService.updateState(projectStore);
         return CommonReturnType.create(null,"操作成功");
     }
+
+    /**
+     * 获取审批通过和未通过的项目
+     * @return
+     */
+    @RequestMapping(value = "/passAndNo")
+    @ResponseBody
+    public CommonReturnType selectProjectPassAndNo(){
+        List<ProjectStore> projectStoreList = projectStoreAuditService.selectProjectPassAndNo();
+        return CommonReturnType.create(projectStoreList,"查询成功");
+    }
+
+    @RequestMapping(value = "/selectById")
+    @ResponseBody
+    public CommonReturnType selectProjectById(@RequestParam(value = "id") Integer id){
+       ProjectStore project = projectStoreAuditService.selectProjectById(id);
+       if (project != null) {
+           return CommonReturnType.create(project, "查询成功");
+       }
+       else {
+           return CommonReturnType.create(null,"未查询到");
+       }
+    }
+
 }

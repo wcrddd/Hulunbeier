@@ -254,4 +254,9 @@
   <select id="getConstructionUnit" resultMap="BaseResultMap">
     select * from Construction_unit
   </select>
+  
+  <update id="updateDelFlag" parameterType="java.lang.Integer">
+    update construction_unit set del_flag = #{id,jdbcType = INTEGER}
+    where id = #{id,jdbcType = INTEGER}
+  </update>
 </mapper>

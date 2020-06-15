@@ -23,10 +23,6 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      *
      * @param projectStore
      */
-//    @Override
-//    public int addProject(ProjectStore projectStore) {
-//        return projectStoreMapper.addProject(projectStore);
-//    }
     @Override
     public int addProject(ProjectStore projectStore) {
         return projectStoreMapper.insertSelective(projectStore);
@@ -68,5 +64,19 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public void updateState(ProjectStore record) {
         projectStoreMapper.updateByPrimaryKeySelective(record);
+    }
+
+    /**
+     * 通过和未通过
+     * @return
+     */
+    @Override
+    public List<ProjectStore> selectProjectPassAndNo() {
+        return  projectStoreMapper.selectProjectPassAndNo();
+    }
+
+    @Override
+    public ProjectStore selectProjectById(Integer id) {
+        return projectStoreMapper.selectByPrimaryKey(id);
     }
 }

@@ -31,4 +31,12 @@ public interface ProjectStoreAuditService {
      * @param record
      */
     void updateState(ProjectStore record);
+
+    /**
+     * 只返回审核通过和不通过的（approve =1和2）
+     * @return
+     */
+    List<ProjectStore> selectProjectPassAndNo();
+
+    ProjectStore selectProjectById(Integer id);
 }

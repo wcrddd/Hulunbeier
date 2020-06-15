@@ -17,4 +17,19 @@ public class UnitServiceImpl implements UnitService {
     public List<ConstructionUnit> getConstructionUnit(){
         return constructionUnitMapper.getConstructionUnit();
     }
+
+    @Override
+    public void addUnit(ConstructionUnit constructionUnit) {
+        constructionUnitMapper.insertSelective(constructionUnit);
+    }
+
+    @Override
+    public void updateUnit(ConstructionUnit constructionUnit) {
+        constructionUnitMapper.updateByPrimaryKeySelective(constructionUnit);
+    }
+
+    @Override
+    public void delUnit(Integer id) {
+        constructionUnitMapper.updateDelFlag(id);
+    }
 }
