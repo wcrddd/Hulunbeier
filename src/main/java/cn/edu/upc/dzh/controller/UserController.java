@@ -4,10 +4,13 @@ import cn.edu.upc.dzh.service.UserService;
 import cn.edu.upc.dzh.until.MD5Util;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.User;
+import cn.edu.upc.manage.model.UserWithUnitName;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @Controller
@@ -30,5 +33,12 @@ public class UserController {
         userService.deleteUser(userId);
         return CommonReturnType.create(null,null,0,"更新成功");
     }
+
+    @RequestMapping("/getAllUser")
+    @ResponseBody
+    public CommonReturnType getAllUser(){
+        return CommonReturnType.create(userService.getAllUser());
+    }
+
 
 }

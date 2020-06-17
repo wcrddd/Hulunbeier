@@ -1,7 +1,10 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.User;
+import cn.edu.upc.manage.model.UserWithUnitName;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     /**
@@ -63,4 +66,6 @@ public interface UserMapper {
     public void changePassword(@Param("newPassword") String newPassword,@Param("id") String id);
 
     public void deleteUser(int userId);
+
+    public List<UserWithUnitName> getAllUser();
 }

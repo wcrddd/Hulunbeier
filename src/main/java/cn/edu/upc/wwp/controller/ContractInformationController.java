@@ -42,5 +42,12 @@ public class ContractInformationController {
         return CommonReturnType.create(null,null,0,"删除成功");
     }
 
+    @RequestMapping("/getAllContractInformation")
+
+    @ResponseBody
+    public CommonReturnType getAllContractInformation(){
+        return CommonReturnType.create(contractInformationService.getAllContractInformation());
+    }
+
 
 }

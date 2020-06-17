@@ -285,4 +285,8 @@
       operator_time = #{operatorTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllContractInformation" resultMap="BaseResultMap">
+    select * from contract_information where del_flag=0
+  </select>
 </mapper>

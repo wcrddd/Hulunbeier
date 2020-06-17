@@ -57,4 +57,10 @@ public class TenderController {
         return CommonReturnType.create(null,"修改成功");
     }
 
+    @RequestMapping(value = "/getAllTender")
+    @ResponseBody
+    public  CommonReturnType  getAllTender(){
+
+        return CommonReturnType.create(tenderInformationService.getAllTender());
+    }
 }

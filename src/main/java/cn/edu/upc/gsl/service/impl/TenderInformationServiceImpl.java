@@ -6,6 +6,8 @@ import cn.edu.upc.manage.model.TenderInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <h3>manage</h3>
  * <p>招标信息</p>
@@ -44,6 +46,11 @@ public class TenderInformationServiceImpl implements TenderInformationService {
     @Override
     public void updateTender(TenderInformation tenderInformation) {
         tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
+    }
+
+    @Override
+    public List<TenderInformation> getAllTender(){
+        return tenderInformationMapper.getAllTender();
     }
 
 }

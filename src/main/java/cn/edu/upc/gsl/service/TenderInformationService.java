@@ -2,6 +2,8 @@ package cn.edu.upc.gsl.service;
 
 import cn.edu.upc.manage.model.TenderInformation;
 
+import java.util.List;
+
 public interface TenderInformationService {
 
     /**
@@ -24,4 +26,6 @@ public interface TenderInformationService {
      * @param id
      */
     void deleteTender(Integer id);
+
+    public List<TenderInformation> getAllTender();
 }

@@ -6,6 +6,7 @@ import cn.edu.upc.wwp.service.ContractInformationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("contractInformationService")
 public class ContractInformationServiceImpl  implements ContractInformationService {
@@ -32,5 +33,10 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
             recordDel.setDelFlag(1);
             contractInformationMapper.updateByPrimaryKeySelective(recordDel);
         }
+    }
+
+    @Override
+    public List<ContractInformation> getAllContractInformation(){
+        return contractInformationMapper.getAllContractInformation();
     }
 }

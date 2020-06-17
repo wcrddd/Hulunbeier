@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.controller;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,8 @@ public class ProjectStoreAuditController {
 
     @RequestMapping(value = "/selectById")
     @ResponseBody
-    public CommonReturnType selectProjectById(@RequestParam(value = "id") Integer id){
+    public CommonReturnType selectProjectById(@RequestBody JSONObject jsonObject){
+        int id=jsonObject.getInteger("id");
        ProjectStore project = projectStoreAuditService.selectProjectById(id);
        if (project != null) {
            return CommonReturnType.create(project, "查询成功");
