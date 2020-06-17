@@ -74,4 +74,11 @@ public class RoleController {
         }
         return CommonReturnType.create(null,null,0,"修改成功");
     }
+
+    @RequestMapping("/selectByName")
+    @ResponseBody
+    public CommonReturnType selectByName(@RequestBody JSONObject jsonObject){
+        String name=jsonObject.getString("roleName");
+        return CommonReturnType.create(roleService.selectByName(name));
+    }
 }

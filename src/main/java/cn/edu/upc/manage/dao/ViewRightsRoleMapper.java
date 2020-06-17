@@ -22,4 +22,6 @@ public interface ViewRightsRoleMapper {
     int insertSelective(ViewRightsRole record);
 
     List<ViewRightsRole> getAllRoleRights();
+
+    List<ViewRightsRole> selectByName(String name);
 }

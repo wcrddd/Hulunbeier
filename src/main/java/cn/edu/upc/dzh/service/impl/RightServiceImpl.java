@@ -41,4 +41,9 @@ public class RightServiceImpl implements RightService {
     public void deleteRight(int rightId){
         rightsMapper.deleteRight(rightId);
     }
+
+    @Override
+    public List<ViewRights> selectByName(String name){
+        return viewRightsMapper.getRightByname(name);
+    }
 }

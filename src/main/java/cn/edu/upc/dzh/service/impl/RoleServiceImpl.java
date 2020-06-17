@@ -63,4 +63,9 @@ public class RoleServiceImpl implements RoleService {
     public void updatetRoleName(int id,String roleName){
         roleMapper.updatetRoleName(id,roleName);
     }
+
+    @Override
+    public List<ViewRightsRole> selectByName(String name){
+        return viewRightsRoleMapper.selectByName(name);
+    }
 }

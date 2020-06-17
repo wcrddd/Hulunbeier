@@ -10,6 +10,6 @@ public interface RightService {
     public List<ViewRights> getAllRight();
     public void updateRight(Rights right);
     public void deleteRight(int rightId);
-
+    public List<ViewRights> selectByName(String name);
 
 }

@@ -10,4 +10,5 @@ public interface UserService {
     public void updateUserPassword(User recordPassword);
     public void deleteUser(int userId);
     public List<UserWithUnitName> getAllUser();
+    public List<UserWithUnitName> selectByUsername(String username);
 }

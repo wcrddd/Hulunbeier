@@ -60,4 +60,11 @@ public class RightController {
 //        return CommonReturnType.create(p1);
 //    }
 
+    @RequestMapping("/selectByName")//
+    @ResponseBody
+    public CommonReturnType selectByName(@RequestBody JSONObject jsonObject){
+        String name=jsonObject.getString("rightName");
+        return CommonReturnType.create(rightService.selectByName(name));
+    }
+
 }

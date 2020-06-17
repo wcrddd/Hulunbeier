@@ -40,5 +40,11 @@ public class UserController {
         return CommonReturnType.create(userService.getAllUser());
     }
 
+    @RequestMapping("/selectByUsername")
+    @ResponseBody
+    public CommonReturnType selectByUsername(@RequestBody JSONObject jsonObject){
+        String username=jsonObject.getString("username");
+        return CommonReturnType.create(userService.selectByUsername(username));
+    }
 
 }

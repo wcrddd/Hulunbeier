@@ -22,4 +22,6 @@ public interface ViewRightsMapper {
     int insertSelective(ViewRights record);
 
     List<ViewRights> getAllRight();
+
+    List<ViewRights> getRightByname(String name);
 }

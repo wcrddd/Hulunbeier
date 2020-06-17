@@ -109,4 +109,8 @@
   <select id="getAllRight" resultMap="BaseResultMap">
     select * from view_rights where del_flag=0
   </select>
+
+  <select id="getRightByname" resultMap="BaseResultMap">
+    select * from view_rights where del_flag=0 and right_name like concat('%',#{name},'%')
+  </select>
 </mapper>

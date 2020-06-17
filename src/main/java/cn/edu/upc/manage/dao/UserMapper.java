@@ -68,4 +68,5 @@ public interface UserMapper {
     public void deleteUser(int userId);
 
     public List<UserWithUnitName> getAllUser();
+    public List<UserWithUnitName> getByUsername(String username);
 }

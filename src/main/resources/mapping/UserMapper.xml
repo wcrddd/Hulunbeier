@@ -241,6 +241,15 @@
     update user set del_flag='${userId}' where id='${userId}'
   </update>
 
+  <select id="getByUsername" resultMap="UserWithUnitName">
+    select * ,
+case user.user_type
+				when 1 then '集团管理用户'
+				when 2 then '建设单位用户'
+				end as user_type_name
+from user where del_flag=0 and user_name  like concat('%',#{username},'%')
+  </select>
+
   <select id="getAllUser" resultMap="UserWithUnitName">
     select * ,
 case user.user_type

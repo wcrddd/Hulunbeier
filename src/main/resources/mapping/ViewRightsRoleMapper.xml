@@ -71,4 +71,8 @@
   <select id="getAllRoleRights" resultMap="ResultMapWithBLOBs">
     select * from view_rights_role
   </select>
+
+  <select id="selectByName" resultMap="ResultMapWithBLOBs">
+    select * from view_rights_role where role_name like concat('%',#{name},'%')
+  </select>
 </mapper>

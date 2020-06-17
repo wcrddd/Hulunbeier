@@ -14,5 +14,6 @@ public interface RoleService {
     public void deleteRightRole(int roleId);
     public void updatetRole(Role role);
     public void updatetRoleName(int id,String roleName);
+    public List<ViewRightsRole> selectByName(String name);
 
 }
