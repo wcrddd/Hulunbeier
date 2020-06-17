@@ -63,4 +63,11 @@ public class TenderController {
 
         return CommonReturnType.create(tenderInformationService.getAllTender());
     }
+    @RequestMapping(value = "/select")
+    @ResponseBody
+    public CommonReturnType select(@RequestParam(value = "id") Integer id){
+        TenderInformation tenderInformation = tenderInformationService.select(id);
+        return CommonReturnType.create(tenderInformation);
+    }
+
 }

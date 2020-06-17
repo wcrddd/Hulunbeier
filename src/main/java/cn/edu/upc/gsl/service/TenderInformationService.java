@@ -27,5 +27,7 @@ public interface TenderInformationService {
      */
     void deleteTender(Integer id);
 
+    TenderInformation select(Integer id);
+
     public List<TenderInformation> getAllTender();
 }

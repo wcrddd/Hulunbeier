@@ -75,8 +75,18 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
         return  projectStoreMapper.selectProjectPassAndNo();
     }
 
+    /**
+     * 根据项目id查询
+     * @param id
+     * @return
+     */
     @Override
     public ProjectStore selectProjectById(Integer id) {
         return projectStoreMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void update(ProjectStore projectStore) {
+        projectStoreMapper.updateByPrimaryKeySelective(projectStore);
     }
 }

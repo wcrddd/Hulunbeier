@@ -35,6 +35,13 @@ public class ProjectStoreAuditController {
         return CommonReturnType.create(null,"项目申报成功，等待审批");
     }
 
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public CommonReturnType update(@RequestBody ProjectStore projectStore){
+        projectStoreAuditService.update(projectStore);
+        return CommonReturnType.create(null);
+    }
+
     /**
      * 查询项目
      * @param projectStore
