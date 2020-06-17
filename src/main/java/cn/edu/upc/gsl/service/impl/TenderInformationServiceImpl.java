@@ -38,6 +38,12 @@ public class TenderInformationServiceImpl implements TenderInformationService {
         //更新标志位
         tenderInformationMapper.updateDelFlagForId(id);
     }
+
+    @Override
+    public TenderInformation select(Integer id) {
+       return tenderInformationMapper.selectByPrimaryKey(id);
+    }
+
     /**
      * 修改
      *

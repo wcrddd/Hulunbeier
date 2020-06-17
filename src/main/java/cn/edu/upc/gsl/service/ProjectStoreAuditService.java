@@ -39,4 +39,6 @@ public interface ProjectStoreAuditService {
     List<ProjectStore> selectProjectPassAndNo();
 
     ProjectStore selectProjectById(Integer id);
+
+    void update(ProjectStore projectStore);
 }
