@@ -345,12 +345,26 @@
       operator_time = #{operatorTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+<!--根据项目id删除-->
   <update id="updateDelFlagForId" parameterType="java.lang.Integer">
     update tender_information set del_flag = #{id}
-    where id = #{id,jdbcType = INTEGER}
+    where id= #{id,jdbcType = INTEGER}
   </update>
 
   <select id="getAllTender" resultMap="BaseResultMap">
     select * from tender_information where del_flag=0
   </select>
+
+<!--  根据项目id删除招标信心-->
+  <select id="updateDelFlag" parameterType="java.lang.Integer" >
+    update tender_information set del_flag = #{projectId}
+    where project_id = #{peojectId,jdbcType = INTEGER}
+  </select>
+
+<!--  根据项目id查询招标信息-->
+  <select id="selectByProjectId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from tender_information where del_flag = 0
+        and project_id = #{projectId,jdbcType=INTEGER}
+    </select>
 </mapper>

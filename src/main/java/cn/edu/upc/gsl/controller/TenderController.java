@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <h3>manage</h3>
  * <p>招标信息</p>
@@ -68,6 +70,20 @@ public class TenderController {
     public CommonReturnType select(@RequestParam(value = "id") Integer id){
         TenderInformation tenderInformation = tenderInformationService.select(id);
         return CommonReturnType.create(tenderInformation);
+    }
+
+    @RequestMapping(value = "/selectByProjectId")
+    @ResponseBody
+    public CommonReturnType selectByProjectId(@RequestParam(value="projectId") Integer projectId){
+        List<TenderInformation> tenderInformationList = tenderInformationService.selectByProjectId(projectId);
+        return CommonReturnType.create(tenderInformationList);
+    }
+
+    @RequestMapping(value = "delByProjectId")
+    @ResponseBody
+    public CommonReturnType delByProjectId(@RequestParam(value = "projectId")Integer projectId){
+        tenderInformationService.delTenderByProjectId(projectId);
+        return CommonReturnType.create(null,"删除完成");
     }
 
 }

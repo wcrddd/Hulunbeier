@@ -67,12 +67,12 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     }
 
     /**
-     * 通过和未通过
+     * 改为只显示审批通过的
      * @return
      */
     @Override
-    public List<ProjectStore> selectProjectPassAndNo() {
-        return  projectStoreMapper.selectProjectPassAndNo();
+    public List<ProjectStore> selectProjectPass() {
+        return  projectStoreMapper.selectProjectPass();
     }
 
     /**

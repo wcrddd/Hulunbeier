@@ -25,9 +25,13 @@ public interface TenderInformationService {
      * 至del_flag不为0
      * @param id
      */
-    void deleteTender(Integer id);
+    int deleteTender(Integer id);
 
     TenderInformation select(Integer id);
 
     public List<TenderInformation> getAllTender();
+
+    List<TenderInformation> selectByProjectId(Integer projectId);
+
+    void delTenderByProjectId(Integer projectId);
 }

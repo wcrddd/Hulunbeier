@@ -57,7 +57,15 @@ public interface TenderInformationMapper {
      * 软删除，更新标志位
      * @param id
      */
-    void updateDelFlagForId(Integer id);
+    int updateDelFlagForId(Integer id);
 
     List<TenderInformation> getAllTender();
+
+    List<TenderInformation> selectByProjectId(Integer projectId);
+
+    /**
+     * 根据项目id删除
+     * @param projectId
+     */
+    void updateDelFlag(Integer projectId);
 }
