@@ -79,5 +79,5 @@ public interface ProjectStoreMapper {
      * 返回通过和未通过的项目
      * @return
      */
-    List<ProjectStore> selectProjectPassAndNo();
+    List<ProjectStore> selectProjectPass();
 }

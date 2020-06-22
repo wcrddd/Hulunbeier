@@ -34,9 +34,9 @@ public class TenderInformationServiceImpl implements TenderInformationService {
      * @param id
      */
     @Override
-    public void deleteTender(Integer id) {
+    public int deleteTender(Integer id) {
         //更新标志位
-        tenderInformationMapper.updateDelFlagForId(id);
+        return tenderInformationMapper.updateDelFlagForId(id);
     }
 
     @Override
@@ -57,6 +57,16 @@ public class TenderInformationServiceImpl implements TenderInformationService {
     @Override
     public List<TenderInformation> getAllTender(){
         return tenderInformationMapper.getAllTender();
+    }
+
+    @Override
+    public List<TenderInformation> selectByProjectId(Integer projectId) {
+        return tenderInformationMapper.selectByProjectId(projectId);
+    }
+
+    @Override
+    public void delTenderByProjectId(Integer projectId) {
+        tenderInformationMapper.updateDelFlag(projectId);
     }
 
 }

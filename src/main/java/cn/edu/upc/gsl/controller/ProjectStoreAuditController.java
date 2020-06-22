@@ -75,13 +75,13 @@ public class ProjectStoreAuditController {
     }
 
     /**
-     * 获取审批通过和未通过的项目
+     * 只获取审批通过的项目
      * @return
      */
-    @RequestMapping(value = "/passAndNo")
+    @RequestMapping(value = "/passed")
     @ResponseBody
-    public CommonReturnType selectProjectPassAndNo(){
-        List<ProjectStore> projectStoreList = projectStoreAuditService.selectProjectPassAndNo();
+    public CommonReturnType selectProjectPass(){
+        List<ProjectStore> projectStoreList = projectStoreAuditService.selectProjectPass();
         return CommonReturnType.create(projectStoreList,"查询成功");
     }
 

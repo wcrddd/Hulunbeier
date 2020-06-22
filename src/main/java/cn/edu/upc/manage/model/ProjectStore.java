@@ -5,19 +5,6 @@ import java.util.Date;
 public class ProjectStore {
 
 
-    /**
-     * 增加建设单位名称
-     * @return
-     */
-//    private String constructionUnitName;
-//    public String getConstructionUnitName() {
-//        return constructionUnitName;
-//    }
-//
-//    public void setConstructionUnitName(String constructionUnitName) {
-//        this.constructionUnitName = constructionUnitName;
-//    }
-
 
 
     /**
@@ -64,6 +51,21 @@ public class ProjectStore {
      * @mbg.generated Sat May 09 21:34:45 CST 2020
      */
     private String projectName;
+
+
+    /**
+     * 主管部门
+     */
+    private String department;
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
 
     /**
      *
