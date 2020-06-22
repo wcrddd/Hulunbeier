@@ -29,9 +29,10 @@ public class UserController {
     @RequestMapping("/deleteUser")
     @ResponseBody
     public CommonReturnType deleteUser(@RequestBody JSONObject jsonObject){
-        int userId=jsonObject.getInteger("id");
+        int userId=jsonObject.getInteger("userId");
+        System.out.println(userId);
         userService.deleteUser(userId);
-        return CommonReturnType.create(null,null,0,"更新成功");
+        return CommonReturnType.create(null,null,0,"删除成功");
     }
 
     @RequestMapping("/getAllUser")

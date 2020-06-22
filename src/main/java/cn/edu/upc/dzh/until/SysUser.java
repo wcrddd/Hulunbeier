@@ -10,4 +10,9 @@ public class SysUser {
         if(user.getUserType()==2){return user.getDepartmentUnitId();}
         else return 0;
     }
+
+    public static int getCurrentUserRole(HttpSession session){
+        User user=(User) session.getAttribute("user");
+        return user.getRoleId();
+    }
 }

@@ -166,4 +166,8 @@
   <update id="updatetRoleName">
     update role set role_name=#{roleName} where id=#{id}
   </update>
+
+  <update id="deleteRole">
+    update role set del_flag=#{roleId} where id=#{roleId}
+  </update>
 </mapper>

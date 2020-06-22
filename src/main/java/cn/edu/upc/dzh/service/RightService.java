@@ -11,5 +11,7 @@ public interface RightService {
     public void updateRight(Rights right);
     public void deleteRight(int rightId);
     public List<ViewRights> selectByName(String name);
+    public void insertRight2(Rights right);
+    public List<ViewRights> selectRightByRole(int roleId);
 
 }

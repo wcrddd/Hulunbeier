@@ -46,4 +46,15 @@ public class RightServiceImpl implements RightService {
     public List<ViewRights> selectByName(String name){
         return viewRightsMapper.getRightByname(name);
     }
+
+    @Transactional
+    @Override
+    public void insertRight2(Rights right){
+        rightsMapper.insertSelective(right);
+    }
+
+    @Override
+    public List<ViewRights> selectRightByRole(int roleId){
+        return viewRightsMapper.selectRightByRole(roleId);
+    }
 }

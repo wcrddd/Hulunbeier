@@ -24,4 +24,6 @@ public interface ViewRightsMapper {
     List<ViewRights> getAllRight();
 
     List<ViewRights> getRightByname(String name);
+
+    List<ViewRights> selectRightByRole(int roleId);
 }

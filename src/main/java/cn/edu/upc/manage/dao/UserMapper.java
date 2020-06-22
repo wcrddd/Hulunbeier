@@ -65,7 +65,7 @@ public interface UserMapper {
 
     public void changePassword(@Param("newPassword") String newPassword,@Param("id") String id);
 
-    public void deleteUser(int userId);
+    public void deleteUser(@Param("userId") int userId);
 
     public List<UserWithUnitName> getAllUser();
     public List<UserWithUnitName> getByUsername(String username);

@@ -53,18 +53,25 @@ public class RightController {
         return CommonReturnType.create(null,null,0,"删除成功");
     }
 
-//    @RequestMapping("/selectRightByRole")
-//    @ResponseBody
-//    public CommonReturnType selectRightByRole(HttpSession session){
-//        List<ViewRights> p1 = priManageService.selectRightByRole(SysUser.getCurrentUserRole(session));
-//        return CommonReturnType.create(p1);
-//    }
+    @RequestMapping("/selectRightByRole")
+    @ResponseBody
+    public CommonReturnType selectRightByRole(HttpSession session){
+        List<ViewRights> p1 = rightService.selectRightByRole(SysUser.getCurrentUserRole(session));
+        return CommonReturnType.create(p1);
+    }
 
     @RequestMapping("/selectByName")//
     @ResponseBody
     public CommonReturnType selectByName(@RequestBody JSONObject jsonObject){
         String name=jsonObject.getString("rightName");
         return CommonReturnType.create(rightService.selectByName(name));
+    }
+
+    @RequestMapping("/insertRight")//插入一条
+    @ResponseBody
+    public CommonReturnType insertRight(@RequestBody Rights right){
+        rightService.insertRight2(right);
+        return CommonReturnType.create(null,null,0,"新增成功");
     }
 
 }
