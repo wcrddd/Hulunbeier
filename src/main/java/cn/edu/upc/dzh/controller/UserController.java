@@ -18,13 +18,21 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-    @RequestMapping("/updatePassword")
+    @RequestMapping("/update")
     @ResponseBody
     public CommonReturnType update(@RequestBody User recordPassword){
         recordPassword.setPassword(MD5Util.md5(recordPassword.getPassword()));
         userService.updateUserPassword(recordPassword);
         return CommonReturnType.create(null,null,0,"更新成功");
     }
+
+//    @RequestMapping("/updatePassword")
+//    @ResponseBody
+//    public CommonReturnType updatePassword(@RequestBody User recordPassword){
+//        recordPassword.setPassword(MD5Util.md5(recordPassword.getPassword()));
+//        userService.updateUserPassword(recordPassword);
+//        return CommonReturnType.create(null,null,0,"更新成功");
+//    }
 
     @RequestMapping("/deleteUser")
     @ResponseBody

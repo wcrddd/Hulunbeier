@@ -54,4 +54,8 @@ public interface ContractInformationMapper {
     int updateByPrimaryKey(ContractInformation record);
 
     List<ContractInformation> getAllContractInformation();
+
+    List<ContractInformation> getContractByProjectId(int projectId);
+
+    int selectLastInsert();
 }

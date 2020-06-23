@@ -10,7 +10,9 @@ public interface ContractInformationService {
 
 
     public void updateContractInformation(ContractInformation recordUp);
-    public void insertContractInformation(ContractInformation recordIn);
+    public int insertContractInformation(ContractInformation recordIn);
     public void deleteFlag(ContractInformation recordDel);
     public List<ContractInformation> getAllContractInformation();
+    public List<ContractInformation> getContractByProjectId(int projectId);
+    public ContractInformation getContractBytId(int id);
 }

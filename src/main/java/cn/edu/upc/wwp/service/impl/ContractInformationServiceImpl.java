@@ -21,9 +21,10 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     }
 
     @Override
-    public void insertContractInformation(ContractInformation recordIn) {
+    public int insertContractInformation(ContractInformation recordIn) {
         recordIn.setOperator("test");
         contractInformationMapper.insertSelective(recordIn);
+        return contractInformationMapper.selectLastInsert();
     }
 
     @Override
@@ -38,5 +39,15 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     @Override
     public List<ContractInformation> getAllContractInformation(){
         return contractInformationMapper.getAllContractInformation();
+    }
+
+    @Override
+    public List<ContractInformation> getContractByProjectId(int projectId){
+        return contractInformationMapper.getContractByProjectId(projectId);
+    }
+
+    @Override
+    public ContractInformation getContractBytId(int id){
+        return contractInformationMapper.selectByPrimaryKey(id);
     }
 }
