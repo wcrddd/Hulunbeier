@@ -259,4 +259,8 @@
     update construction_unit set del_flag = #{id,jdbcType = INTEGER}
     where id = #{id,jdbcType = INTEGER}
   </update>
+
+  <select id="getUnitNameById" resultType="string">
+    select `name` from construction_unit where id = #{id}
+  </select>
 </mapper>

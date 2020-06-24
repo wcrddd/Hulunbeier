@@ -60,4 +60,6 @@ public interface ConstructionUnitMapper {
      * @param id
      */
     void updateDelFlag(Integer id);
+
+    String getUnitNameById(int id);
 }

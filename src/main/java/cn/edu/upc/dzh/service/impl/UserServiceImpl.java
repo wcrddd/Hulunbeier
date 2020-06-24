@@ -47,7 +47,8 @@ public class UserServiceImpl implements UserService {
         for (UserWithUnitName p:userList
         ) {
             if(p.getUserType()==2){
-                p.setUnitName(constructionUnitMapper.selectByPrimaryKey(p.getDepartmentUnitId()).getName());
+                p.setUnitName(constructionUnitMapper.getUnitNameById(p.getDepartmentUnitId()));
+//                p.setUnitName(constructionUnitMapper.selectByPrimaryKey(p.getDepartmentUnitId()).getName());
             }else {
                 String unitName=postMapper.selectByPrimaryKey(p.getDepartmentUnitId()).getPostName();
                 p.setUnitName(unitName);
