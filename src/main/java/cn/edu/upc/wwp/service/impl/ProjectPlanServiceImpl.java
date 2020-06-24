@@ -28,4 +28,10 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
         projectPlan.setOperator("test");
         projectPlanMapper.insertSelective(projectPlan);
     }
+
+    @Override
+    public void updateProjectPlan(ProjectPlan recordUp) {
+        recordUp.setOperator("test");
+        projectPlanMapper.updateByPrimaryKeySelective(recordUp);
+    }
 }

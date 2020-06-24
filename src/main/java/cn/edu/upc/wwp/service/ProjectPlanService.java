@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProjectPlanService {
     public List<ProjectPlan> selectProjectPlan();
     public void insertProjectPlan(ProjectPlan projectPlan);
+    public void updateProjectPlan(ProjectPlan recordUp);
 }

@@ -445,7 +445,7 @@ SELECT a.*,guide.title,
         where
               apply_type= 1
         and
-             approve=1
+              approve=1
         and
              del_flag = 0
 --        模糊查询
