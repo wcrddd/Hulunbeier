@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.controller;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,13 @@ public class ProjectStoreAuditController {
         projectStore.setConstruUnitId(unitId);
         projectStoreAuditService.addProject(projectStore);
         return CommonReturnType.create(null,"项目申报成功，等待审批");
+    }
+
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public CommonReturnType update(@RequestBody ProjectStore projectStore){
+        projectStoreAuditService.update(projectStore);
+        return CommonReturnType.create(null);
     }
 
     /**
@@ -65,4 +73,29 @@ public class ProjectStoreAuditController {
         projectStoreAuditService.updateState(projectStore);
         return CommonReturnType.create(null,"操作成功");
     }
+
+    /**
+     * 只获取审批通过的项目
+     * @return
+     */
+    @RequestMapping(value = "/passed")
+    @ResponseBody
+    public CommonReturnType selectProjectPass(){
+        List<ProjectStore> projectStoreList = projectStoreAuditService.selectProjectPass();
+        return CommonReturnType.create(projectStoreList,"查询成功");
+    }
+
+    @RequestMapping(value = "/selectById")
+    @ResponseBody
+    public CommonReturnType selectProjectById(@RequestBody JSONObject jsonObject){
+        int id=jsonObject.getInteger("id");
+       ProjectStore project = projectStoreAuditService.selectProjectById(id);
+       if (project != null) {
+           return CommonReturnType.create(project, "查询成功");
+       }
+       else {
+           return CommonReturnType.create(null,"未查询到");
+       }
+    }
+
 }

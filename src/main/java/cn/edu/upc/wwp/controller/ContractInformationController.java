@@ -3,6 +3,7 @@ package cn.edu.upc.wwp.controller;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ContractInformation;
 import cn.edu.upc.wwp.service.ContractInformationService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,15 @@ public class ContractInformationController {
 
         contractInformationService.updateContractInformation(recordUp);
 
-        return  CommonReturnType.create(null);
+        return CommonReturnType.create(null,null,0,"更新成功");
     }
 
     @RequestMapping("/insertContractInformation")
 
     @ResponseBody
     public CommonReturnType insert(@RequestBody ContractInformation recordIn){
-        contractInformationService.insertContractInformation(recordIn);
-        return  CommonReturnType.create(null);
+        int id=contractInformationService.insertContractInformation(recordIn);
+        return CommonReturnType.create(id);
     }
 
     @RequestMapping("/deleteContractInformation")
@@ -39,7 +40,35 @@ public class ContractInformationController {
     @ResponseBody
     public CommonReturnType deleteFlag(@RequestBody ContractInformation recordDel){
         contractInformationService.deleteFlag(recordDel);
-        return  CommonReturnType.create("null");
+        return CommonReturnType.create(null,null,0,"删除成功");
+    }
+
+    @RequestMapping("/getAllContractInformation")
+
+    @ResponseBody
+    public CommonReturnType getAllContractInformation(){
+        return CommonReturnType.create(contractInformationService.getAllContractInformation());
+    }
+
+//    @RequestMapping("/insertNewContract")
+//    @ResponseBody
+//    public CommonReturnType insertNewContract(@RequestBody ContractInformation recordIn){
+//        contractInformationService.insertContractInformation(recordIn);
+//        return CommonReturnType.create();
+//    }
+
+    @RequestMapping("/getContractByProjectId")
+    @ResponseBody
+    public CommonReturnType getContractByProjectId(@RequestBody JSONObject jsonObject){
+        int projectId=jsonObject.getInteger("projectId");
+        return CommonReturnType.create(contractInformationService.getContractByProjectId(projectId));
+    }
+
+    @RequestMapping("/getContractBytId")
+    @ResponseBody
+    public CommonReturnType getContractBytId(@RequestBody JSONObject jsonObject){
+        int id=jsonObject.getInteger("id");
+        return CommonReturnType.create(contractInformationService.getContractBytId(id));
     }
 
 

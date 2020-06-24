@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface UnitService {
     public List<ConstructionUnit> getConstructionUnit();
+
+    void addUnit(ConstructionUnit constructionUnit);
+
+    void updateUnit(ConstructionUnit constructionUnit);
+
+    void delUnit(Integer id);
 }

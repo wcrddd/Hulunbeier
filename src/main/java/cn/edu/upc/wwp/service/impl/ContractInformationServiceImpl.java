@@ -6,6 +6,7 @@ import cn.edu.upc.wwp.service.ContractInformationService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("contractInformationService")
 public class ContractInformationServiceImpl  implements ContractInformationService {
@@ -20,9 +21,10 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     }
 
     @Override
-    public void insertContractInformation(ContractInformation recordIn) {
+    public int insertContractInformation(ContractInformation recordIn) {
         recordIn.setOperator("test");
         contractInformationMapper.insertSelective(recordIn);
+        return contractInformationMapper.selectLastInsert();
     }
 
     @Override
@@ -32,5 +34,20 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
             recordDel.setDelFlag(1);
             contractInformationMapper.updateByPrimaryKeySelective(recordDel);
         }
+    }
+
+    @Override
+    public List<ContractInformation> getAllContractInformation(){
+        return contractInformationMapper.getAllContractInformation();
+    }
+
+    @Override
+    public List<ContractInformation> getContractByProjectId(int projectId){
+        return contractInformationMapper.getContractByProjectId(projectId);
+    }
+
+    @Override
+    public ContractInformation getContractBytId(int id){
+        return contractInformationMapper.selectByPrimaryKey(id);
     }
 }

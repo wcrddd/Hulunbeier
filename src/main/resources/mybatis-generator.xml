@@ -51,10 +51,9 @@
 <!--        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--        enableUpdateByExample="false"/>-->
 
-
-
-        <table tableName="contract_information" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+<!--        <table tableName="construction" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false"/>-->
+        <table tableName="tender_information" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
-
     </context>
 </generatorConfiguration>

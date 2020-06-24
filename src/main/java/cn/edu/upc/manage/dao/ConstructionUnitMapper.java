@@ -54,4 +54,12 @@ public interface ConstructionUnitMapper {
     int updateByPrimaryKey(ConstructionUnit record);
 
     List<ConstructionUnit> getConstructionUnit();
+
+    /**
+     * 删除记录
+     * @param id
+     */
+    void updateDelFlag(Integer id);
+
+    String getUnitNameById(int id);
 }

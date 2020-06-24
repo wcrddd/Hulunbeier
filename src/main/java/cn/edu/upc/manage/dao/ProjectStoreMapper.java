@@ -74,4 +74,10 @@ public interface ProjectStoreMapper {
     List<ProjectStore> selectProjectStore();
 
     List<ProjectStore> searchProjectStore(ProjectStore projectStore);
+
+    /**
+     * 返回通过和未通过的项目
+     * @return
+     */
+    List<ProjectStore> selectProjectPass();
 }

@@ -50,4 +50,6 @@ public interface RightRoleMapper {
      * @mbg.generated Sat May 30 21:06:44 CST 2020
      */
     int updateByPrimaryKey(RightRole record);
+
+    void deleteByRoleId(int roleId);
 }
