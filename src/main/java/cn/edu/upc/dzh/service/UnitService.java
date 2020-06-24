@@ -12,4 +12,6 @@ public interface UnitService {
     void updateUnit(ConstructionUnit constructionUnit);
 
     void delUnit(Integer id);
+
+    ConstructionUnit selectUnitById(Integer id);
 }

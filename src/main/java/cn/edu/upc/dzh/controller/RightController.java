@@ -1,6 +1,5 @@
 package cn.edu.upc.dzh.controller;
 
-import cn.edu.upc.dzh.service.GuideService2;
 import cn.edu.upc.dzh.service.RightService;
 import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
