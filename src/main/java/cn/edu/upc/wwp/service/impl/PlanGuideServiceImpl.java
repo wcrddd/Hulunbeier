@@ -6,6 +6,7 @@ import cn.edu.upc.wwp.service.PlanGuideService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("planGuideService")
 public class PlanGuideServiceImpl implements PlanGuideService {
@@ -17,4 +18,23 @@ public class PlanGuideServiceImpl implements PlanGuideService {
         planGuide.setOperator("test");
         planGuideMapper.insertSelective(planGuide);
     }
+
+    @Override
+    public List<PlanGuide> selectPlanGuide() {
+        return  planGuideMapper.selectPlanGuide();
+    }
+
+    @Override
+    public void updatePlanGuide(PlanGuide recordUp) {
+
+
+        PlanGuide result=planGuideMapper.selectByPrimaryKey(recordUp.getBuildYear());
+        if(result!=null){
+            recordUp.setOperator("test");;
+            planGuideMapper.updateByPrimaryKeySelective(recordUp);
+        }
+
+    }
+
+
 }
