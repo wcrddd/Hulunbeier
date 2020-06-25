@@ -1,7 +1,9 @@
 package cn.edu.upc.wwp.controller;
 
 import cn.edu.upc.manage.common.CommonReturnType;
+import cn.edu.upc.manage.model.Post;
 import cn.edu.upc.manage.model.ProjectPlan;
+import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 import cn.edu.upc.wwp.service.ProjectPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,20 @@ public class ProjectPlanController {
 
     @ResponseBody
     public CommonReturnType select(){
-        List<ProjectPlan> list1=  projectPlanService.selectProjectPlan();
+        List<ProjectPlanParam> list1=  projectPlanService.selectProjectPlan();
         return  CommonReturnType.create(list1);
     }
+
+
+    @RequestMapping("/updateProjectPlan")
+
+    @ResponseBody
+    public CommonReturnType update(@RequestBody ProjectPlan recordUp){
+
+        projectPlanService.updateProjectPlan(recordUp);
+
+        return  CommonReturnType.create(null);
+    }
+
+
 }

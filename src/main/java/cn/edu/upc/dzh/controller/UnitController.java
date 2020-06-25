@@ -26,6 +26,17 @@ public class UnitController {
         return CommonReturnType.create(unitService.getConstructionUnit());
     }
 
+    /**
+     * 通过id获取建设单位信息
+     * @return
+     */
+    @RequestMapping("/get")
+    @ResponseBody
+    public CommonReturnType getUnitById(@RequestParam("id") Integer id){
+        ConstructionUnit constructionUnit = unitService.selectUnitById(id);
+        return CommonReturnType.create(constructionUnit,"查询完成");
+    }
+
     @RequestMapping("/addUnit")
     @ResponseBody
     public CommonReturnType addUnit(@RequestBody ConstructionUnit constructionUnit){
@@ -33,6 +44,11 @@ public class UnitController {
         return CommonReturnType.create(null,"新增完成");
     }
 
+    /**
+     * 更新建设单位信息
+     * @param constructionUnit
+     * @return
+     */
     @RequestMapping("/updateUnit")
     @ResponseBody
     public CommonReturnType updateUnit(@RequestBody ConstructionUnit constructionUnit){
@@ -40,6 +56,11 @@ public class UnitController {
         return CommonReturnType.create(null,"修改完成");
     }
 
+    /**
+     * 删除建设单位
+     * @param id
+     * @return
+     */
     @RequestMapping("/delUnit")
     @ResponseBody
     public CommonReturnType delUnit(@RequestParam(value = "id")Integer id){

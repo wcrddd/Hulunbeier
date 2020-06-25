@@ -37,7 +37,7 @@
     select 
     <include refid="Base_Column_List" />
     from plan_guide
-    where id = #{id,jdbcType=INTEGER}
+    where build_year = #{buildYear,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -201,4 +201,13 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectPlanGuide" resultMap="BaseResultMap">
+       select * from plan_guide where del_flag = 0
+  </select>
+
+  <select id="selectPlanGuideBuildYear" resultMap="BaseResultMap">
+       select * from plan_guide where del_flag = 0 and build_year = #{buildYear}
+  </select>
 </mapper>

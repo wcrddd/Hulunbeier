@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.ProjectPlan;
+import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 
 import java.util.List;
 
@@ -52,5 +53,5 @@ public interface ProjectPlanMapper {
      * @mbg.generated Thu May 14 20:04:46 CST 2020
      */
     int updateByPrimaryKey(ProjectPlan record);
-    List<ProjectPlan> selectProjectPlan();
+    List<ProjectPlanParam> selectProjectPlan();
 }

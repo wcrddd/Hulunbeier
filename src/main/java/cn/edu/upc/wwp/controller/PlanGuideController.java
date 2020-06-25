@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @Controller
 @RequestMapping(value="/planGuide",method={RequestMethod.POST, RequestMethod.GET})
@@ -16,11 +18,34 @@ public class PlanGuideController {
     @Autowired
     public PlanGuideService planGuideService;
 
+
+
+    @RequestMapping("/selectPlanGuide")
+
+    @ResponseBody
+    public CommonReturnType select(){
+
+
+        List<PlanGuide> list1= planGuideService.selectPlanGuide();
+
+        return  CommonReturnType.create(list1,"查询成功");
+    }
+
     @RequestMapping("/addPlanGuide")
 
     @ResponseBody
     public CommonReturnType insert(@RequestBody PlanGuide planGuide){
         planGuideService.insertProjectGuide(planGuide);
+        return  CommonReturnType.create(null);
+    }
+
+    @RequestMapping("/updatePlanGuide")
+
+    @ResponseBody
+    public CommonReturnType update(@RequestBody PlanGuide recordUp){
+
+        planGuideService.updatePlanGuide(recordUp);
+
         return  CommonReturnType.create(null);
     }
 

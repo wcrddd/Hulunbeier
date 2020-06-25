@@ -13,5 +13,8 @@ public interface UnitService {
 
     void delUnit(Integer id);
 
+
     ConstructionUnit getUnitByUser(int id);
+
+    ConstructionUnit selectUnitById(Integer id);
 }

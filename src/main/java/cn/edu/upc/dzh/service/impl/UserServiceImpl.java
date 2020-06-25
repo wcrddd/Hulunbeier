@@ -4,7 +4,6 @@ import cn.edu.upc.dzh.service.UserService;
 import cn.edu.upc.manage.dao.ConstructionUnitMapper;
 import cn.edu.upc.manage.dao.PostMapper;
 import cn.edu.upc.manage.dao.UserMapper;
-import cn.edu.upc.manage.model.ConstructionUnit;
 import cn.edu.upc.manage.model.User;
 import cn.edu.upc.manage.model.UserWithUnitName;
 import org.springframework.beans.factory.annotation.Autowired;

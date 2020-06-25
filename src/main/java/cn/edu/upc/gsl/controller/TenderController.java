@@ -62,7 +62,6 @@ public class TenderController {
     @RequestMapping(value = "/getAllTender")
     @ResponseBody
     public  CommonReturnType  getAllTender(){
-
         return CommonReturnType.create(tenderInformationService.getAllTender());
     }
     @RequestMapping(value = "/select")
@@ -79,7 +78,7 @@ public class TenderController {
         return CommonReturnType.create(tenderInformationList);
     }
 
-    @RequestMapping(value = "delByProjectId")
+    @RequestMapping(value = "/delByProjectId")
     @ResponseBody
     public CommonReturnType delByProjectId(@RequestParam(value = "projectId")Integer projectId){
         tenderInformationService.delTenderByProjectId(projectId);

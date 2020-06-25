@@ -37,4 +37,9 @@ public class UnitServiceImpl implements UnitService {
     public ConstructionUnit getUnitByUser(int id){
         return constructionUnitMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public ConstructionUnit selectUnitById(Integer id) {
+        return constructionUnitMapper.selectByPrimaryKey(id);
+    }
 }
