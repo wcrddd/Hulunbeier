@@ -32,4 +32,9 @@ public class UnitServiceImpl implements UnitService {
     public void delUnit(Integer id) {
         constructionUnitMapper.updateDelFlag(id);
     }
+
+    @Override
+    public ConstructionUnit getUnitByUser(int id){
+        return constructionUnitMapper.selectByPrimaryKey(id);
+    }
 }

@@ -1,11 +1,14 @@
 package cn.edu.upc.dzh.controller;
 
 import cn.edu.upc.dzh.service.UnitService;
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ConstructionUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @CrossOrigin
 @Controller
@@ -42,5 +45,12 @@ public class UnitController {
     public CommonReturnType delUnit(@RequestParam(value = "id")Integer id){
         unitService.delUnit(id);
         return CommonReturnType.create(null,"删除成功");
+    }
+
+    @RequestMapping("/getUnitByUser")
+    @ResponseBody
+    public CommonReturnType getUnitByUser(HttpSession session){
+        int id= SysUser.getCurrentUserUnitId(session);
+        return CommonReturnType.create(unitService.getUnitByUser(id));
     }
 }

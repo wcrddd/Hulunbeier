@@ -58,4 +58,7 @@ public interface ContractInformationMapper {
     List<ContractInformation> getContractByProjectId(int projectId);
 
     int selectLastInsert();
+
+    List<ContractInformation> getContractByTenderId(int tenderId);
+
 }

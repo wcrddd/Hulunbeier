@@ -1,8 +1,14 @@
 package cn.edu.upc.wwp.service.impl;
 
 import cn.edu.upc.manage.dao.ContractInformationMapper;
+import cn.edu.upc.manage.dao.ContractStatisticsMapper;
+import cn.edu.upc.manage.dao.ContractTenderRelationMapper;
 import cn.edu.upc.manage.model.ContractInformation;
+import cn.edu.upc.manage.model.ContractInformationWithTenderId;
+import cn.edu.upc.manage.model.ContractStatistics;
+import cn.edu.upc.manage.model.ContractTenderRelation;
 import cn.edu.upc.wwp.service.ContractInformationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +19,10 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
 
     @Resource
     ContractInformationMapper contractInformationMapper;
+    @Autowired
+    ContractTenderRelationMapper contractTenderRelationMapper;
+    @Autowired
+    ContractStatisticsMapper contractStatisticsMapper;
 
     @Override
     public void updateContractInformation(ContractInformation recordUp) {
@@ -21,10 +31,15 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     }
 
     @Override
-    public int insertContractInformation(ContractInformation recordIn) {
+    public int insertContractInformation(ContractInformationWithTenderId recordIn) {
         recordIn.setOperator("test");
         contractInformationMapper.insertSelective(recordIn);
-        return contractInformationMapper.selectLastInsert();
+        int contractInformationId=contractInformationMapper.selectLastInsert();
+        ContractTenderRelation contractTenderRelation=new ContractTenderRelation();
+        contractTenderRelation.setTenderId(recordIn.getTenderId());
+        contractTenderRelation.setContractId(contractInformationId);
+        contractTenderRelationMapper.insertSelective(contractTenderRelation);
+        return contractInformationId;
     }
 
     @Override
@@ -49,5 +64,15 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     @Override
     public ContractInformation getContractBytId(int id){
         return contractInformationMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public ContractStatistics getContractStatistics(int projectId){
+        return contractStatisticsMapper.getContractStatistics(projectId);
+    }
+
+    @Override
+    public List<ContractInformation> getContractByTenderId(int tenderId){
+        return contractInformationMapper.getContractByTenderId(tenderId);
     }
 }

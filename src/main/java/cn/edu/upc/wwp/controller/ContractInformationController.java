@@ -2,6 +2,7 @@ package cn.edu.upc.wwp.controller;
 
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ContractInformation;
+import cn.edu.upc.manage.model.ContractInformationWithTenderId;
 import cn.edu.upc.wwp.service.ContractInformationService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ContractInformationController {
     @RequestMapping("/insertContractInformation")
 
     @ResponseBody
-    public CommonReturnType insert(@RequestBody ContractInformation recordIn){
+    public CommonReturnType insert(@RequestBody ContractInformationWithTenderId recordIn){
         int id=contractInformationService.insertContractInformation(recordIn);
         return CommonReturnType.create(id);
     }
@@ -71,5 +72,18 @@ public class ContractInformationController {
         return CommonReturnType.create(contractInformationService.getContractBytId(id));
     }
 
+    @RequestMapping("/getContractStatistics")
+    @ResponseBody
+    public CommonReturnType getContractStatistics(@RequestBody JSONObject jsonObject){
+        int projectId=jsonObject.getInteger("projectId");
+        return CommonReturnType.create(contractInformationService.getContractStatistics(projectId));
+    }
+
+    @RequestMapping("/getContractByTenderId")
+    @ResponseBody
+    public CommonReturnType getContractByTenderId(@RequestBody JSONObject jsonObject){
+        int tenderId=jsonObject.getInteger("tenderId");
+        return CommonReturnType.create(contractInformationService.getContractByTenderId(tenderId));
+    }
 
 }
