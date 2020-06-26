@@ -3,9 +3,11 @@ package cn.edu.upc.gsl.service.impl;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.vo.ProjectStoreVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -88,5 +90,37 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public void update(ProjectStore projectStore) {
         projectStoreMapper.updateByPrimaryKeySelective(projectStore);
+    }
+
+    /**
+     * 区分已计划申报的和未进行计划申报的项目
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    @Override
+    public List<ProjectStoreVo> divideProjectPlan(HttpServletRequest httpServletRequest) {
+        //获取session
+        //User user = (User) httpServletRequest.getSession().getAttribute("user");
+        //Integer departmentUnitId = user.getDepartmentUnitId();
+
+        Integer departmentUnitId = 1;
+        List<ProjectStoreVo> allPassedProject= projectStoreMapper.selectPassProjectByUnitId(departmentUnitId);
+        List<ProjectStoreVo> projectPlaned = projectStoreMapper.selectProjectPlaned(departmentUnitId);
+        System.out.println(allPassedProject.containsAll(projectPlaned));
+        for (ProjectStoreVo projectStoreVoPlan : projectPlaned){
+            //如果查出来有，则设置标志位为0，不可进行申报
+
+           for(ProjectStoreVo projectStoreVoPass : allPassedProject){
+               Boolean b = (projectStoreVoPlan.getId()).equals(projectStoreVoPass.getId());
+               System.out.println(b);
+               if((projectStoreVoPlan.getId()).equals(projectStoreVoPass.getId())){
+                   projectStoreVoPass.setCanPlan(0);
+               }else {
+                   projectStoreVoPass.setCanPlan(1);
+               }
+            }
+        }
+        return allPassedProject;
     }
 }

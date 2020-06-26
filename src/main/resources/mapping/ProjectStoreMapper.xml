@@ -473,4 +473,16 @@ SELECT a.*,guide.title,
         order by id desc
     </select>
 
+    <select id="selectProjectPlaned" parameterType= "java.lang.Integer" resultType="cn.edu.upc.manage.vo.ProjectStoreVo">
+        select * from project_store where del_flag = 0 and constru_unit_id = #{departmentUnitId} and approve = 1
+        and id in (select project_id from project_plan where del_flag = 0)
+        order by id desc
+    </select>
+
+<!-- 根据建设单位id获取通过审核的项目-->
+    <select id="selectPassProjectByUnitId" parameterType= "java.lang.Integer" resultType="cn.edu.upc.manage.vo.ProjectStoreVo">
+        select * from project_store where del_flag = 0
+        and approve = 1 and constru_unit_id = #{departmentUnitId}
+        order by id desc
+    </select>
 </mapper>

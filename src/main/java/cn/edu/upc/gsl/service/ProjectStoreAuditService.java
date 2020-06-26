@@ -1,7 +1,9 @@
 package cn.edu.upc.gsl.service;
 
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.vo.ProjectStoreVo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -41,4 +43,11 @@ public interface ProjectStoreAuditService {
     ProjectStore selectProjectById(Integer id);
 
     void update(ProjectStore projectStore);
+
+    /**
+     * 区分已计划申报的和未进行计划申报的项目
+     * @param httpServletRequest
+     * @return
+     */
+    List<ProjectStoreVo> divideProjectPlan(HttpServletRequest httpServletRequest);
 }
