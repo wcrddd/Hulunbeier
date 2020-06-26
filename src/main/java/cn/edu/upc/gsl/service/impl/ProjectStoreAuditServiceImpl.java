@@ -123,4 +123,15 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
         }
         return allPassedProject;
     }
+
+    /**
+     * 设置计划申报的标志位
+     *
+     * @param id
+     * @param planedFlag
+     */
+    @Override
+    public void setPlanedFlag(Integer id,Integer planedFlag) {
+        projectStoreMapper.updatePlanedFlag(id,planedFlag);
+    }
 }

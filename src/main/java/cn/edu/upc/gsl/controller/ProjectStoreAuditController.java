@@ -101,11 +101,14 @@ public class ProjectStoreAuditController {
     }
 
     /**
+     *
      * 获取项目库中 本建设单位的（未来通过session获取），且审核通过的项目
      * 然后，拿着这些项目id在project_plan查是否存在，存在的用标志符分为一类
      * 不存在的用标志符分为一类。然后返回给前端 项目库里的列表以及标志符
      */
     /**
+     * 此接口暂时不用
+     *
      * 通过标志位区分开可以申报过的和没有申报的
      * @return 返回这些带标志位的项目信息列表
      */
@@ -119,6 +122,20 @@ public class ProjectStoreAuditController {
             e.printStackTrace();
             return CommonReturnType.create(null,"服务错误");
         }
+    }
+
+    /**
+     * 申报计划项目时，设置计划计划申报的标志位
+     * 1 代表已申报的项目
+     * 0 代表未申报的项目(数据库中默认为0)
+     * @return
+     */
+    @RequestMapping(value = "/set/planedFlag")
+    @ResponseBody
+    public CommonReturnType setPlanedFlag(@RequestParam("id") Integer id){
+        Integer planedFlag = 1;
+        projectStoreAuditService.setPlanedFlag(id,planedFlag);
+        return CommonReturnType.create(null,"操作成功");
     }
 
 

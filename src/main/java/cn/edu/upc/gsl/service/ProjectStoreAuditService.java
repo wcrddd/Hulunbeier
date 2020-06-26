@@ -50,4 +50,10 @@ public interface ProjectStoreAuditService {
      * @return
      */
     List<ProjectStoreVo> divideProjectPlan(HttpServletRequest httpServletRequest);
+
+    /**
+     * 设置计划申报的标志位
+     * @param id
+     */
+    void setPlanedFlag(Integer id,Integer planedFlag);
 }

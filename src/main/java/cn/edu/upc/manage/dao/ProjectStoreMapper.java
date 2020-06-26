@@ -95,4 +95,11 @@ public interface ProjectStoreMapper {
      * @return
      */
     List<ProjectStoreVo> selectPassProjectByUnitId(@Param("departmentUnitId") Integer departmentUnitId);
+
+    /**
+     * 更新计划申报项目的标志位
+     * @param id
+     * @param planedFlag
+     */
+    void updatePlanedFlag(@Param("id") Integer id, @Param("planedFlag") Integer planedFlag);
 }
