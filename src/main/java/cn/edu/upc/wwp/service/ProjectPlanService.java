@@ -9,4 +9,5 @@ public interface ProjectPlanService {
     public List<ProjectPlanParam> selectProjectPlan();
     public void insertProjectPlan(ProjectPlan projectPlan);
     public void updateProjectPlan(ProjectPlan recordUp);
+    public List<ProjectPlanParam> getProjectPlanByUnitId(int unitId);
 }

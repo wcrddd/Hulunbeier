@@ -35,4 +35,9 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
         recordUp.setOperator("test");
         projectPlanMapper.updateByPrimaryKeySelective(recordUp);
     }
+
+    @Override
+    public List<ProjectPlanParam> getProjectPlanByUnitId(int unitId){
+        return projectPlanMapper.getProjectPlanByUnitId(unitId);
+    }
 }

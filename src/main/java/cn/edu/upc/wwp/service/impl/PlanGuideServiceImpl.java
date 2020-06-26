@@ -28,11 +28,11 @@ public class PlanGuideServiceImpl implements PlanGuideService {
     public void updatePlanGuide(PlanGuide recordUp) {
 
 
-        PlanGuide result=planGuideMapper.selectByPrimaryKey(recordUp.getBuildYear());
-        if(result!=null){
+//        PlanGuide result=planGuideMapper.selectByPrimaryKey(recordUp.getBuildYear());
+//        if(result!=null){
             recordUp.setOperator("test");;
             planGuideMapper.updateByPrimaryKeySelective(recordUp);
-        }
+//        }
 
     }
 
