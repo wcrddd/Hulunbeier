@@ -238,7 +238,56 @@
           pp1.*,ps2.project_name
        from
           project_plan pp1, project_store ps2
+
        where pp1.del_flag = 0 and pp1.approve = 1  and pp1.project_id = ps2.id and construct_unit_id=1
 
+
   </select>
+
+  <select id="getProjectPlanByUnitId" resultMap="ResultMapParam">
+  select
+  pp1.*,ps2.project_name
+  from
+  project_plan pp1, project_store ps2
+  where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=#{unitId}
+
+  </select>
+
+  <update id="update" parameterType="cn.edu.upc.manage.model.ProjectPlan">
+    update project_plan
+    <set>
+
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="projectEstimate != null">
+        project_estimate = #{projectEstimate,jdbcType=REAL},
+      </if>
+      <if test="moneySource != null">
+        money_source = #{moneySource,jdbcType=VARCHAR},
+      </if>
+      <if test="approve != null">
+        approve = #{approve,jdbcType=INTEGER},
+      </if>
+      <if test="examine != null">
+        examine = #{examine,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTime != null">
+        operator_time = #{operatorTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where  project_id = #{projectId,jdbcType=INTEGER}
+  </update>
 </mapper>

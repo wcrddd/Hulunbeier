@@ -54,4 +54,8 @@ public interface ProjectPlanMapper {
      */
     int updateByPrimaryKey(ProjectPlan record);
     List<ProjectPlanParam> selectProjectPlan();
+
+    List<ProjectPlanParam> getProjectPlanByUnitId(int unitId);
+
+    void update(ProjectPlan record);
 }

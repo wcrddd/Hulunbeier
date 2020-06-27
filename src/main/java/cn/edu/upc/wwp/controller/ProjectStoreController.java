@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @CrossOrigin
@@ -32,4 +33,15 @@ public class ProjectStoreController {
         List<ProjectStore> list2= projectStoreService.searchProjectStore(projectStore);
         return  CommonReturnType.create(list2,"查询成功");
     }
+
+    @RequestMapping("/getProjectStoreByUnitId")
+    @ResponseBody
+    public CommonReturnType getProjectStoreByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=2;
+        List<ProjectStore> list2= projectStoreService.getProjectStoreByUnitId(unitId);
+        return  CommonReturnType.create(list2,"查询成功");
+    }
+
+
 }
