@@ -8,4 +8,5 @@ public interface ProjectStoreService {
 
     public List<ProjectStore> selectProjectStore();
     public List<ProjectStore> searchProjectStore(ProjectStore projectStore);
+    public List<ProjectStore> getProjectStoreByUnitId(int unitId);
 }

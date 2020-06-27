@@ -56,4 +56,6 @@ public interface ProjectPlanMapper {
     List<ProjectPlanParam> selectProjectPlan();
 
     List<ProjectPlanParam> getProjectPlanByUnitId(int unitId);
+
+    void update(ProjectPlan record);
 }

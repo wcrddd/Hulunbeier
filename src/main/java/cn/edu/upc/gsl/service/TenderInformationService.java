@@ -24,14 +24,29 @@ public interface TenderInformationService {
      * 删除(一般采用软删除)
      * 至del_flag不为0
      * @param id
+     * @return
      */
     int deleteTender(Integer id);
 
+    /**
+     * 根据id
+     * @param id
+     * @return
+     */
     TenderInformation select(Integer id);
 
-    public List<TenderInformation> getAllTender();
+    List<TenderInformation> getAllTender();
 
+    /**
+     * 根据项目id获取招标列表
+     * @param projectId
+     * @return
+     */
     List<TenderInformation> selectByProjectId(Integer projectId);
 
+    /**
+     * 根据项目id删除一些招标信息
+     * @param projectId
+     */
     void delTenderByProjectId(Integer projectId);
 }

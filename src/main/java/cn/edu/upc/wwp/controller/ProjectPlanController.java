@@ -40,11 +40,19 @@ public class ProjectPlanController {
 
 
     @RequestMapping("/updateProjectPlan")//更新
-
     @ResponseBody
     public CommonReturnType update(@RequestBody ProjectPlan recordUp){
 
         projectPlanService.updateProjectPlan(recordUp);
+
+        return  CommonReturnType.create(null);
+    }
+
+    @RequestMapping("/updateApproveExamine")//更新审核审批
+    @ResponseBody
+    public CommonReturnType updateApproveExamine(@RequestBody ProjectPlan recordUp){
+
+        projectPlanService.updateApproveExamine(recordUp);
 
         return  CommonReturnType.create(null);
     }

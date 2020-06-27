@@ -8,6 +8,7 @@ import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 import cn.edu.upc.wwp.service.ProjectPlanService;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,11 +34,17 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
     @Override
     public void updateProjectPlan(ProjectPlan recordUp) {
         recordUp.setOperator("test");
-        projectPlanMapper.updateByPrimaryKeySelective(recordUp);
+        projectPlanMapper.update(recordUp);
     }
 
     @Override
     public List<ProjectPlanParam> getProjectPlanByUnitId(int unitId){
         return projectPlanMapper.getProjectPlanByUnitId(unitId);
+    }
+
+    @Transactional
+    @Override
+    public void updateApproveExamine(ProjectPlan recordUp){
+        projectPlanMapper.updateByPrimaryKeySelective(recordUp);
     }
 }
