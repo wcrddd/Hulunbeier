@@ -44,11 +44,11 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
 
     @Override
     public void deleteFlag(ContractInformation recordDel) {
-        ContractInformation result=contractInformationMapper.selectByPrimaryKey(recordDel.getId());
-        if(result!=null){
-            recordDel.setDelFlag(1);
+//        ContractInformation result=contractInformationMapper.selectByPrimaryKey(recordDel.getId());
+//        if(result!=null){
+            recordDel.setDelFlag(recordDel.getId());
             contractInformationMapper.updateByPrimaryKeySelective(recordDel);
-        }
+//        }
     }
 
     @Override

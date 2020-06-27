@@ -32,14 +32,14 @@ public class predesignReportController {
         return CommonReturnType.create(predesignReportService.getAppendixByProjectId(projectId));
     }
 
-    @RequestMapping("/updateAppendix")//根据项目id获取设计的附件
+    @RequestMapping("/updateAppendix")//更新
     @ResponseBody
     public CommonReturnType updateAppendix(@RequestBody PredesignReportAppendix predesignReportAppendix){
         predesignReportService.updateAppendix(predesignReportAppendix);
         return  CommonReturnType.create("修改成功");
     }
 
-    @RequestMapping("/deleteAppendix")//根据项目id删除设计的附件
+    @RequestMapping("/deleteAppendix")//删除设计的附件
     @ResponseBody
     public CommonReturnType deleteAppendix(@RequestBody PredesignReportAppendix predesignReportAppendix){
         predesignReportService.updateAppendix(predesignReportAppendix);
