@@ -96,6 +96,7 @@ public interface ProjectStoreMapper {
      */
     List<ProjectStoreVo> selectPassProjectByUnitId(@Param("departmentUnitId") Integer departmentUnitId);
 
+    List<ProjectStore> selectPassProjectByUnitId2(@Param("departmentUnitId") Integer departmentUnitId);
     /**
      * 更新计划申报项目的标志位
      * @param id

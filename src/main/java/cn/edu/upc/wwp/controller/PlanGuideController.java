@@ -20,7 +20,7 @@ public class PlanGuideController {
 
 
 
-    @RequestMapping("/selectPlanGuide")
+    @RequestMapping("/selectPlanGuide")//（1）查看所有计划指南
 
     @ResponseBody
     public CommonReturnType select(){
@@ -39,7 +39,7 @@ public class PlanGuideController {
         return  CommonReturnType.create(null);
     }
 
-    @RequestMapping("/updatePlanGuide")
+    @RequestMapping("/updatePlanGuide")//（2）修改计划指南
 
     @ResponseBody
     public CommonReturnType update(@RequestBody PlanGuide recordUp){

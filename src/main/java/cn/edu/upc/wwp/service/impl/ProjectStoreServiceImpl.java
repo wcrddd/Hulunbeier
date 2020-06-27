@@ -23,4 +23,9 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     public List<ProjectStore> searchProjectStore(ProjectStore projectStore) {
         return projectStoreMapper.searchProjectStore(projectStore);
     }
+
+    @Override
+    public List<ProjectStore> getProjectStoreByUnitId(int unitId){
+        return projectStoreMapper.selectPassProjectByUnitId2(unitId);
+    }
 }
