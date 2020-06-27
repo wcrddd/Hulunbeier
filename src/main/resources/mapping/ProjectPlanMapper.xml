@@ -238,7 +238,7 @@
           pp1.*,ps2.project_name
        from
           project_plan pp1, project_store ps2
-       where pp1.del_flag = 0 and pp1.approve = 1  and pp1.project_id = ps2.project_id
+       where pp1.del_flag = 0 and pp1.approve = 1  and pp1.project_id = ps2.id and construct_unit_id=1
 
   </select>
 </mapper>

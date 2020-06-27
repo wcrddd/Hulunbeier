@@ -36,5 +36,15 @@ public class PlanGuideServiceImpl implements PlanGuideService {
 
     }
 
+    @Override
+    public void deleteFlag(PlanGuide recordDel) {
+        PlanGuide result=planGuideMapper.selectByPrimaryKey1(recordDel.getId());
+        if(result!=null){
+            recordDel.setDelFlag(1);
+            planGuideMapper.updateByPrimaryKeySelective(recordDel);
+        }
+
+    }
+
 
 }
