@@ -4,6 +4,7 @@ import cn.edu.upc.manage.dao.ContractInformationMapper;
 import cn.edu.upc.manage.model.ContractInformation;
 import cn.edu.upc.manage.model.ContractInformationWithTenderId;
 import cn.edu.upc.manage.model.ContractStatistics;
+import cn.edu.upc.manage.model.ContractWithProjectName;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,4 +20,5 @@ public interface ContractInformationService {
     public ContractInformation getContractBytId(int id);
     public ContractStatistics getContractStatistics(int projectId);
     public List<ContractInformation> getContractByTenderId(int tenderId);
+    public List<ContractWithProjectName> getAllContractWithProjectName();
 }

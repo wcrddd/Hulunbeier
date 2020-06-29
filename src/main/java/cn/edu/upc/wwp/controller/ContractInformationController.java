@@ -93,4 +93,10 @@ public class ContractInformationController {
         return CommonReturnType.create(null,null,0,"审核成功");
     }
 
+    @RequestMapping("/getAllContractWithProjectName")
+    @ResponseBody
+    public CommonReturnType getAllContractWithProjectName(){
+        return CommonReturnType.create(contractInformationService.getAllContractWithProjectName());
+    }
+
 }

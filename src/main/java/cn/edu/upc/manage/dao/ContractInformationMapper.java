@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.ContractInformation;
+import cn.edu.upc.manage.model.ContractWithProjectName;
 
 import java.util.List;
 
@@ -60,5 +61,7 @@ public interface ContractInformationMapper {
     int selectLastInsert();
 
     List<ContractInformation> getContractByTenderId(int tenderId);
+
+    List<ContractWithProjectName> getAllContractWithProjectName();
 
 }
