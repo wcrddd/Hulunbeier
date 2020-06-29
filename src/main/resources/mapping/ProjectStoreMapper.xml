@@ -42,7 +42,7 @@
         id, project_id, apply_type, guide_id, project_name,department, build_year, place, project_type,
         invest_direction, industry_direction, implement_dept, invest_estimate, content, appendix,
         approve, approve_time, opinion, constru_unit_id, create_time, del_flag, operator,
-        operator_ip, operator_time planed_flag
+        operator_ip, operator_time, planed_flag
     </sql>
     <resultMap id="ProjectStoreWithUnitName" type="cn.edu.upc.manage.model.ProjectStoreWithUnitName"
                extends="BaseResultMap">
@@ -169,7 +169,7 @@ SELECT a.*,guide.title,
         content, appendix, approve,
         approve_time, opinion, constru_unit_id,
         create_time, del_flag, operator,
-        operator_ip, operator_time planed_flag)
+        operator_ip, operator_time, planed_flag)
         values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=VARCHAR}, #{applyType,jdbcType=INTEGER},
         #{guideId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR},#{department,jdbcType=VARCHAR} #{buildYear,jdbcType=VARCHAR},
         #{place,jdbcType=VARCHAR}, #{projectType,jdbcType=INTEGER}, #{investDirection,jdbcType=VARCHAR},
@@ -202,8 +202,8 @@ SELECT a.*,guide.title,
             <if test="projectName != null">
                 project_name,
             </if>
-            <if test="department != null" >
-                department
+            <if test="department != null">
+                department,
             </if>
             <if test="buildYear != null">
                 build_year,
@@ -259,7 +259,6 @@ SELECT a.*,guide.title,
             <if test="operatorTime != null">
                 operator_time,
             </if>
---             新增申报标志位
             <if test="planedFlag !=null ">
             planed_flag,
             </if>
@@ -280,9 +279,8 @@ SELECT a.*,guide.title,
             <if test="projectName != null">
                 #{projectName,jdbcType=VARCHAR},
             </if>
---          //新增主管部门字段
             <if test="department != null">
-                #{department,jdbcType=VARCHAR}
+                #{department,jdbcType=VARCHAR},
             </if>
             <if test="buildYear != null">
                 #{buildYear,jdbcType=VARCHAR},
@@ -339,7 +337,7 @@ SELECT a.*,guide.title,
                 #{operatorTime,jdbcType=TIMESTAMP},
             </if>
             <if test="planedFlag !=null ">
-            #{planedFlag,jdbcType = INTEGER}
+            #{planedFlag,jdbcType = INTEGER},
             </if>
         </trim>
     </insert>
@@ -364,7 +362,7 @@ SELECT a.*,guide.title,
                 project_name = #{projectName,jdbcType=VARCHAR},
             </if>
             <if test="department != null">
-                #{department,jdbcType=VARCHAR}
+                #{department,jdbcType=VARCHAR},
             </if>
             <if test="buildYear != null">
                 build_year = #{buildYear,jdbcType=VARCHAR},
@@ -421,7 +419,7 @@ SELECT a.*,guide.title,
                 operator_time = #{operatorTime,jdbcType=TIMESTAMP},
             </if>
             <if test="planedFlag !=null ">
-            planed_flag = #{planedFlag,jdbcType = INTEGER}
+            planed_flag = #{planedFlag,jdbcType = INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -455,7 +453,7 @@ SELECT a.*,guide.title,
         del_flag = #{delFlag,jdbcType=INTEGER},
         operator = #{operator,jdbcType=VARCHAR},
         operator_ip = #{operatorIp,jdbcType=VARCHAR},
-        operator_time = #{operatorTime,jdbcType=TIMESTAMP}
+        operator_time = #{operatorTime,jdbcType=TIMESTAMP},
         planed_flag = #{planedFlag,jdbcType = INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>

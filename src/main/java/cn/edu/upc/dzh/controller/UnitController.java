@@ -37,6 +37,11 @@ public class UnitController {
         return CommonReturnType.create(constructionUnit,"查询完成");
     }
 
+    /**
+     *
+     * @param constructionUnit
+     * @return
+     */
     @RequestMapping("/addUnit")
     @ResponseBody
     public CommonReturnType addUnit(@RequestBody ConstructionUnit constructionUnit){
