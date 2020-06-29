@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.TenderInformation;
+import cn.edu.upc.manage.vo.TenderInformationVo;
 
 import java.util.List;
 
@@ -59,7 +60,11 @@ public interface TenderInformationMapper {
      */
     int updateDelFlagForId(Integer id);
 
-    List<TenderInformation> getAllTender();
+    /**
+     * 返回所有招标，带项目名称
+     * @return
+     */
+    List<TenderInformationVo> getAllTender();
 
     List<TenderInformation> selectByProjectId(Integer projectId);
 
