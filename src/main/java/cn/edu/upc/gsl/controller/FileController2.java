@@ -1,5 +1,6 @@
 package cn.edu.upc.gsl.controller;
 
+import cn.edu.upc.dzh.controller.FileController;
 import cn.edu.upc.gsl.service.FileService2;
 import cn.edu.upc.gsl.service.GuideService;
 import cn.edu.upc.manage.common.CommonReturnType;
@@ -41,6 +42,7 @@ public class FileController2 {
     @ResponseBody
     public CommonReturnType downloadAppendix(@Param("path") String path, HttpServletRequest request, HttpServletResponse response) {
         System.out.println("路径："+path);
+        path= FileController.saveUrl+path;
         fileService2.downloadFile(path,request,response);
         return CommonReturnType.create(null, "下载完成");
     }

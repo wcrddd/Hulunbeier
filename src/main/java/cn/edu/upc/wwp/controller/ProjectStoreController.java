@@ -1,5 +1,6 @@
 package cn.edu.upc.wwp.controller;
 
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.wwp.service.ProjectStoreService;
@@ -21,8 +22,10 @@ public class ProjectStoreController {
     @RequestMapping("/getProjectStoreList")
 
     @ResponseBody
-    public CommonReturnType getProjectStoreList(){
-        List<ProjectStore> list1= projectStoreService.selectProjectStore();
+    public CommonReturnType getProjectStoreList(HttpSession session){
+//        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        List<ProjectStore> list1= projectStoreService.selectProjectStore(unitId);
         return  CommonReturnType.create(list1,"查询成功");
     }
 

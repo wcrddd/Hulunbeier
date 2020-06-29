@@ -86,4 +86,11 @@ public class ContractInformationController {
         return CommonReturnType.create(contractInformationService.getContractByTenderId(tenderId));
     }
 
+    @RequestMapping("/updateApprove")
+    @ResponseBody
+    public CommonReturnType updateApprove(@RequestBody  ContractInformation contractInformation ){
+        contractInformationService.updateContractInformation(contractInformation);
+        return CommonReturnType.create(null,null,0,"审核成功");
+    }
+
 }

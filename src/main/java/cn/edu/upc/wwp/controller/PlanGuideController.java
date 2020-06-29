@@ -48,5 +48,11 @@ public class PlanGuideController {
 
         return  CommonReturnType.create(null);
     }
+    @RequestMapping("/deletePlanGuide")
 
+    @ResponseBody
+    public CommonReturnType deleteFlag(@RequestBody PlanGuide recordDel){
+        planGuideService.deleteFlag(recordDel);
+        return  CommonReturnType.create("null");
+    }
 }

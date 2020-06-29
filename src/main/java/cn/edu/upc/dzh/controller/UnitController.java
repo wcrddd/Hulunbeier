@@ -38,8 +38,7 @@ public class UnitController {
     }
 
     /**
-     *
-     * @param constructionUnit
+     * 新增建设单位
      * @return
      */
     @RequestMapping("/addUnit")
