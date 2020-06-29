@@ -203,4 +203,8 @@
       operator_time = #{operatorTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getByProjectId" resultMap="BaseResultMap">
+        select * from feasibility_research_report where project_id=#{projectId}
+  </select>
 </mapper>

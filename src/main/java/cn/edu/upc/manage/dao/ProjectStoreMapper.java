@@ -72,7 +72,7 @@ public interface ProjectStoreMapper {
      */
     int updateByPrimaryKey(ProjectStore record);
 
-    List<ProjectStore> selectProjectStore();
+    List<ProjectStore> selectProjectStore(int unitId);
 
     List<ProjectStore> searchProjectStore(ProjectStore projectStore);
 

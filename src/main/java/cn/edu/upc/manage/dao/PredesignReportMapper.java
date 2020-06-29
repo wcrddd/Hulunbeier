@@ -50,4 +50,6 @@ public interface PredesignReportMapper {
      * @mbg.generated Sat Jun 27 11:26:58 CST 2020
      */
     int updateByPrimaryKey(PredesignReport record);
+
+    PredesignReport selectByProjectId(Integer projectId);
 }

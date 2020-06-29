@@ -179,4 +179,8 @@
       examine = #{examine,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByProjectId" resultMap="BaseResultMap">
+    select * from predesign_report where project_id=#{projectId}
+  </select>
 </mapper>

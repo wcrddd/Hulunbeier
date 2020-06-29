@@ -15,8 +15,8 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     @Resource
     ProjectStoreMapper projectStoreMapper;
     @Override
-    public List<ProjectStore> selectProjectStore() {
-        return projectStoreMapper.selectProjectStore();
+    public List<ProjectStore> selectProjectStore(int unitId) {
+        return projectStoreMapper.selectProjectStore(unitId);
     }
 
     @Override

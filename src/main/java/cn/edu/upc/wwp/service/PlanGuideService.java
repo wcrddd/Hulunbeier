@@ -8,4 +8,6 @@ public interface PlanGuideService {
     public void insertProjectGuide(PlanGuide planGuide);
     public List<PlanGuide> selectPlanGuide();
     public void updatePlanGuide(PlanGuide recordUp);
+    public void deleteFlag(PlanGuide recordDel);
+
 }

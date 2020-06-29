@@ -54,6 +54,7 @@ public interface ProjectStoreAuditService {
     /**
      * 设置计划申报的标志位
      * @param id
+     * @param planedFlag
      */
     void setPlanedFlag(Integer id,Integer planedFlag);
 }

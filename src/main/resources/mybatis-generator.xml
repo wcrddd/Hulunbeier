@@ -56,7 +56,7 @@
 <!--
        <table tableName="tender_information" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
-        <table tableName="contract_information" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="view_study_report" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
 
     </context>

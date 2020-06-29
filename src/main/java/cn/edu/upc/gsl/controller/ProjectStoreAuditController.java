@@ -132,8 +132,9 @@ public class ProjectStoreAuditController {
      */
     @RequestMapping(value = "/set/planedFlag")
     @ResponseBody
-    public CommonReturnType setPlanedFlag(@RequestParam("id") Integer id){
-        Integer planedFlag = 1;
+    public CommonReturnType setPlanedFlag(@RequestBody JSONObject jsonObject){
+        Integer id = jsonObject.getInteger("id");
+        Integer planedFlag = jsonObject.getInteger("planedFlag");
         projectStoreAuditService.setPlanedFlag(id,planedFlag);
         return CommonReturnType.create(null,"操作成功");
     }

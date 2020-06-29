@@ -50,4 +50,6 @@ public interface FeasibilityResearchReportMapper {
      * @mbg.generated Fri Jun 26 22:25:06 CST 2020
      */
     int updateByPrimaryKey(FeasibilityResearchReport record);
+
+    FeasibilityResearchReport getByProjectId(int projectId);
 }

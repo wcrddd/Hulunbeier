@@ -62,7 +62,7 @@ public class ProjectPlanController {
     @ResponseBody
     public CommonReturnType getProjectPlanByUnitId(HttpSession session){
 //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=2;
+        int unitId=1;
         List<ProjectPlanParam> list1=  projectPlanService.getProjectPlanByUnitId(unitId);
         return  CommonReturnType.create(list1);
     }
