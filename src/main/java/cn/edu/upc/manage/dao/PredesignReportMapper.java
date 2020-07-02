@@ -1,6 +1,9 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.PredesignReport;
+import cn.edu.upc.manage.vo.PredesignReportWithProject;
+
+import java.util.List;
 
 public interface PredesignReportMapper {
     /**
@@ -52,4 +55,8 @@ public interface PredesignReportMapper {
     int updateByPrimaryKey(PredesignReport record);
 
     PredesignReport selectByProjectId(Integer projectId);
+
+    void updateApproveExamine();
+
+    List<PredesignReportWithProject> getAllpredesignReport();
 }

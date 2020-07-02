@@ -41,7 +41,7 @@ public class ProjectStoreAuditController {
     @ResponseBody
     public CommonReturnType update(@RequestBody ProjectStore projectStore){
         projectStoreAuditService.update(projectStore);
-        return CommonReturnType.create(null);
+        return CommonReturnType.create(null,"更新完成");
     }
 
     /**
@@ -126,8 +126,8 @@ public class ProjectStoreAuditController {
 
     /**
      * 申报计划项目时，设置计划计划申报的标志位
-     * 1 代表已申报的项目
      * 0 代表未申报的项目(数据库中默认为0)
+     * 其它数字由 前端设定
      * @return
      */
     @RequestMapping(value = "/set/planedFlag")

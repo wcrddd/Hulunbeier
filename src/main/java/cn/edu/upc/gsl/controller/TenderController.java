@@ -2,8 +2,8 @@ package cn.edu.upc.gsl.controller;
 
 import cn.edu.upc.gsl.service.TenderInformationService;
 import cn.edu.upc.manage.common.CommonReturnType;
-import cn.edu.upc.manage.model.ContractInformation;
 import cn.edu.upc.manage.model.TenderInformation;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -60,11 +60,21 @@ public class TenderController {
         return CommonReturnType.create(null,"修改成功");
     }
 
+    /**
+     * 获取全部招标信息，带对应的项目名称
+     * @return
+     */
     @RequestMapping(value = "/getAllTender")
     @ResponseBody
     public  CommonReturnType  getAllTender(){
         return CommonReturnType.create(tenderInformationService.getAllTender());
     }
+
+    /**
+     * 根据id查询招标信息
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/select")
     @ResponseBody
     public CommonReturnType select(@RequestParam(value = "id") Integer id){
@@ -92,5 +102,14 @@ public class TenderController {
         tenderInformationService.updateTender(tenderInformation);
         return CommonReturnType.create(null,null,0,"审核成功");
     }
+
+    @RequestMapping("/getTenderContractState")
+    @ResponseBody
+    public CommonReturnType getTenderContractState(@RequestBody JSONObject jsonObject){
+        int projectId=jsonObject.getInteger("projectId");
+
+        return CommonReturnType.create(tenderInformationService.getTenderContractState(projectId));
+    }
+
 
 }

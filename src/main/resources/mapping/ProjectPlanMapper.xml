@@ -39,6 +39,17 @@
 
   </resultMap>
 
+
+  <resultMap id="ProjectPlanFlag" type="cn.edu.upc.manage.vo.ProjectPlanFlag" extends="ResultMapParam">
+    <result column="planed_flag" jdbcType="VARCHAR" property="planedFlag"/>
+  </resultMap>
+
+  <resultMap id="ProjectPlanDesign" type="cn.edu.upc.manage.vo.ProjectPlanDesign" extends="ProjectPlanFlag">
+    <result column="pr_approve" jdbcType="VARCHAR" property="prApprove"/>
+    <result column="pr_examine" jdbcType="VARCHAR" property="prExamine"/>
+  </resultMap>
+
+
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
@@ -290,4 +301,39 @@
     </set>
     where  project_id = #{projectId,jdbcType=INTEGER}
   </update>
+
+  <select id="getApprovedProjectByUnitId" resultMap="ProjectPlanFlag">
+  select
+  pp1.*,ps2.project_name,ps2.planed_flag
+  from
+  project_plan pp1, project_store ps2
+  where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=#{unitId} and pp1.approve=1 and pp1.examine=1
+  </select>
+
+  <select id="getCanDesignByUnitId" resultMap="ProjectPlanFlag">
+    	  select
+  pp1.*,ps2.project_name,ps2.planed_flag
+  from
+  project_plan pp1, project_store ps2,feasibility_research_report frr
+  where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=constru_unit_id=#{unitId} and pp1.approve=1 and pp1.examine=1 and frr.project_id=ps2.id
+	and frr.approve=1 and frr.examine=1
+  </select>
+
+  <select id="getDesignByUnitId" resultMap="ProjectPlanDesign">
+      select
+  pp1.*,ps2.project_name,ps2.planed_flag,pr.approve as pr_approve,pr.examine as pr_examine
+  from
+  project_plan pp1, project_store ps2,predesign_report pr
+  where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=#{unitId} and pp1.approve=1 and pp1.examine=1
+	and pp1.project_id = pr.project_id
+  </select>
+
+  <select id="getAllApprovedDesign" resultMap="ProjectPlanDesign">
+      select
+  pp1.*,ps2.project_name,ps2.planed_flag,pr.approve as pr_approve,pr.examine as pr_examine
+  from
+  project_plan pp1, project_store ps2,predesign_report pr
+  where pp1.del_flag = 0  and pp1.project_id = ps2.id  and pp1.approve=1 and pp1.examine=1
+	and pp1.project_id = pr.project_id and pr.approve=1
+  </select>
 </mapper>

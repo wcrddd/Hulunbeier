@@ -3,8 +3,10 @@ package cn.edu.upc.dzh.service.impl;
 import cn.edu.upc.dzh.service.PredesignReportService;
 import cn.edu.upc.manage.dao.PredesignReportAppendixMapper;
 import cn.edu.upc.manage.dao.PredesignReportMapper;
+import cn.edu.upc.manage.model.FeasibilityResearchReport;
 import cn.edu.upc.manage.model.PredesignReport;
 import cn.edu.upc.manage.model.PredesignReportAppendix;
+import cn.edu.upc.manage.vo.PredesignReportWithProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,4 +47,11 @@ public class predesignReportServiceImpl implements PredesignReportService {
     public void updateApproveExamine(PredesignReport predesignReport){
         predesignReportMapper.updateByPrimaryKeySelective(predesignReport);
     }
+
+    @Override
+    public List<PredesignReportWithProject> getAllpredesignReport(){
+        return predesignReportMapper.getAllpredesignReport();
+    }
+
+
 }

@@ -28,4 +28,9 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     public List<ProjectStore> getProjectStoreByUnitId(int unitId){
         return projectStoreMapper.selectPassProjectByUnitId2(unitId);
     }
+
+    @Override
+    public List<ProjectStore> getCanTenderByUnitId(int unitId){
+        return projectStoreMapper.getCanTenderByUnitId(unitId);
+    }
 }

@@ -32,6 +32,16 @@
     <result column="operator_time" jdbcType="TIMESTAMP" property="operatorTime" />
     <result column="opinion" jdbcType="VARCHAR" property="opinion" />
   </resultMap>
+
+<!--  增加返回项目名称-->
+  <resultMap id="TenderInformationContractState" type="cn.edu.upc.manage.vo.TenderInformationContractState" extends="BaseResultMap">
+    <result column="contract_state" jdbcType="VARCHAR" property="contractState"/>
+  </resultMap>
+
+  <resultMap id="TenderInformationWithProjectName" type="cn.edu.upc.manage.vo.TenderInformationVo" extends="BaseResultMap">
+    <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+  </resultMap>
+
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
@@ -363,11 +373,14 @@
     where id= #{id,jdbcType = INTEGER}
   </update>
 
-  <select id="getAllTender" resultMap="BaseResultMap">
-    select * from tender_information where del_flag=0
+<!--  带项目名称的全部招标信息-->
+  <select id="getAllTender" resultMap="TenderInformationWithProjectName">
+    select ti.*, ps.project_name from tender_information ti,project_store ps
+    where ti.del_flag = 0 and ps.del_flag = 0 and ti.project_id = ps.id
+		ORDER BY approve
   </select>
 
-<!--  根据项目id删除招标信心-->
+<!--  根据项目id删除招标信息-->
   <select id="updateDelFlag" parameterType="java.lang.Integer">
     update tender_information set del_flag = #{projectId}
     where project_id = #{peojectId,jdbcType = INTEGER}
@@ -378,4 +391,19 @@
         select * from tender_information where del_flag = 0
         and project_id = #{projectId,jdbcType=INTEGER}
     </select>
+
+  <select id="getTenderContractState" resultMap="TenderInformationContractState">
+        select a.*,
+	 case contract_information.approve
+				when 0 then 0
+	      when 1 then 1
+				when 2 then 2
+				else  3
+				end as contract_state
+	from
+(select * from tender_information where del_flag = 0 and project_id = #{projectId} ) as a
+LEFT JOIN contract_tender_relation on a.id=contract_tender_relation.tender_id
+LEFT JOIN contract_information on contract_information.id=contract_tender_relation.contract_id
+
+  </select>
 </mapper>

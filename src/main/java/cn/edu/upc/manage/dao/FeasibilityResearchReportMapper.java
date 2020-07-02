@@ -1,6 +1,10 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.FeasibilityResearchReport;
+import cn.edu.upc.manage.model.StudyReport;
+import cn.edu.upc.manage.vo.FeasibilityProjectName;
+
+import java.util.List;
 
 public interface FeasibilityResearchReportMapper {
     /**
@@ -52,4 +56,12 @@ public interface FeasibilityResearchReportMapper {
     int updateByPrimaryKey(FeasibilityResearchReport record);
 
     FeasibilityResearchReport getByProjectId(int projectId);
+
+    List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId);
+
+    void updateReport(FeasibilityResearchReport record);
+
+    List<FeasibilityProjectName> getAllApprovedFeasibility();
+
+
 }
