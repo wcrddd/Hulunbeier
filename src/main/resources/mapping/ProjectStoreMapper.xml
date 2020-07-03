@@ -510,4 +510,14 @@ SELECT a.*,guide.title,
         	select * from project_store where del_flag=0 and id in
         	(select project_id from predesign_report where approve=1 and examine=1) and constru_unit_id=#{unitId}
     </select>
+
+    <select id="getCanContractByUnitId" resultMap="BaseResultMap">
+         	select * from project_store where del_flag=0 and id in
+        	(select project_id from tender_information where approve=1 ) and constru_unit_id=#{unitId}
+    </select>
+
+    <select id="getCanProgressByUnitId" resultMap="BaseResultMap">
+                	select * from project_store where del_flag=0 and id in
+        	(select project_id from contract_information where approve=1 ) and constru_unit_id=#{unitId}
+    </select>
 </mapper>

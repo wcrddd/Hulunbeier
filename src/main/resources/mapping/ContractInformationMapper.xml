@@ -329,4 +329,9 @@
 		LEFT JOIN project_store on project_store.id=a.project_id
 		ORDER BY approve
   </select>
+
+  <select id="getCompletedByUnitId" resultMap="ContractWithProjectName">
+    	select ci.*,ps.project_name from contract_information ci,project_store ps where ps.del_flag=0 and ps.id=ci.project_id and constru_unit_id=#{unitId}
+	and ci.approve=1 and ci.del_flag=0 and ps.id in (select project_id from construction_progress where progress='100%' and approve=1)
+  </select>
 </mapper>

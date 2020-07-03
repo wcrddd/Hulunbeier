@@ -77,4 +77,9 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     public List<ContractWithProjectName> getAllContractWithProjectName(){
         return contractInformationMapper.getAllContractWithProjectName();
     }
+
+    @Override
+    public List<ContractWithProjectName> getCompletedByUnitId(int unitId){
+        return contractInformationMapper.getCompletedByUnitId(unitId);
+    }
 }

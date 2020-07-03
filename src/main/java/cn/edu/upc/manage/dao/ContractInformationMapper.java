@@ -64,4 +64,11 @@ public interface ContractInformationMapper {
 
     List<ContractWithProjectName> getAllContractWithProjectName();
 
+    /**
+     * 获取本单位可以填报竣工的合同和项目名
+     * @param unitId
+     * @return
+     */
+    List<ContractWithProjectName> getCompletedByUnitId(int unitId);
+
 }

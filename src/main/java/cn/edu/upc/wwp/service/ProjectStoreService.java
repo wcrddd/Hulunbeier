@@ -10,4 +10,6 @@ public interface ProjectStoreService {
     public List<ProjectStore> searchProjectStore(ProjectStore projectStore);
     public List<ProjectStore> getProjectStoreByUnitId(int unitId);
     public List<ProjectStore> getCanTenderByUnitId(int unitId);
+    public List<ProjectStore> getCanContractByUnitId(int unitId);
+    public List<ProjectStore> getCanProgressByUnitId(int unitId);
 }

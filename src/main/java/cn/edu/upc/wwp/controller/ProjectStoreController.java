@@ -72,5 +72,18 @@ public class ProjectStoreController {
         return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
     }
 
+    /**
+     * 获取本单位可以填报进度的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanProgressByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanProgressByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
+    }
+
 
 }

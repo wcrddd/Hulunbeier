@@ -105,4 +105,8 @@ public interface ProjectStoreMapper {
     void updatePlanedFlag(@Param("id") Integer id, @Param("planedFlag") Integer planedFlag);
 
      List<ProjectStore> getCanTenderByUnitId(int unitId);
+
+     List<ProjectStore> getCanContractByUnitId(int unitId);
+
+     List<ProjectStore> getCanProgressByUnitId(int unitId);
 }

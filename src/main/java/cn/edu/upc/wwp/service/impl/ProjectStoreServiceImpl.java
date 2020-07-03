@@ -33,4 +33,14 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     public List<ProjectStore> getCanTenderByUnitId(int unitId){
         return projectStoreMapper.getCanTenderByUnitId(unitId);
     }
+
+    @Override
+    public List<ProjectStore> getCanContractByUnitId(int unitId){
+        return projectStoreMapper.getCanContractByUnitId(unitId);
+    }
+
+    @Override
+    public List<ProjectStore> getCanProgressByUnitId(int unitId){
+        return projectStoreMapper.getCanProgressByUnitId(unitId);
+    }
 }

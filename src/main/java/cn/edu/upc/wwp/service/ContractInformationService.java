@@ -21,4 +21,5 @@ public interface ContractInformationService {
     public ContractStatistics getContractStatistics(int projectId);
     public List<ContractInformation> getContractByTenderId(int tenderId);
     public List<ContractWithProjectName> getAllContractWithProjectName();
+    public List<ContractWithProjectName> getCompletedByUnitId(int unitId);
 }
