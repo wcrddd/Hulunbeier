@@ -58,7 +58,7 @@
 <!--               enableUpdateByExample="false"/>-->
 <!--        <table tableName="view_study_report" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
-        <table tableName = "construction_progress" enableCountByExample = "false" enableDeleteByExample = "false"
+        <table tableName = "modal" enableCountByExample = "false" enableDeleteByExample = "false"
                enableSelectByExample="false" enableUpdateByExample = "false"/>
 
     </context>
