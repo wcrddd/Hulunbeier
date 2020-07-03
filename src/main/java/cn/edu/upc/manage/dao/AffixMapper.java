@@ -73,6 +73,6 @@ public interface AffixMapper {
 
     List<Affix> selectAffix();
 
-    int updateByPrimaryKey(Affix record);
+
 
 }
