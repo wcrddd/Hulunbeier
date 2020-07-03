@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.service.impl;
 import cn.edu.upc.gsl.service.TenderInformationService;
 import cn.edu.upc.manage.dao.TenderInformationMapper;
 import cn.edu.upc.manage.model.TenderInformation;
+import cn.edu.upc.manage.vo.TenderInformationContractState;
 import cn.edu.upc.manage.vo.TenderInformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,4 +71,8 @@ public class TenderInformationServiceImpl implements TenderInformationService {
         tenderInformationMapper.updateDelFlag(projectId);
     }
 
+    @Override
+    public List<TenderInformationContractState> getTenderContractState(int projectId){
+        return tenderInformationMapper.getTenderContractState(projectId);
+    }
 }

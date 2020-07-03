@@ -1,6 +1,8 @@
 package cn.edu.upc.wwp.service;
 
 import cn.edu.upc.manage.model.ProjectPlan;
+import cn.edu.upc.manage.vo.ProjectPlanDesign;
+import cn.edu.upc.manage.vo.ProjectPlanFlag;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 
 import java.util.List;
@@ -11,4 +13,8 @@ public interface ProjectPlanService {
     public void updateProjectPlan(ProjectPlan recordUp);
     public List<ProjectPlanParam> getProjectPlanByUnitId(int unitId);
     public void updateApproveExamine(ProjectPlan recordUp);
+    public List<ProjectPlanFlag> getApprovedProjectByUnitId(int unitId);
+    public List<ProjectPlanFlag> getCanDesignByUnitId(int unitId);
+    public List<ProjectPlanDesign> getDesignByUnitId(int unitId);
+    public List<ProjectPlanDesign> getAllApprovedDesign();
 }

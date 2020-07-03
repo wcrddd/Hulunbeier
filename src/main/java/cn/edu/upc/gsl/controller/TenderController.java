@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.controller;
 import cn.edu.upc.gsl.service.TenderInformationService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.TenderInformation;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -100,6 +101,14 @@ public class TenderController {
     public CommonReturnType updateApprove(@RequestBody TenderInformation tenderInformation ){
         tenderInformationService.updateTender(tenderInformation);
         return CommonReturnType.create(null,null,0,"审核成功");
+    }
+
+    @RequestMapping("/getTenderContractState")
+    @ResponseBody
+    public CommonReturnType getTenderContractState(@RequestBody JSONObject jsonObject){
+        int projectId=jsonObject.getInteger("projectId");
+
+        return CommonReturnType.create(tenderInformationService.getTenderContractState(projectId));
     }
 
 

@@ -4,6 +4,7 @@ import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.Post;
 import cn.edu.upc.manage.model.ProjectPlan;
+import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 import cn.edu.upc.wwp.service.ProjectPlanService;
 import com.alibaba.fastjson.JSONObject;
@@ -65,6 +66,56 @@ public class ProjectPlanController {
         int unitId=1;
         List<ProjectPlanParam> list1=  projectPlanService.getProjectPlanByUnitId(unitId);
         return  CommonReturnType.create(list1);
+    }
+
+    /**
+     * 获取本单位可以填报可研报告的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getApprovedProjectByUnitId")
+    @ResponseBody
+    public CommonReturnType getApprovedProjectByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectPlanService.getApprovedProjectByUnitId(unitId),"查询成功");
+    }
+
+    /**
+     * 获取本单位可以填报初步设计的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanDesignByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanDesignByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectPlanService.getCanDesignByUnitId(unitId),"查询成功");
+    }
+
+    /**
+     * 获取本单位已经填报的初步设计，进行审核
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getDesignByUnitId")
+    @ResponseBody
+    public CommonReturnType getDesignByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectPlanService.getDesignByUnitId(unitId),"查询成功");
+    }
+
+    /**
+     * 获取全部单位已经审核通过的初步设计，进行审批
+     * @param
+     * @return
+     */
+    @RequestMapping("/getAllApprovedDesign")
+    @ResponseBody
+    public CommonReturnType getAllApprovedDesign(){
+        return  CommonReturnType.create(projectPlanService.getAllApprovedDesign(),"查询成功");
     }
 
 

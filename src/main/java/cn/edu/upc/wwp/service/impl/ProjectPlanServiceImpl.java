@@ -4,6 +4,8 @@ import cn.edu.upc.manage.dao.ProjectPlanMapper;
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.model.ProjectPlan;
 
+import cn.edu.upc.manage.vo.ProjectPlanDesign;
+import cn.edu.upc.manage.vo.ProjectPlanFlag;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 import cn.edu.upc.wwp.service.ProjectPlanService;
 
@@ -46,5 +48,25 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
     @Override
     public void updateApproveExamine(ProjectPlan recordUp){
         projectPlanMapper.updateByPrimaryKeySelective(recordUp);
+    }
+
+    @Override
+    public List<ProjectPlanFlag> getApprovedProjectByUnitId(int unitId){
+        return projectPlanMapper.getApprovedProjectByUnitId(unitId);
+    }
+
+    @Override
+    public List<ProjectPlanFlag> getCanDesignByUnitId(int unitId){
+        return projectPlanMapper.getCanDesignByUnitId(unitId);
+    }
+
+    @Override
+    public List<ProjectPlanDesign> getDesignByUnitId(int unitId){
+        return projectPlanMapper.getDesignByUnitId(unitId);
+    }
+
+    @Override
+    public List<ProjectPlanDesign> getAllApprovedDesign(){
+        return projectPlanMapper.getAllApprovedDesign();
     }
 }

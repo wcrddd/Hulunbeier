@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @CrossOrigin
@@ -91,6 +92,24 @@ public class ContractInformationController {
     public CommonReturnType updateApprove(@RequestBody  ContractInformation contractInformation ){
         contractInformationService.updateContractInformation(contractInformation);
         return CommonReturnType.create(null,null,0,"审核成功");
+    }
+
+    @RequestMapping("/getAllContractWithProjectName")
+    @ResponseBody
+    public CommonReturnType getAllContractWithProjectName(){
+        return CommonReturnType.create(contractInformationService.getAllContractWithProjectName());
+    }
+
+    /**
+     *获取本单位可以竣工的项目合同
+     * @return
+     */
+    @RequestMapping("/getCompletedByUnitId")
+    @ResponseBody
+    public CommonReturnType getCompletedByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return CommonReturnType.create(contractInformationService.getCompletedByUnitId(unitId));
     }
 
 }

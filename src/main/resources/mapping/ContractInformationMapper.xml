@@ -37,6 +37,13 @@
     contract_term, signing_time, contrscy_money, remarks, approve, create_time, del_flag, 
     operator, operator_ip, operator_time, opinion
   </sql>
+
+  <resultMap id="ContractWithProjectName" type="cn.edu.upc.manage.model.ContractWithProjectName"
+             extends="BaseResultMap">
+    <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+    <result column="tender_document_name" jdbcType="VARCHAR" property="tenderDocumentName"/>
+  </resultMap>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -312,5 +319,19 @@
   <select id="getContractByTenderId" resultMap="BaseResultMap">
     select * from contract_information where del_flag=0 and id in (select contract_id from contract_tender_relation where del_flag=0 and tender_id=#{tenderId})
 
+  </select>
+
+  <select id="getAllContractWithProjectName" resultMap="ContractWithProjectName">
+    		select a.*,project_store.project_name from
+		(select contract_information.*,tender_information.tender_document_name from contract_information,tender_information,contract_tender_relation where
+		contract_information.id=contract_tender_relation.contract_id and tender_information.id=contract_tender_relation.tender_id and contract_information.del_flag=0
+		 )as a
+		LEFT JOIN project_store on project_store.id=a.project_id
+		ORDER BY approve
+  </select>
+
+  <select id="getCompletedByUnitId" resultMap="ContractWithProjectName">
+    	select ci.*,ps.project_name from contract_information ci,project_store ps where ps.del_flag=0 and ps.id=ci.project_id and constru_unit_id=#{unitId}
+	and ci.approve=1 and ci.del_flag=0 and ps.id in (select project_id from construction_progress where progress='100%' and approve=1)
   </select>
 </mapper>

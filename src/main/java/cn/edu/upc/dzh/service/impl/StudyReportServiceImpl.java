@@ -7,6 +7,7 @@ import cn.edu.upc.manage.dao.ViewStudyReportMapper;
 import cn.edu.upc.manage.model.FeasibilityResearchReport;
 import cn.edu.upc.manage.model.StudyReport;
 import cn.edu.upc.manage.model.ViewStudyReport;
+import cn.edu.upc.manage.vo.FeasibilityProjectName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +53,26 @@ public class StudyReportServiceImpl implements StudyReportService {
     @Transactional
     @Override
     public void updateReport(FeasibilityResearchReport feasibilityResearchReport){
+        feasibilityResearchReportMapper.updateReport(feasibilityResearchReport);
+    }
+
+    @Override
+    public void updateApproveExamine(FeasibilityResearchReport feasibilityResearchReport){
         feasibilityResearchReportMapper.updateByPrimaryKeySelective(feasibilityResearchReport);
+    }
+
+    @Override
+    public List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId){
+        return feasibilityResearchReportMapper.getFeasibilityByUnitId(unitId);
+    }
+
+    @Override
+    public List<StudyReport> getAppendixBuProjectId(int projectId){
+        return studyReportMapper.getAppendixBuProjectId(projectId);
+    }
+
+    @Override
+    public List<FeasibilityProjectName> getAllApprovedFeasibility(){
+        return feasibilityResearchReportMapper.getAllApprovedFeasibility();
     }
 }

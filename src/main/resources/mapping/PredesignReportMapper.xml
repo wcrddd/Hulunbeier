@@ -26,6 +26,15 @@
     id, project_id, create_time, del_flag, operator, operator_ip, operator_time, approve, 
     examine
   </sql>
+
+  <resultMap id="PredesignReportWithProject" type="cn.edu.upc.manage.vo.PredesignReportWithProject"
+             extends="BaseResultMap">
+    <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+    <result column="build_year" jdbcType="VARCHAR" property="buildYear"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+  </resultMap>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -182,5 +191,13 @@
 
   <select id="selectByProjectId" resultMap="BaseResultMap">
     select * from predesign_report where project_id=#{projectId}
+  </select>
+
+  <select id="getAllpredesignReport" resultMap="PredesignReportWithProject">
+    		select project_name,build_year,construction_unit.name,a.* from
+		(select * from predesign_report where del_flag=0) as a
+		LEFT JOIN project_store on a.project_id=project_store.id
+		LEFT JOIN construction_unit on construction_unit.id=project_store.constru_unit_id
+		ORDER BY approve
   </select>
 </mapper>

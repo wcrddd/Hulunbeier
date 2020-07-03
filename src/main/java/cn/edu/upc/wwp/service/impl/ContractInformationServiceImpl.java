@@ -3,10 +3,7 @@ package cn.edu.upc.wwp.service.impl;
 import cn.edu.upc.manage.dao.ContractInformationMapper;
 import cn.edu.upc.manage.dao.ContractStatisticsMapper;
 import cn.edu.upc.manage.dao.ContractTenderRelationMapper;
-import cn.edu.upc.manage.model.ContractInformation;
-import cn.edu.upc.manage.model.ContractInformationWithTenderId;
-import cn.edu.upc.manage.model.ContractStatistics;
-import cn.edu.upc.manage.model.ContractTenderRelation;
+import cn.edu.upc.manage.model.*;
 import cn.edu.upc.wwp.service.ContractInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,5 +71,15 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     @Override
     public List<ContractInformation> getContractByTenderId(int tenderId){
         return contractInformationMapper.getContractByTenderId(tenderId);
+    }
+
+    @Override
+    public List<ContractWithProjectName> getAllContractWithProjectName(){
+        return contractInformationMapper.getAllContractWithProjectName();
+    }
+
+    @Override
+    public List<ContractWithProjectName> getCompletedByUnitId(int unitId){
+        return contractInformationMapper.getCompletedByUnitId(unitId);
     }
 }

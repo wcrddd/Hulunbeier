@@ -56,10 +56,16 @@
 <!--
        <table tableName="tender_information" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
+
+<!--        <table tableName="affix" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false"/>-->
+
 <!--        <table tableName="view_study_report" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
-        <table tableName = "modal" enableCountByExample = "false" enableDeleteByExample = "false"
-               enableSelectByExample="false" enableUpdateByExample = "false"/>
+
+<!--        <table tableName = "modal" enableCountByExample = "false" enableDeleteByExample = "false"-->
+<!--               enableSelectByExample="false" enableUpdateByExample = "false"/>-->
+
 
     </context>
 </generatorConfiguration>

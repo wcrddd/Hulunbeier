@@ -41,9 +41,48 @@ public class ProjectStoreController {
     @ResponseBody
     public CommonReturnType getProjectStoreByUnitId(HttpSession session){
         //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=2;
+        int unitId=1;
         List<ProjectStore> list2= projectStoreService.getProjectStoreByUnitId(unitId);
         return  CommonReturnType.create(list2,"查询成功");
+    }
+
+    /**
+     * 获取本单位可以招标的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanTenderByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanTenderByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
+    }
+
+    /**
+     * 获取本单位可以填报合同的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanContractByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanContractByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
+    }
+
+    /**
+     * 获取本单位可以填报进度的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanProgressByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanProgressByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
     }
 
 

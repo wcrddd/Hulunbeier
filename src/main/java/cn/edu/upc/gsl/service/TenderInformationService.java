@@ -1,6 +1,7 @@
 package cn.edu.upc.gsl.service;
 
 import cn.edu.upc.manage.model.TenderInformation;
+import cn.edu.upc.manage.vo.TenderInformationContractState;
 import cn.edu.upc.manage.vo.TenderInformationVo;
 
 import java.util.List;
@@ -54,4 +55,11 @@ public interface TenderInformationService {
      * @param projectId
      */
     void delTenderByProjectId(Integer projectId);
+
+    /**
+     * 根据项目id获取招标以及合同的状态
+     * @param projectId
+     * @return
+     */
+    List<TenderInformationContractState> getTenderContractState(int projectId);
 }
