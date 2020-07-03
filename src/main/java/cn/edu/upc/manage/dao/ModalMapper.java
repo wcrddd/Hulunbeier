@@ -78,9 +78,10 @@ public interface ModalMapper {
      * @mbg.generated Fri Jul 03 08:16:00 CST 2020
      */
     int updateByPrimaryKey(Modal record);
+
     List<Modal> selectModal();
 
-    int updateByPrimaryKey(Modal record);
+
 
     List<ModalProjectName> getAllModal();
 
