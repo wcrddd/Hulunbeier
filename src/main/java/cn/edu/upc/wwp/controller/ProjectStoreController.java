@@ -87,4 +87,17 @@ public class ProjectStoreController {
     }
 
 
+    /**
+     * 获取本单位可以填报初步设计的项目
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanDesignByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanDesignByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return  CommonReturnType.create(projectStoreService.getCanDesignByUnitId(unitId),"查询成功");
+    }
+
 }

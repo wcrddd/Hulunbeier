@@ -44,6 +44,11 @@
     <result column="tender_document_name" jdbcType="VARCHAR" property="tenderDocumentName"/>
   </resultMap>
 
+  <resultMap id="ContractProjectNameState" type="cn.edu.upc.manage.vo.ContractProjectNameState"
+             extends="ContractWithProjectName">
+    <result column="state" jdbcType="INTEGER" property="state"/>
+  </resultMap>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -330,8 +335,21 @@
 		ORDER BY approve
   </select>
 
-  <select id="getCompletedByUnitId" resultMap="ContractWithProjectName">
-    	select ci.*,ps.project_name from contract_information ci,project_store ps where ps.del_flag=0 and ps.id=ci.project_id and constru_unit_id=#{unitId}
-	and ci.approve=1 and ci.del_flag=0 and ps.id in (select project_id from construction_progress where progress='100%' and approve=1)
+  <select id="getCompletedByUnitId" resultMap="ContractProjectNameState">
+
+    	select distinct ci.*,ps.project_name,
+	CASE modal.state
+	WHEN 0 THEN
+		0
+	WHEN 1 THEN
+		1
+	WHEN 2 THEN
+		2
+	ELSE
+		3
+END as state
+	from contract_information ci,project_store ps,modal where ps.del_flag=0 and ps.id=ci.project_id and constru_unit_id=#{unitId}
+	and ci.approve=1 and ci.del_flag=0 and ci.id in (select contract_id from construction_progress where progress='100%' and approve=1) and modal.contract_id=ci.id
+and modal.del_flag=0
   </select>
 </mapper>

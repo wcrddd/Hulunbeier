@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.vo.ProjectStoreApprove;
 import cn.edu.upc.manage.vo.ProjectStoreVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -109,4 +110,6 @@ public interface ProjectStoreMapper {
      List<ProjectStore> getCanContractByUnitId(int unitId);
 
      List<ProjectStore> getCanProgressByUnitId(int unitId);
+
+     List<ProjectStoreApprove> getCanDesignByUnitId(int unitId);
 }

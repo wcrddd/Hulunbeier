@@ -10,6 +10,8 @@ public class ModalProjectName extends Modal {
 
     private String contractName;
 
+    private int state;
+
     public String getProjectName(){return projectName;}
 
     public void setProjectName(String projectName){this.projectName=projectName;}
@@ -17,4 +19,8 @@ public class ModalProjectName extends Modal {
     public String getContractName(){return contractName;}
 
     public void setContractName(String contractName){this.contractName=contractName;}
+
+    public int getStat(){return state;}
+
+    public void setState(int state){this.state=state;}
 }

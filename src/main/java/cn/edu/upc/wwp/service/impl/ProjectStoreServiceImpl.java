@@ -2,6 +2,7 @@ package cn.edu.upc.wwp.service.impl;
 
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.vo.ProjectStoreApprove;
 import cn.edu.upc.wwp.service.ProjectStoreService;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,10 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     @Override
     public List<ProjectStore> getCanProgressByUnitId(int unitId){
         return projectStoreMapper.getCanProgressByUnitId(unitId);
+    }
+
+    @Override
+    public List<ProjectStoreApprove> getCanDesignByUnitId(int unitId){
+        return projectStoreMapper.getCanDesignByUnitId(unitId);
     }
 }

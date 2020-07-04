@@ -10,6 +10,6 @@ public interface AffixService {
     public void updateAffix(Affix recordUp);
     public void insertAffix(Affix recordIn);
     public void deleteFlag(Affix recordDel);
-
+    public List<Affix> getAffixByContractId(int contractId);
 
 }

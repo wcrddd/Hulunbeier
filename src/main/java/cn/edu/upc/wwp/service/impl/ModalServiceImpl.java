@@ -35,11 +35,10 @@ public class ModalServiceImpl implements ModalService {
 
     @Override
     public void deleteFlag(Modal recordDel) {
-        Modal result=modalMapper.selectByPrimaryKey(recordDel.getId());
-        if(result!=null){
-            recordDel.setDelFlag(1);
+
+            recordDel.setDelFlag(recordDel.getId());
             modalMapper.updateByPrimaryKeySelective(recordDel);
-        }
+
     }
 
 }

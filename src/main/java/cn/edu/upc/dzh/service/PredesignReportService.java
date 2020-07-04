@@ -12,4 +12,5 @@ public interface PredesignReportService {
     public void updateAppendix(PredesignReportAppendix predesignReportAppendix);
     public void updateApproveExamine(PredesignReport predesignReport);
     public List<PredesignReportWithProject> getAllpredesignReport();
+    public List<PredesignReportWithProject> getCanApproveByUnitId(int unitId);
 }

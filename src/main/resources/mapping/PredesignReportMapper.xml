@@ -194,10 +194,16 @@
   </select>
 
   <select id="getAllpredesignReport" resultMap="PredesignReportWithProject">
-    		select project_name,build_year,construction_unit.name,a.* from
-		(select * from predesign_report where del_flag=0) as a
+    		    		select project_name,build_year,construction_unit.name,a.* from
+		(select * from predesign_report where del_flag=0 and approve=1) as a
 		LEFT JOIN project_store on a.project_id=project_store.id
 		LEFT JOIN construction_unit on construction_unit.id=project_store.constru_unit_id
 		ORDER BY approve
+  </select>
+
+  <select id="getCanApproveByUnitId" resultMap="PredesignReportWithProject">
+    	select pr.*,project_name,build_year,cu.name from predesign_report pr,construction_unit cu,project_store ps where pr.del_flag=0 and ps.id=pr.project_id
+	and cu.id=ps.constru_unit_id=#{unitId} and ps.del_flag=0
+	ORDER BY pr.approve
   </select>
 </mapper>

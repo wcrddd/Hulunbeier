@@ -73,6 +73,6 @@ public interface AffixMapper {
 
     List<Affix> selectAffix();
 
-
+    List<Affix> getAffixByContractId(int contractId);
 
 }

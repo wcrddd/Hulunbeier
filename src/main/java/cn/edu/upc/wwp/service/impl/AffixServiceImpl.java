@@ -35,11 +35,16 @@ public class AffixServiceImpl implements AffixService {
 
     @Override
     public void deleteFlag(Affix recordDel) {
-        Affix result=affixMapper.selectByPrimaryKey(recordDel.getId());
-        if(result!=null){
-            recordDel.setDelFlag(1);
+
+            recordDel.setDelFlag(recordDel.getId());
             affixMapper.updateByPrimaryKeySelective(recordDel);
-        }
+
     }
+
+    @Override
+    public List<Affix> getAffixByContractId(int contractId){
+        return affixMapper.getAffixByContractId(contractId);
     }
+
+}
 

@@ -59,4 +59,6 @@ public interface PredesignReportMapper {
     void updateApproveExamine();
 
     List<PredesignReportWithProject> getAllpredesignReport();
+
+    List<PredesignReportWithProject> getCanApproveByUnitId(int unitId);
 }

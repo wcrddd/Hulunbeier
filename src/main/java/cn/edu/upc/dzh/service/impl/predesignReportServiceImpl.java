@@ -53,5 +53,10 @@ public class predesignReportServiceImpl implements PredesignReportService {
         return predesignReportMapper.getAllpredesignReport();
     }
 
+    @Override
+    public List<PredesignReportWithProject> getCanApproveByUnitId(int unitId){
+        return predesignReportMapper.getCanApproveByUnitId(unitId);
+    }
+
 
 }

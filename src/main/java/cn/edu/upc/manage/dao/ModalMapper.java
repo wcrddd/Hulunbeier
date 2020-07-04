@@ -81,8 +81,18 @@ public interface ModalMapper {
 
     List<Modal> selectModal();
 
-
-
+    /**
+     * 获取全部竣工信息
+     * @return
+     */
     List<ModalProjectName> getAllModal();
+
+    /**
+     * 根据合同id获取竣工信息
+     * @param contractId
+     * @return
+     */
+    List<Modal> getModalByContractId(int contractId);
+
 
 }

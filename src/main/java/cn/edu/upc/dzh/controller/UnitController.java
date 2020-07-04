@@ -62,13 +62,13 @@ public class UnitController {
 
     /**
      * 删除建设单位
-     * @param id
+     * @param constructionUnit
      * @return
      */
     @RequestMapping("/delUnit")
     @ResponseBody
-    public CommonReturnType delUnit(@RequestParam(value = "id")Integer id){
-        unitService.delUnit(id);
+    public CommonReturnType delUnit(@RequestBody ConstructionUnit constructionUnit){
+        unitService.delUnit(constructionUnit.getId());
         return CommonReturnType.create(null,"删除成功");
     }
 
