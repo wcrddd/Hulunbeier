@@ -20,4 +20,11 @@ public interface ModalService2 {
      * @return
      */
     public List<ModalProjectName> getAllModal();
+
+    /**
+     * 根据id获取竣工信息
+     * @param contractId
+     * @return
+     */
+    public List<Modal> getModalByContractId(int contractId);
 }

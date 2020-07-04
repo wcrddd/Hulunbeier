@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @CrossOrigin
@@ -73,7 +74,7 @@ public CommonReturnType insertAppendix(@RequestBody JSONObject jsonObject){
     }
 
     /*****
-     * 获取全部项目的初步设计报告
+     * 获取全部项目的初步设计报告用于审批
      * @param
      * @return
      */
@@ -82,5 +83,18 @@ public CommonReturnType insertAppendix(@RequestBody JSONObject jsonObject){
     public CommonReturnType getAllpredesignReport(){
 
         return CommonReturnType.create(predesignReportService.getAllpredesignReport());
+    }
+
+    /**
+     * 获取本单位的初步设计报告用于审核
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanApproveByUnitId")
+    @ResponseBody
+    public CommonReturnType getCanApproveByUnitId(HttpSession session){
+        //        int unitId= SysUser.getCurrentUserUnitId(session);
+        int unitId=1;
+        return CommonReturnType.create(predesignReportService.getCanApproveByUnitId(unitId));
     }
 }

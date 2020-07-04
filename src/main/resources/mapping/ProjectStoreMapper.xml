@@ -51,6 +51,12 @@
         <result column="apply_type_name" jdbcType="VARCHAR" property="applyTypeName"/>
     </resultMap>
 
+    <resultMap id="ProjectStoreApprove" type="cn.edu.upc.manage.vo.ProjectStoreApprove"
+               extends="BaseResultMap">
+        <result column="approve2" jdbcType="INTEGER" property="approve2"/>
+        <result column="examine" jdbcType="INTEGER" property="examine"/>
+    </resultMap>
+
     <!-- 返回所有项目库中的项目,返回中加上建设单位名称-->
     <select id="selectAllProject" resultMap="ProjectStoreWithUnitName">
 --         select project_store.*,construction_unit.name
@@ -519,5 +525,29 @@ SELECT a.*,guide.title,
     <select id="getCanProgressByUnitId" resultMap="BaseResultMap">
                 	select * from project_store where del_flag=0 and id in
         	(select project_id from contract_information where approve=1 ) and constru_unit_id=#{unitId}
+    </select>
+
+    <select id="getCanDesignByUnitId" resultMap="ProjectStoreApprove">
+
+	select a.*,
+	CASE predesign_report.examine
+	WHEN 0  THEN 0
+	WHEN 1  THEN 1
+	WHEN 2  THEN 2
+	ELSE 3
+END as examine,
+	CASE predesign_report.approve
+	WHEN 0  THEN 0
+	WHEN 1  THEN 1
+	WHEN 2  THEN 2
+	ELSE 3
+END as approve2
+		from   (select
+  ps2.*
+  from
+   project_store ps2,feasibility_research_report frr
+  where  constru_unit_id=#{unitId} and ps2.approve=1 and ps2.del_flag=0  and frr.project_id=ps2.id
+	and frr.approve=1 and frr.examine=1 and frr.del_flag=0 )as a
+	LEFT JOIN predesign_report on a.id=predesign_report.project_id
     </select>
 </mapper>

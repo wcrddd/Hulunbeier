@@ -19,13 +19,14 @@ public class UpFileController {
     @RequestMapping("/uploadFile")
     @ResponseBody
     public CommonReturnType uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        String type="guide";
+        String type="affix";
         //获取系统当前的时间，按照时间分类创建文件夹
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
         String currentTime = dateFormat.format( now );
 
         String fileName=file.getOriginalFilename();
+
         System.out.println("源文件名："+fileName);
         File filed=new File(saveUrl+currentTime+"/"+type);
         if(!filed.exists()){
@@ -34,7 +35,7 @@ public class UpFileController {
         //时间+随机数+后缀名重新命名防止重名
         String filename = System.currentTimeMillis()+(int)(1+Math.random()*1000)+fileName.substring(fileName.lastIndexOf("."));
         //把文件上传到指定文件夹下面
-        file.transferTo(new File(filed.getAbsolutePath(),filename));
+       file.transferTo(new File(filed.getAbsolutePath(),filename));
         System.out.println(currentTime+"/"+type+"/"+filename);
         return CommonReturnType.create(currentTime+"/"+type+"/"+filename);
     }

@@ -4,6 +4,7 @@ import cn.edu.upc.dzh.service.ModalService2;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.Modal;
 import cn.edu.upc.manage.model.ProjectPlan;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +41,12 @@ public class ModalController2 {
     public CommonReturnType getAllModal(){
 
         return  CommonReturnType.create(modalService2.getAllModal());
+    }
+
+    @RequestMapping("/getModalByContractId")
+    @ResponseBody
+    public CommonReturnType getModalById(@RequestBody JSONObject jsonObject){
+        int contractId=jsonObject.getInteger("contractId");
+        return  CommonReturnType.create(modalService2.getModalByContractId(contractId));
     }
 }
