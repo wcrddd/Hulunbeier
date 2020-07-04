@@ -53,6 +53,8 @@ public class StudyReportServiceImpl implements StudyReportService {
     @Transactional
     @Override
     public void updateReport(FeasibilityResearchReport feasibilityResearchReport){
+        feasibilityResearchReport.setApprove(0);
+        feasibilityResearchReport.setExamine(0);
         feasibilityResearchReportMapper.updateReport(feasibilityResearchReport);
     }
 

@@ -23,6 +23,7 @@ public class ModalServiceImpl implements ModalService {
 
     @Override
     public void updateModal(Modal recordUp) {
+        recordUp.setState(0);
         recordUp.setOperator("test");
         modalMapper.updateByPrimaryKeySelective(recordUp);
     }

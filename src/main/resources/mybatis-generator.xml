@@ -60,10 +60,10 @@
 <!--        <table tableName="affix" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
 
-<!--        <table tableName="view_study_report" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--               enableUpdateByExample="false"/>-->
+        <table tableName="predesign_report" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
 
-        <table tableName = "modal" enableCountByExample = "false" enableDeleteByExample = "false"
+        <table tableName = "feasibility_research_report" enableCountByExample = "false" enableDeleteByExample = "false"
                enableSelectByExample="false" enableUpdateByExample = "false"/>
 
 
