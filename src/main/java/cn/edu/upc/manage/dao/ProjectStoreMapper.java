@@ -12,9 +12,9 @@ public interface ProjectStoreMapper {
 
     List<ProjectStore> selectByProjectNameAndBuildYear(@Param("projectName") String projectName, @Param("buildYear") String buildYear);
 
-    List<ProjectStore> selectByProjectName(String projectName);
+    List<ProjectStore> selectByProjectName(@Param("projectName")String projectName);
 
-    List<ProjectStore> selectByBuildYear(String buildYear);
+    List<ProjectStore> selectByBuildYear(@Param("buildYear")String buildYear);
 
     /**
      * 新增项目申报
@@ -72,7 +72,7 @@ public interface ProjectStoreMapper {
      */
     int updateByPrimaryKey(ProjectStore record);
 
-    List<ProjectStore> selectProjectStore(int unitId);
+    List<ProjectStore> selectProjectStore(@Param("unitId")int unitId,@Param("projectName") String projectName);
 
     List<ProjectStore> searchProjectStore(ProjectStore projectStore);
 

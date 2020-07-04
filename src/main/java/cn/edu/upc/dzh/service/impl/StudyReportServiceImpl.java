@@ -62,8 +62,8 @@ public class StudyReportServiceImpl implements StudyReportService {
     }
 
     @Override
-    public List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId){
-        return feasibilityResearchReportMapper.getFeasibilityByUnitId(unitId);
+    public List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId,String projectName){
+        return feasibilityResearchReportMapper.getFeasibilityByUnitId(unitId,projectName);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StudyReportServiceImpl implements StudyReportService {
     }
 
     @Override
-    public List<FeasibilityProjectName> getAllApprovedFeasibility(){
-        return feasibilityResearchReportMapper.getAllApprovedFeasibility();
+    public List<FeasibilityProjectName> getAllApprovedFeasibility(String projectName){
+        return feasibilityResearchReportMapper.getAllApprovedFeasibility(projectName);
     }
 }

@@ -14,7 +14,7 @@ public interface StudyReportService {
     public void deleteAppendix(StudyReport studyReport);
     public void updateReport(FeasibilityResearchReport feasibilityResearchReport);
     public void updateApproveExamine(FeasibilityResearchReport feasibilityResearchReport);
-    public List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId);
+    public List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId,String projectName);
     public List<StudyReport> getAppendixBuProjectId(int projectId);
-    public List<FeasibilityProjectName> getAllApprovedFeasibility();
+    public List<FeasibilityProjectName> getAllApprovedFeasibility(String projectName);
 }
