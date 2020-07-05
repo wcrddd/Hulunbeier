@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.controller;
 import cn.edu.upc.gsl.service.ConstructionProgressService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ConstructionProgress;
+import cn.edu.upc.manage.vo.ConstructionProgressVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,6 +61,15 @@ public class ConstructionProgressController {
         Integer contractId =constructionProgress.getContractId();
         List<ConstructionProgress> constructionProgressList= constructionProgressService.select(projectId,contractId);
         return CommonReturnType.create(constructionProgressList, "正常");
+    }
+
+    @RequestMapping(value = "/selectArray")
+    @ResponseBody
+    public CommonReturnType selectArray(@RequestBody ConstructionProgress constructionProgress) {
+        Integer projectId = constructionProgress.getProjectId();
+        Integer contractId =constructionProgress.getContractId();
+        ConstructionProgressVo progressVo= constructionProgressService.selectArray(projectId,contractId);
+        return CommonReturnType.create(progressVo, "正常");
     }
 
 }

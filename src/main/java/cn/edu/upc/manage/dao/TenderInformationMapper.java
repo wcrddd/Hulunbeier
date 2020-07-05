@@ -80,5 +80,5 @@ public interface TenderInformationMapper {
      * @param projectId
      * @return
      */
-    public List<TenderInformationContractState> getTenderContractState(int projectId);
+    List<TenderInformationContractState> getTenderContractState(int projectId);
 }

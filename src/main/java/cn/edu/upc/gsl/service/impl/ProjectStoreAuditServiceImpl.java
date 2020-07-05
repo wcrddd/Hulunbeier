@@ -87,6 +87,10 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
         return projectStoreMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * 更新项目
+     * @param projectStore
+     */
     @Override
     public void update(ProjectStore projectStore) {
         projectStoreMapper.updateByPrimaryKeySelective(projectStore);
