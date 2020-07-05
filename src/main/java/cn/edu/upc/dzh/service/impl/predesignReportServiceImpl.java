@@ -28,6 +28,7 @@ public class predesignReportServiceImpl implements PredesignReportService {
         predesignReport.setProjectId(projectId);
         if(predesignReportMapper.selectByProjectId(projectId)==null)
         {predesignReportMapper.insertSelective(predesignReport);}
+        predesignReportMapper.resetApprove(projectId);
         predesignReportAppendixMapper.insertSelective(predesignReportAppendix);
     }
 

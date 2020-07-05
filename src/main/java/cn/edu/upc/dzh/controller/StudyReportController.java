@@ -3,8 +3,6 @@ package cn.edu.upc.dzh.controller;
 import cn.edu.upc.dzh.service.StudyReportService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.FeasibilityResearchReport;
-import cn.edu.upc.manage.model.PredesignReport;
-import cn.edu.upc.manage.model.PredesignReportAppendix;
 import cn.edu.upc.manage.model.StudyReport;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -88,7 +86,7 @@ public class StudyReportController {
     @RequestMapping("/updateApproveExamine")
     @ResponseBody
     public CommonReturnType updateApproveExamine(@RequestBody FeasibilityResearchReport feasibilityResearchReport){
-        studyReportService.updateReport(feasibilityResearchReport);
+        studyReportService.updateReport2(feasibilityResearchReport);
         return  CommonReturnType.create("审核成功");
     }
 
@@ -99,10 +97,11 @@ public class StudyReportController {
      */
     @RequestMapping("/getFeasibilityByUnitId")
     @ResponseBody
-    public CommonReturnType getFeasibilityByUnitId(HttpSession session){
+    public CommonReturnType getFeasibilityByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
         //        int unitId= SysUser.getCurrentUserUnitId(session);
         int unitId=1;
-        return  CommonReturnType.create(studyReportService.getFeasibilityByUnitId(unitId));
+        String projectName = jsonObject.getString("projectName");
+        return  CommonReturnType.create(studyReportService.getFeasibilityByUnitId(unitId,projectName));
     }
 
     /**
@@ -124,9 +123,9 @@ public class StudyReportController {
      */
     @RequestMapping("/getAllApprovedFeasibility")
     @ResponseBody
-    public CommonReturnType getAllApprovedFeasibility(){
-
-        return  CommonReturnType.create(studyReportService.getAllApprovedFeasibility());
+    public CommonReturnType getAllApprovedFeasibility(@RequestBody JSONObject jsonObject){
+        String projectName = jsonObject.getString("projectName");
+        return  CommonReturnType.create(studyReportService.getAllApprovedFeasibility(projectName));
     }
 
 }

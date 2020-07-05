@@ -23,6 +23,7 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
 
     @Override
     public void updateContractInformation(ContractInformation recordUp) {
+        recordUp.setApprove(0);
         recordUp.setOperator("test");
         contractInformationMapper.updateByPrimaryKeySelective(recordUp);
     }

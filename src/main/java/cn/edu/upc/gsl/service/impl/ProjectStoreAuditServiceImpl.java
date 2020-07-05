@@ -89,6 +89,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
 
     @Override
     public void update(ProjectStore projectStore) {
+        projectStore.setApprove(0);
         projectStoreMapper.updateByPrimaryKeySelective(projectStore);
     }
 

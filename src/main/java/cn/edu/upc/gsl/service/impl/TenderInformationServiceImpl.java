@@ -53,6 +53,7 @@ public class TenderInformationServiceImpl implements TenderInformationService {
      */
     @Override
     public void updateTender(TenderInformation tenderInformation) {
+        tenderInformation.setApprove(0);
         tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
     }
 

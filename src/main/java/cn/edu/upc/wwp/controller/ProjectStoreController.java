@@ -1,9 +1,9 @@
 package cn.edu.upc.wwp.controller;
 
-import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.wwp.service.ProjectStoreService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +22,11 @@ public class ProjectStoreController {
     @RequestMapping("/getProjectStoreList")
 
     @ResponseBody
-    public CommonReturnType getProjectStoreList(HttpSession session){
+    public CommonReturnType getProjectStoreList(HttpSession session, @RequestBody JSONObject jsonObject){
 //        int unitId= SysUser.getCurrentUserUnitId(session);
         int unitId=1;
-        List<ProjectStore> list1= projectStoreService.selectProjectStore(unitId);
+        String projectName = jsonObject.getString("projectName");
+        List<ProjectStore> list1= projectStoreService.selectProjectStore(unitId,projectName);
         return  CommonReturnType.create(list1,"查询成功");
     }
 

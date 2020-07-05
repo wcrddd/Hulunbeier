@@ -1,10 +1,7 @@
 package cn.edu.upc.wwp.controller;
 
-import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
-import cn.edu.upc.manage.model.Post;
 import cn.edu.upc.manage.model.ProjectPlan;
-import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 import cn.edu.upc.wwp.service.ProjectPlanService;
 import com.alibaba.fastjson.JSONObject;
@@ -34,8 +31,9 @@ public class ProjectPlanController {
     @RequestMapping("/selectProjectPlan")//查看审核通过的
 
     @ResponseBody
-    public CommonReturnType select(){
-        List<ProjectPlanParam> list1=  projectPlanService.selectProjectPlan();
+    public CommonReturnType select(@RequestBody JSONObject jsonObject){
+        String projectName = jsonObject.getString("projectName");
+        List<ProjectPlanParam> list1=  projectPlanService.selectProjectPlan(projectName);
         return  CommonReturnType.create(list1);
     }
 
@@ -43,7 +41,8 @@ public class ProjectPlanController {
     @RequestMapping("/updateProjectPlan")//更新
     @ResponseBody
     public CommonReturnType update(@RequestBody ProjectPlan recordUp){
-
+        recordUp.setApprove(0);
+        recordUp.setExamine(0);
         projectPlanService.updateProjectPlan(recordUp);
 
         return  CommonReturnType.create(null);
@@ -61,10 +60,11 @@ public class ProjectPlanController {
     @RequestMapping("/getProjectPlanByUnitId")//查看本单位的
 
     @ResponseBody
-    public CommonReturnType getProjectPlanByUnitId(HttpSession session){
+    public CommonReturnType getProjectPlanByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
 //        int unitId= SysUser.getCurrentUserUnitId(session);
         int unitId=1;
-        List<ProjectPlanParam> list1=  projectPlanService.getProjectPlanByUnitId(unitId);
+        String projectName = jsonObject.getString("projectName");
+        List<ProjectPlanParam> list1=  projectPlanService.getProjectPlanByUnitId(unitId,projectName);
         return  CommonReturnType.create(list1);
     }
 
@@ -75,10 +75,11 @@ public class ProjectPlanController {
      */
     @RequestMapping("/getApprovedProjectByUnitId")
     @ResponseBody
-    public CommonReturnType getApprovedProjectByUnitId(HttpSession session){
+    public CommonReturnType getApprovedProjectByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
         //        int unitId= SysUser.getCurrentUserUnitId(session);
         int unitId=1;
-        return  CommonReturnType.create(projectPlanService.getApprovedProjectByUnitId(unitId),"查询成功");
+        String projectName = jsonObject.getString("projectName");
+        return  CommonReturnType.create(projectPlanService.getApprovedProjectByUnitId(unitId,projectName),"查询成功");
     }
 
     /**

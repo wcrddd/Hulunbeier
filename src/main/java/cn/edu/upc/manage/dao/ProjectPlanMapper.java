@@ -4,6 +4,7 @@ import cn.edu.upc.manage.model.ProjectPlan;
 import cn.edu.upc.manage.vo.ProjectPlanDesign;
 import cn.edu.upc.manage.vo.ProjectPlanFlag;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -56,13 +57,19 @@ public interface ProjectPlanMapper {
      */
     int updateByPrimaryKey(ProjectPlan record);
 
-    List<ProjectPlanParam> selectProjectPlan();
+    /**
+     * 在原基础上
+     * 增加项目名称查询
+     * @param projectName
+     * @return
+     */
+    List<ProjectPlanParam> selectProjectPlan(@Param("projectName")String projectName);
 
-    List<ProjectPlanParam> getProjectPlanByUnitId(int unitId);
+    List<ProjectPlanParam> getProjectPlanByUnitId(@Param("unitId") int unitId,@Param("projectName")String projectName);
 
     void update(ProjectPlan record);
 
-    List<ProjectPlanFlag> getApprovedProjectByUnitId(int unitId);
+    List<ProjectPlanFlag> getApprovedProjectByUnitId(@Param("unitId")int unitId,@Param("projectName") String projectName);
 
     List<ProjectPlanFlag> getCanDesignByUnitId(int unitId);
 

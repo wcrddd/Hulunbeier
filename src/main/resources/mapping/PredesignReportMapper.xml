@@ -225,4 +225,9 @@
 	and cu.id=ps.constru_unit_id=#{unitId} and ps.del_flag=0
 	ORDER BY pr.approve
   </select>
+
+  <update id="resetApprove">
+    	update predesign_report set
+	approve=0,examine=0 where project_id=#{projectId}
+  </update>
 </mapper>

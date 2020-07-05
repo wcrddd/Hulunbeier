@@ -1,8 +1,8 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.FeasibilityResearchReport;
-import cn.edu.upc.manage.model.StudyReport;
 import cn.edu.upc.manage.vo.FeasibilityProjectName;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,11 +57,11 @@ public interface FeasibilityResearchReportMapper {
 
     FeasibilityResearchReport getByProjectId(int projectId);
 
-    List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId);
+    List<FeasibilityProjectName> getFeasibilityByUnitId(@Param("unitId")int unitId,@Param("projectName") String projectName);
 
     void updateReport(FeasibilityResearchReport record);
 
-    List<FeasibilityProjectName> getAllApprovedFeasibility();
+    List<FeasibilityProjectName> getAllApprovedFeasibility(@Param("projectName") String projectName);
 
 
 }

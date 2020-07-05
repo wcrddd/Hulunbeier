@@ -7,8 +7,6 @@ import cn.edu.upc.wwp.service.ProjectStoreService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service("projectStoreService")
@@ -16,8 +14,8 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     @Resource
     ProjectStoreMapper projectStoreMapper;
     @Override
-    public List<ProjectStore> selectProjectStore(int unitId) {
-        return projectStoreMapper.selectProjectStore(unitId);
+    public List<ProjectStore> selectProjectStore(int unitId, String projectName) {
+        return projectStoreMapper.selectProjectStore(unitId,projectName);
     }
 
     @Override

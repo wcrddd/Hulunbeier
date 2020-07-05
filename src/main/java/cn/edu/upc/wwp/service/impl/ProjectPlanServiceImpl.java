@@ -1,14 +1,11 @@
 package cn.edu.upc.wwp.service.impl;
 
 import cn.edu.upc.manage.dao.ProjectPlanMapper;
-import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.model.ProjectPlan;
-
 import cn.edu.upc.manage.vo.ProjectPlanDesign;
 import cn.edu.upc.manage.vo.ProjectPlanFlag;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
 import cn.edu.upc.wwp.service.ProjectPlanService;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +20,8 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
 
 
     @Override
-    public List<ProjectPlanParam> selectProjectPlan() {
-        return projectPlanMapper.selectProjectPlan();
+    public List<ProjectPlanParam> selectProjectPlan(String projectName) {
+        return projectPlanMapper.selectProjectPlan(projectName);
     }
 
     @Override
@@ -40,8 +37,8 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
     }
 
     @Override
-    public List<ProjectPlanParam> getProjectPlanByUnitId(int unitId){
-        return projectPlanMapper.getProjectPlanByUnitId(unitId);
+    public List<ProjectPlanParam> getProjectPlanByUnitId(int unitId,String projectName){
+        return projectPlanMapper.getProjectPlanByUnitId(unitId,projectName);
     }
 
     @Transactional
@@ -51,8 +48,8 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
     }
 
     @Override
-    public List<ProjectPlanFlag> getApprovedProjectByUnitId(int unitId){
-        return projectPlanMapper.getApprovedProjectByUnitId(unitId);
+    public List<ProjectPlanFlag> getApprovedProjectByUnitId(int unitId,String projectName){
+        return projectPlanMapper.getApprovedProjectByUnitId(unitId,projectName);
     }
 
     @Override
