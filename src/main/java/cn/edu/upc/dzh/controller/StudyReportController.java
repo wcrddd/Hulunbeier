@@ -129,4 +129,16 @@ public class StudyReportController {
         return  CommonReturnType.create(studyReportService.getAllApprovedFeasibility(projectName));
     }
 
+    /**
+     * 根据项目id获取特定的可研报告
+     * @param feasibilityResearchReport
+     * @return
+     */
+    @RequestMapping("/getByProjectId")
+    @ResponseBody
+    public CommonReturnType getByProjectId(@RequestBody FeasibilityResearchReport feasibilityResearchReport){
+        Integer projectId = feasibilityResearchReport.getProjectId();
+        return CommonReturnType.create(studyReportService.getByProjectId(projectId),"获取成功");
+    }
+
 }

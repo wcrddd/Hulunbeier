@@ -82,4 +82,16 @@ public class StudyReportServiceImpl implements StudyReportService {
     public List<FeasibilityProjectName> getAllApprovedFeasibility(String projectName){
         return feasibilityResearchReportMapper.getAllApprovedFeasibility(projectName);
     }
+
+    /**
+     * 根据项目id查询可研报告
+     *
+     * @param projectId
+     * @return
+     */
+    @Override
+    public FeasibilityResearchReport getByProjectId(Integer projectId) {
+        return feasibilityResearchReportMapper.getByProjectId(projectId);
+    }
+
 }

@@ -374,4 +374,8 @@
   where pp1.del_flag = 0  and pp1.project_id = ps2.id  and pp1.approve=1 and pp1.examine=1
 	and pp1.project_id = pr.project_id and pr.approve=1 order by pr.examine
   </select>
+  
+  <select id="selectByProjectId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from project_plan where project_id = #{projectId} and del_flag = 0
+  </select>
 </mapper>

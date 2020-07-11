@@ -17,4 +17,11 @@ public interface ProjectPlanService {
     public List<ProjectPlanFlag> getCanDesignByUnitId(int unitId);
     public List<ProjectPlanDesign> getDesignByUnitId(int unitId);
     public List<ProjectPlanDesign> getAllApprovedDesign();
+
+    /**
+     * gsl根据项目id查询计划项目信息
+     * @param projectId
+     * @return
+     */
+    ProjectPlan getByProjectId(Integer projectId);
 }

@@ -119,5 +119,16 @@ public class ProjectPlanController {
         return  CommonReturnType.create(projectPlanService.getAllApprovedDesign(),"查询成功");
     }
 
+    /**
+     * 获取全部单位已经审核通过的初步设计，进行审批
+     * @param
+     * @return
+     */
+    @RequestMapping("/getByProjectId")
+    @ResponseBody
+    public CommonReturnType getByProjectId(@RequestBody ProjectPlan projectPlan){
+        Integer projectId = projectPlan.getProjectId();
+        return  CommonReturnType.create(projectPlanService.getByProjectId(projectId),"查询成功");
+    }
 
 }
