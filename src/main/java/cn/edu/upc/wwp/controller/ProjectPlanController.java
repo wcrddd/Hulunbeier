@@ -120,7 +120,7 @@ public class ProjectPlanController {
     }
 
     /**
-     * 获取全部单位已经审核通过的初步设计，进行审批
+     * 根据项目id查询某个计划项目
      * @param
      * @return
      */
