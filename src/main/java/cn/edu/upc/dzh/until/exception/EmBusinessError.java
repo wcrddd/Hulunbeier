@@ -18,6 +18,7 @@ public enum EmBusinessError implements CommonError {
     STUDENT_NOT_EXIST(20001,"账号不存在"),
     STUDENT_LOGIN_FAIL(20002,"请输入正确的帐号或密码"),
     CHOOSE_BUSINESSID(20003,"请选择公司后再试"),
+    PASSWORD_ERROR(20004,"原密码错误"),
     //30000为课程相关错误信息
     COUREE_ERROR(30001,"信息不存在"),
     FILE_ERROR(30002,"文件超出限制"),

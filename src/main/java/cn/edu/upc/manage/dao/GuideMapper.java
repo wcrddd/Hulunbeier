@@ -93,4 +93,6 @@ public interface GuideMapper {
     void deleteGuide(int guideId);
 
     List<Guide> getAllGuide();
+
+    List<Guide> selectAllGuideBy(@Param("title") String title, @Param("documentId") String documentId);
 }

@@ -222,7 +222,7 @@
 
   <select id="getCanApproveByUnitId" resultMap="PredesignReportWithProject">
     	select pr.*,project_name,build_year,cu.name from predesign_report pr,construction_unit cu,project_store ps where pr.del_flag=0 and ps.id=pr.project_id
-	and cu.id=ps.constru_unit_id=#{unitId} and ps.del_flag=0
+	and cu.id=ps.constru_unit_id and constru_unit_id=#{unitId} and ps.del_flag=0
 	ORDER BY pr.approve
   </select>
 
@@ -230,4 +230,18 @@
     	update predesign_report set
 	approve=0,examine=0 where project_id=#{projectId}
   </update>
+
+  <select id="selectCanApprove" resultMap="PredesignReportWithProject">
+    select pr.*,project_name,build_year,cu.name from predesign_report pr,construction_unit cu,project_store ps where pr.del_flag=0 and ps.id=pr.project_id
+	and cu.id=ps.constru_unit_id and constru_unit_id=${unitId} and ps.del_flag=0 and project_name like concat('%','${projectName}','%')
+	ORDER BY pr.approve
+  </select>
+
+  <select id="selectAllpredesignReport" resultMap="PredesignReportWithProject">
+    	select construction_unit.name,b.* from
+		(		select pr.*,project_name,constru_unit_id,build_year from predesign_report pr,project_store ps where
+		pr.del_flag=0 and pr.approve=1 and ps.del_flag=0 and pr.project_id=ps.id and project_name like concat('%',#{projectName},'%')) as b
+		LEFT JOIN construction_unit on construction_unit.id=b.constru_unit_id
+		ORDER BY approve
+  </select>
 </mapper>

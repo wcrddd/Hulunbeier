@@ -57,4 +57,12 @@ public interface ProjectStoreAuditService {
      * @param planedFlag
      */
     void setPlanedFlag(Integer id,Integer planedFlag);
+
+    /**
+     * 查询本单位项目
+     * @param projectName
+     * @param buildYear
+     * @return
+     */
+    List<ProjectStore> getProject2(String projectName, String buildYear,int unitId);
 }

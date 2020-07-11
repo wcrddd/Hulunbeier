@@ -259,4 +259,9 @@ select guide_id from guide_unit_relation where unit_id=#{unitId}
     <select id="getAllGuide" resultMap="BaseResultMap">
         select * from guide where del_flag=0
     </select>
+
+    <select id="selectAllGuideBy" resultMap="BaseResultMap">
+        select * from guide where
+         document_id like concat('%',#{documentId},'%') and title like concat('%',#{title},'%') and del_flag=0
+    </select>
 </mapper>

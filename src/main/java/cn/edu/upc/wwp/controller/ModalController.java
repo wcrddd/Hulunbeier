@@ -1,6 +1,7 @@
 package cn.edu.upc.wwp.controller;
 
 
+import cn.edu.upc.dzh.until.GetIp;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.Modal;
 import cn.edu.upc.wwp.service.ModalService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin
@@ -29,15 +31,25 @@ public class ModalController {
         return  CommonReturnType.create(list1,"查询成功");
     }
 
-    @RequestMapping("/updateModal")
+//    @RequestMapping("/updateModal")
+//
+//    @ResponseBody
+//    public CommonReturnType update(@RequestBody  Modal recordUp){
+//
+//        modalService.updateModal(recordUp);
+//
+//        return  CommonReturnType.create(null);
+//    }
+@RequestMapping("/updateModal")
 
-    @ResponseBody
-    public CommonReturnType update(@RequestBody  Modal recordUp){
+@ResponseBody
+public CommonReturnType updateModal(@RequestBody  Modal recordUp, HttpServletRequest request){
+    recordUp.setOperatorIp(GetIp.getIp(request));
 
-        modalService.updateModal(recordUp);
+    modalService.updateModal2(recordUp);
 
-        return  CommonReturnType.create(null);
-    }
+    return  CommonReturnType.create("更新成功");
+}
 
     @RequestMapping("/insertModal")
 

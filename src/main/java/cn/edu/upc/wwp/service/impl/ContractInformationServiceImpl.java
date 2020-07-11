@@ -29,6 +29,13 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     }
 
     @Override
+    public void updateContractInformation2(ContractInformation recordUp) {
+
+        recordUp.setOperator("test");
+        contractInformationMapper.updateByPrimaryKeySelective(recordUp);
+    }
+
+    @Override
     public int insertContractInformation(ContractInformationWithTenderId recordIn) {
         recordIn.setOperator("test");
         contractInformationMapper.insertSelective(recordIn);
@@ -70,7 +77,7 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     }
 
     @Override
-    public List<ContractInformation> getContractByTenderId(int tenderId){
+    public ContractInformation getContractByTenderId(int tenderId){
         return contractInformationMapper.getContractByTenderId(tenderId);
     }
 
@@ -82,5 +89,15 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     @Override
     public List<ContractWithProjectName> getCompletedByUnitId(int unitId){
         return contractInformationMapper.getCompletedByUnitId(unitId);
+    }
+
+    @Override
+    public List<ContractWithProjectName> getCanProgress(int unitId){
+        return contractInformationMapper.getCanProgress(unitId);
+    }
+
+    @Override
+    public List<ContractWithProjectName> selectCanProgress(int unitId,String projectName){
+        return contractInformationMapper.selectCanProgress(unitId,projectName);
     }
 }

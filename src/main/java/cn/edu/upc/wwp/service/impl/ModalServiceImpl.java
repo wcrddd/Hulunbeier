@@ -1,5 +1,6 @@
 package cn.edu.upc.wwp.service.impl;
 
+import cn.edu.upc.dzh.until.GetIp;
 import cn.edu.upc.manage.dao.ModalMapper;
 import cn.edu.upc.manage.model.Modal;
 
@@ -40,6 +41,13 @@ public class ModalServiceImpl implements ModalService {
             recordDel.setDelFlag(recordDel.getId());
             modalMapper.updateByPrimaryKeySelective(recordDel);
 
+    }
+
+    @Override
+    public void updateModal2(Modal recordUp){
+
+        recordUp.setState(0);
+        modalMapper.updateModal2(recordUp);
     }
 
 }

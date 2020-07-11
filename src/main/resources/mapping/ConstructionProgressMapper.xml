@@ -223,4 +223,6 @@
   <update id="updateDelFlag" parameterType="java.lang.Integer">
     update construction_progress set del_flag = 1 where id = #{id}
   </update>
+
+
 </mapper>

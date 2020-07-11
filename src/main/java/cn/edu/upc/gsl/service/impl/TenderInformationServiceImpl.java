@@ -41,6 +41,11 @@ public class TenderInformationServiceImpl implements TenderInformationService {
         return tenderInformationMapper.updateDelFlagForId(id);
     }
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     @Override
     public TenderInformation select(Integer id) {
        return tenderInformationMapper.selectByPrimaryKey(id);
@@ -57,21 +62,48 @@ public class TenderInformationServiceImpl implements TenderInformationService {
         tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
     }
 
+    /**
+     * 审核
+     * @param tenderInformation
+     */
+    @Override
+    public void updateTender2(TenderInformation tenderInformation) {
+        tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
+    }
+
+    /**
+     * 获取所有招标信息
+     * @return
+     */
     @Override
     public List<TenderInformationVo> getAllTender(){
         return tenderInformationMapper.getAllTender();
     }
 
+    /**
+     * 根据项目id查询招标
+     * @param projectId
+     * @return
+     */
     @Override
     public List<TenderInformation> selectByProjectId(Integer projectId) {
         return tenderInformationMapper.selectByProjectId(projectId);
     }
 
+    /**
+     * 根据项目id删除几条招标
+     * @param projectId
+     */
     @Override
     public void delTenderByProjectId(Integer projectId) {
         tenderInformationMapper.updateDelFlag(projectId);
     }
 
+    /**
+     * 根据项目id获取招标以及合同的状态
+     * @param projectId
+     * @return
+     */
     @Override
     public List<TenderInformationContractState> getTenderContractState(int projectId){
         return tenderInformationMapper.getTenderContractState(projectId);

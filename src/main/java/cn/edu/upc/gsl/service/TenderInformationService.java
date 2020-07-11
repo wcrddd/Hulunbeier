@@ -62,4 +62,10 @@ public interface TenderInformationService {
      * @return
      */
     List<TenderInformationContractState> getTenderContractState(int projectId);
+
+    /**
+     * 审核
+     * @param tenderInformation
+     */
+    void updateTender2(TenderInformation tenderInformation);
 }

@@ -2,6 +2,7 @@ package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.User;
 import cn.edu.upc.manage.model.UserWithUnitName;
+import cn.edu.upc.manage.vo.UserUnitName;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -69,4 +70,8 @@ public interface UserMapper {
 
     public List<UserWithUnitName> getAllUser();
     public List<UserWithUnitName> getByUsername(String username);
+
+    public void changePasswordByUsername(@Param("newPassword") String newPassword,@Param("username") String username);
+
+    public UserUnitName getUserById(int id);
 }

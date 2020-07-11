@@ -1,6 +1,7 @@
 package cn.edu.upc.dzh.controller;
 
 import cn.edu.upc.dzh.service.PredesignReportService;
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.PredesignReport;
 import cn.edu.upc.manage.model.PredesignReportAppendix;
@@ -93,8 +94,24 @@ public CommonReturnType insertAppendix(@RequestBody JSONObject jsonObject){
     @RequestMapping("/getCanApproveByUnitId")
     @ResponseBody
     public CommonReturnType getCanApproveByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return CommonReturnType.create(predesignReportService.getCanApproveByUnitId(unitId));
+    }
+
+    @RequestMapping("/selectCanApprove")
+    @ResponseBody
+    public CommonReturnType selectCanApprove(HttpSession session,@RequestBody JSONObject jsonObject){
+        String name=jsonObject.getString("projectName");
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
+        return CommonReturnType.create(predesignReportService.selectCanApprove(unitId,name));
+    }
+
+    @RequestMapping("/selectAllpredesignReport")
+    @ResponseBody
+    public CommonReturnType selectAllpredesignReport(@RequestBody JSONObject jsonObject){
+        String name=jsonObject.getString("projectName");
+        return CommonReturnType.create(predesignReportService.selectAllpredesignReport(name));
     }
 }

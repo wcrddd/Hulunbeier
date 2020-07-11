@@ -13,4 +13,6 @@ public interface PredesignReportService {
     public void updateApproveExamine(PredesignReport predesignReport);
     public List<PredesignReportWithProject> getAllpredesignReport();
     public List<PredesignReportWithProject> getCanApproveByUnitId(int unitId);
+    public List<PredesignReportWithProject> selectCanApprove(int unitId,String projectName);
+    public List<PredesignReportWithProject> selectAllpredesignReport(String projectName);
 }

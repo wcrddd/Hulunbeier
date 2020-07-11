@@ -1,5 +1,6 @@
 package cn.edu.upc.wwp.controller;
 
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ContractInformation;
 import cn.edu.upc.manage.model.ContractInformationWithTenderId;
@@ -90,7 +91,7 @@ public class ContractInformationController {
     @RequestMapping("/updateApprove")
     @ResponseBody
     public CommonReturnType updateApprove(@RequestBody  ContractInformation contractInformation ){
-        contractInformationService.updateContractInformation(contractInformation);
+        contractInformationService.updateContractInformation2(contractInformation);
         return CommonReturnType.create(null,null,0,"审核成功");
     }
 
@@ -107,9 +108,26 @@ public class ContractInformationController {
     @RequestMapping("/getCompletedByUnitId")
     @ResponseBody
     public CommonReturnType getCompletedByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return CommonReturnType.create(contractInformationService.getCompletedByUnitId(unitId));
     }
+
+    /**
+     * 获取本单位可以填报施工进程的项目合同
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getCanProgress")
+    @ResponseBody
+    public CommonReturnType getCanProgress(HttpSession session,@RequestBody JSONObject jsonObject){
+        String name=jsonObject.getString("projectName");
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
+        return CommonReturnType.create(contractInformationService.selectCanProgress(unitId,name));
+    }
+
+
+
 
 }

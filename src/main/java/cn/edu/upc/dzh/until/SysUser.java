@@ -18,4 +18,14 @@ public class SysUser {
         User user = (User) session.getAttribute("user");
         return user.getRoleId();
     }
+
+    public static String getUsername(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        return user.getUserName();
+    }
+
+    public static int getUserType(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        return user.getUserType();
+    }
 }

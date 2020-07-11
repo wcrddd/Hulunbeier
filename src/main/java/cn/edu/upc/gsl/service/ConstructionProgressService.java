@@ -1,6 +1,7 @@
 package cn.edu.upc.gsl.service;
 
 import cn.edu.upc.manage.model.ConstructionProgress;
+import cn.edu.upc.manage.vo.ConstructionProgressVo;
 
 import java.util.List;
 
@@ -29,4 +30,12 @@ public interface ConstructionProgressService {
      * @param id
      */
     void deleteById(Integer id);
+
+    /**
+     * 以数组形式取出
+     * @param projectId
+     * @param contractId
+     * @return
+     */
+    ConstructionProgressVo selectArray(Integer projectId, Integer contractId);
 }

@@ -3,6 +3,7 @@ package cn.edu.upc.dzh.service.impl;
 import cn.edu.upc.dzh.service.RegisterLoginService;
 import cn.edu.upc.manage.dao.UserMapper;
 import cn.edu.upc.manage.model.User;
+import cn.edu.upc.manage.vo.UserUnitName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,4 +34,10 @@ public class RegisterLoginServiceImpl implements RegisterLoginService {
     public User selectByEmail(String email){
         return userMapper.selectByEmail(email);
     }
+
+    @Override
+    public UserUnitName getUserWithUnitName(int id){
+        return userMapper.getUserById(id);
+    }
+
 }

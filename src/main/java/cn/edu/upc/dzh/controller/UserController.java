@@ -2,6 +2,9 @@ package cn.edu.upc.dzh.controller;
 
 import cn.edu.upc.dzh.service.UserService;
 import cn.edu.upc.dzh.until.MD5Util;
+import cn.edu.upc.dzh.until.SysUser;
+import cn.edu.upc.dzh.until.exception.BusinessException;
+import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.User;
 import cn.edu.upc.manage.model.UserWithUnitName;
@@ -10,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author 董志涵
+ */
 @CrossOrigin
 @Controller
 @RequestMapping(value="/user",method={RequestMethod.POST, RequestMethod.GET})
@@ -22,6 +29,13 @@ public class UserController {
     @ResponseBody
     public CommonReturnType updatePassword(@RequestBody User recordPassword){
         recordPassword.setPassword(MD5Util.md5(recordPassword.getPassword()));
+        userService.updateUserPassword(recordPassword);
+        return CommonReturnType.create(null,null,0,"更新成功");
+    }
+
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    public CommonReturnType updateUser(@RequestBody User recordPassword){
         userService.updateUserPassword(recordPassword);
         return CommonReturnType.create(null,null,0,"更新成功");
     }
@@ -54,6 +68,20 @@ public class UserController {
     public CommonReturnType selectByUsername(@RequestBody JSONObject jsonObject){
         String username=jsonObject.getString("username");
         return CommonReturnType.create(userService.selectByUsername(username));
+    }
+
+    @RequestMapping("/changePassword")
+    @ResponseBody
+    public CommonReturnType changePassword(@RequestBody JSONObject jsonObject, HttpSession session){
+        String oldPassword=jsonObject.getString("oldPassword");
+        String newPassword=jsonObject.getString("newPassword");
+        User user=userService.getByUsername(SysUser.getUsername(session));
+        if(MD5Util.md5(oldPassword).equals(user.getPassword())){
+            userService.changePasswordByUsername(MD5Util.md5(newPassword),user.getUserName());
+        }else{
+            throw new BusinessException(EmBusinessError.PASSWORD_ERROR);
+        }
+        return CommonReturnType.create(null,null,0,"更新成功");
     }
 
 }

@@ -51,4 +51,9 @@ public class GuideService2Impl implements GuideService2 {
     public List<Guide> getAllGuide(){
         return guideMapper.getAllGuide();
     }
+
+    @Override
+    public List<Guide> selectAllGuide(String title,String documentId){
+        return guideMapper.selectAllGuideBy(title,documentId);
+    }
 }

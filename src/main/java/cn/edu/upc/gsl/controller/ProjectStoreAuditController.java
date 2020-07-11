@@ -1,8 +1,10 @@
 package cn.edu.upc.gsl.controller;
 
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.model.User;
 import cn.edu.upc.manage.vo.ProjectStoreVo;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,8 +33,9 @@ public class ProjectStoreAuditController {
      */
     @RequestMapping(value = "/addProject")
     @ResponseBody
-    public CommonReturnType addProject(@RequestBody ProjectStore projectStore){
-        int unitId=1;
+    public CommonReturnType addProject(@RequestBody ProjectStore projectStore,HttpSession session){
+//        int unitId=1;
+        int unitId=SysUser.getCurrentUserUnitId(session);
         projectStore.setConstruUnitId(unitId);
         projectStoreAuditService.addProject(projectStore);
         return CommonReturnType.create(null,"项目申报成功，等待审批");
@@ -52,14 +56,24 @@ public class ProjectStoreAuditController {
 
     @RequestMapping(value = "/getProject")
     @ResponseBody
-    public CommonReturnType getProject(@RequestBody ProjectStore projectStore) {
+    public CommonReturnType getProject(@RequestBody ProjectStore projectStore, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         String projectName = projectStore.getProjectName();
         String buildYear = projectStore.getBuildYear();
-        List<ProjectStore> projectStoreList = projectStoreAuditService.getProject(projectName, buildYear);
-        if (projectStoreList.size() == 0) {
-            return CommonReturnType.create(null, "未查询到符合条件的项目");
+        if(user.getUserType()==1){
+            List<ProjectStore> projectStoreList = projectStoreAuditService.getProject(projectName, buildYear);
+            if (projectStoreList.size() == 0) {
+                return CommonReturnType.create(null, "未查询到符合条件的项目");
+            }
+            return CommonReturnType.create(projectStoreList);
+        }else{
+            List<ProjectStore> projectStoreList = projectStoreAuditService.getProject2(projectName, buildYear, SysUser.getCurrentUserUnitId(session));
+            if (projectStoreList.size() == 0) {
+                return CommonReturnType.create(null, "未查询到符合条件的项目");
+            }
+            return CommonReturnType.create(projectStoreList);
         }
-        return CommonReturnType.create(projectStoreList);
+
     }
 
     /**

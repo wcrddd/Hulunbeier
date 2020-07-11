@@ -51,6 +51,11 @@
         <result column="apply_type_name" jdbcType="VARCHAR" property="applyTypeName"/>
     </resultMap>
 
+    <resultMap id="ProjectStoreUnitName" type="cn.edu.upc.manage.vo.ProjectStoreUnitName"
+               extends="BaseResultMap">
+        <result column="name" jdbcType="VARCHAR" property="unitName"/>
+    </resultMap>
+
     <resultMap id="ProjectStoreApprove" type="cn.edu.upc.manage.vo.ProjectStoreApprove"
                extends="BaseResultMap">
         <result column="approve2" jdbcType="INTEGER" property="approve2"/>
@@ -555,4 +560,107 @@ END as approve2
 	and frr.approve=1 and frr.examine=1 and frr.del_flag=0 )as a
 	LEFT JOIN predesign_report on a.id=predesign_report.project_id
     </select>
+
+    <select id="selectById" resultMap="ProjectStoreUnitName">
+    select a.*,construction_unit.`name`  from
+(select * from project_store where id=#{id})as a
+LEFT JOIN construction_unit on construction_unit.id=a.constru_unit_id
+    </select>
+
+
+    <!-- 返回所有项目库中的项目,返回中加上建设单位名称-->
+    <select id="selectAllProject2" resultMap="ProjectStoreWithUnitName">
+--         select project_store.*,construction_unit.name
+--         from project_store,construction_unit
+--         where project_store.constru_unit_id = construction_unit.id
+--         and project_store.del_flag = 0
+--         order by id desc
+ SELECT a.*,guide.title,
+				case a.apply_type
+				when 1 then '指南申报'
+				when 2 then '自主申报'
+				end as apply_type_name
+				FROM
+				(select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0 and constru_unit_id=#{unitId}
+        order by id desc) as a
+				LEFT JOIN guide on guide.id=a.guide_id
+    </select>
+    <!-- 只根据项目名称模糊查询 -->
+    <select id="selectByProjectName2" parameterType="java.lang.String" resultMap="ProjectStoreWithUnitName">
+
+				SELECT a.*,guide.title,
+				case a.apply_type
+				when 1 then '指南申报'
+				when 2 then '自主申报'
+				end as apply_type_name
+				FROM
+				(select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0 and constru_unit_id=${unitId}
+        and project_name like concat('%',#{projectName},'%') order by project_name) as a
+				LEFT JOIN guide on guide.id=a.guide_id
+  </select>
+    <!--只根据建设年份查询-->
+    <select id="selectByBuildYear2" parameterType="java.lang.String" resultMap="ProjectStoreWithUnitName">
+
+				SELECT a.*,guide.title,
+				case a.apply_type
+				when 1 then '指南申报'
+				when 2 then '自主申报'
+				end as apply_type_name
+				FROM
+				(select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0 and constru_unit_id=${unitId}
+        and build_year like concat ('%',#{buildYear,jdbcType = VARCHAR},'%') order by build_year)as a
+				LEFT JOIN guide on guide.id=a.guide_id
+  </select>
+
+    <!--同时根据两个条件查询-->
+    <select id="selectByProjectNameAndBuildYear2" parameterType="java.lang.String" resultMap="ProjectStoreWithUnitName">
+
+				SELECT a.*,guide.title,
+				case a.apply_type
+				when 1 then '指南申报'
+				when 2 then '自主申报'
+				end as apply_type_name
+				FROM
+				(select project_store.*,construction_unit.name
+        from project_store,construction_unit
+        where project_store.constru_unit_id = construction_unit.id
+        and project_store.del_flag = 0 and constru_unit_id=${unitId}
+        and project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
+        and build_year like concat('%',#{buildYear,jdbcType = VARCHAR},'%')
+        order BY id)as a
+				LEFT JOIN guide on guide.id=a.guide_id
+  </select>
+
+    <select id="selectCanDesign" resultMap="ProjectStoreApprove">
+    select a.*,
+	CASE predesign_report.examine
+	WHEN 0  THEN 0
+	WHEN 1  THEN 1
+	WHEN 2  THEN 2
+	ELSE 3
+END as examine,
+	CASE predesign_report.approve
+	WHEN 0  THEN 0
+	WHEN 1  THEN 1
+	WHEN 2  THEN 2
+	ELSE 3
+END as approve2
+		from   (select
+  ps2.*
+  from
+   project_store ps2,feasibility_research_report frr
+  where  constru_unit_id=${unitId} and ps2.approve=1 and ps2.del_flag=0  and frr.project_id=ps2.id and project_name like concat('%','${projectName}','%')
+	and frr.approve=1 and frr.examine=1 and frr.del_flag=0 )as a
+	LEFT JOIN predesign_report on a.id=predesign_report.project_id
+    </select>
+
 </mapper>

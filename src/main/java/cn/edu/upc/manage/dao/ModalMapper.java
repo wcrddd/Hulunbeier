@@ -92,7 +92,13 @@ public interface ModalMapper {
      * @param contractId
      * @return
      */
-    List<Modal> getModalByContractId(int contractId);
+    Modal getModalByContractId(int contractId);
+
+    /**
+     * 根据合同id更新
+     * @param recordUp
+     */
+    public void updateModal2(Modal recordUp);
 
 
 }

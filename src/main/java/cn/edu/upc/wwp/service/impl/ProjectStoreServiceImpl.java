@@ -47,4 +47,10 @@ public class ProjectStoreServiceImpl implements ProjectStoreService {
     public List<ProjectStoreApprove> getCanDesignByUnitId(int unitId){
         return projectStoreMapper.getCanDesignByUnitId(unitId);
     }
+
+    @Override
+    public List<ProjectStoreApprove> selectCanDesign(int unitId,String projectName){
+        return projectStoreMapper.selectCanDesign(unitId,projectName);
+    }
+
 }

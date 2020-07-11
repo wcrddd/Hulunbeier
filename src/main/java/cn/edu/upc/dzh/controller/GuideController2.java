@@ -56,13 +56,17 @@ public class GuideController2 {
     @RequestMapping("/getGuideByUnitId")
     @ResponseBody
     public CommonReturnType getGuideByUnitId(HttpSession session) throws ParseException {
-        int userId = 1;
 //        int userId= SysUser.getCurrentUserUnitId(session);
-        User user = userService.selectByPrimaryKey(userId);
+        User user = (User) session.getAttribute("user");
 //        int unitId=user.getDepartmentUnitId();
-        int unitId = 1;
-        List<Guide> guideList = guideService2.getGuideByUnitId(unitId);
-        return CommonReturnType.create(guideList);
+        if(user.getUserType()==2){
+//            int unitId = 1;
+            List<Guide> guideList = guideService2.getGuideByUnitId(user.getDepartmentUnitId());
+            return CommonReturnType.create(guideList);
+        }else{
+            return CommonReturnType.create(guideService2.getAllGuide());
+        }
+
     }
 
     @RequestMapping("/getGuideByUnitId2")
@@ -77,13 +81,22 @@ public class GuideController2 {
 
     @RequestMapping("/selectGuide")//
     @ResponseBody
-    public CommonReturnType selectGuide(@RequestBody JSONObject param) {
+    public CommonReturnType selectGuide(@RequestBody JSONObject param,HttpSession session) {
 //        guideService.insertGuide(guide);
-        int unitId = 1;
+//        int unitId = 1;
+        int unitId=SysUser.getCurrentUserUnitId(session);
+        int userType=SysUser.getUserType(session);
         String title = param.getString("title");
         String documentId = param.getString("documentId");
-        List<Guide> guideList = guideService2.selectGuide(unitId, title, documentId);
-        return CommonReturnType.create(guideList);
+        if(userType==2){
+            List<Guide> guideList = guideService2.selectGuide(unitId, title, documentId);
+            return CommonReturnType.create(guideList);
+        }else {
+            List<Guide> guideList = guideService2.selectAllGuide( title, documentId);
+            return CommonReturnType.create(guideList);
+        }
+
+
     }
 
     @RequestMapping("/deleteGuide")//

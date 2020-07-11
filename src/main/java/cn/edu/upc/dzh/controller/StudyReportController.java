@@ -1,6 +1,7 @@
 package cn.edu.upc.dzh.controller;
 
 import cn.edu.upc.dzh.service.StudyReportService;
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.FeasibilityResearchReport;
 import cn.edu.upc.manage.model.StudyReport;
@@ -98,8 +99,8 @@ public class StudyReportController {
     @RequestMapping("/getFeasibilityByUnitId")
     @ResponseBody
     public CommonReturnType getFeasibilityByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         String projectName = jsonObject.getString("projectName");
         return  CommonReturnType.create(studyReportService.getFeasibilityByUnitId(unitId,projectName));
     }

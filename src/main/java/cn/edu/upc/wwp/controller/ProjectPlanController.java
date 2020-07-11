@@ -1,5 +1,6 @@
 package cn.edu.upc.wwp.controller;
 
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectPlan;
 import cn.edu.upc.wwp.controller.param.ProjectPlanParam;
@@ -51,7 +52,6 @@ public class ProjectPlanController {
     @RequestMapping("/updateApproveExamine")//更新审核审批
     @ResponseBody
     public CommonReturnType updateApproveExamine(@RequestBody ProjectPlan recordUp){
-
         projectPlanService.updateApproveExamine(recordUp);
 
         return  CommonReturnType.create(null);
@@ -61,8 +61,8 @@ public class ProjectPlanController {
 
     @ResponseBody
     public CommonReturnType getProjectPlanByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
-//        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+        int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         String projectName = jsonObject.getString("projectName");
         List<ProjectPlanParam> list1=  projectPlanService.getProjectPlanByUnitId(unitId,projectName);
         return  CommonReturnType.create(list1);
@@ -76,8 +76,8 @@ public class ProjectPlanController {
     @RequestMapping("/getApprovedProjectByUnitId")
     @ResponseBody
     public CommonReturnType getApprovedProjectByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         String projectName = jsonObject.getString("projectName");
         return  CommonReturnType.create(projectPlanService.getApprovedProjectByUnitId(unitId,projectName),"查询成功");
     }
@@ -90,8 +90,8 @@ public class ProjectPlanController {
     @RequestMapping("/getCanDesignByUnitId")
     @ResponseBody
     public CommonReturnType getCanDesignByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return  CommonReturnType.create(projectPlanService.getCanDesignByUnitId(unitId),"查询成功");
     }
 
@@ -103,8 +103,8 @@ public class ProjectPlanController {
     @RequestMapping("/getDesignByUnitId")
     @ResponseBody
     public CommonReturnType getDesignByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return  CommonReturnType.create(projectPlanService.getDesignByUnitId(unitId),"查询成功");
     }
 

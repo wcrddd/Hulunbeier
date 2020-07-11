@@ -2,6 +2,7 @@ package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.ContractInformation;
 import cn.edu.upc.manage.model.ContractWithProjectName;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public interface ContractInformationMapper {
 
     int selectLastInsert();
 
-    List<ContractInformation> getContractByTenderId(int tenderId);
+    ContractInformation getContractByTenderId(int tenderId);
 
     List<ContractWithProjectName> getAllContractWithProjectName();
 
@@ -70,5 +71,14 @@ public interface ContractInformationMapper {
      * @return
      */
     List<ContractWithProjectName> getCompletedByUnitId(int unitId);
+
+    /**
+     * 获取本单位可以填报施工进程的合同和项目名
+     * @param unitId
+     * @return
+     */
+    List<ContractWithProjectName> getCanProgress(int unitId);
+
+    List<ContractWithProjectName> selectCanProgress(@Param("unitId") int unitId, @Param("projectName") String projectName);
 
 }

@@ -19,7 +19,10 @@ public interface ContractInformationService {
     public List<ContractInformation> getContractByProjectId(int projectId);
     public ContractInformation getContractBytId(int id);
     public ContractStatistics getContractStatistics(int projectId);
-    public List<ContractInformation> getContractByTenderId(int tenderId);
+    public ContractInformation getContractByTenderId(int tenderId);
     public List<ContractWithProjectName> getAllContractWithProjectName();
     public List<ContractWithProjectName> getCompletedByUnitId(int unitId);
+    public void updateContractInformation2(ContractInformation recordUp);
+    public List<ContractWithProjectName> getCanProgress(int unitId);
+    public List<ContractWithProjectName> selectCanProgress(int unitId,String projectName);
 }

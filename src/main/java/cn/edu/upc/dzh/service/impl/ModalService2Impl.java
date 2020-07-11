@@ -28,7 +28,7 @@ public class ModalService2Impl implements ModalService2 {
     }
 
     @Override
-    public List<Modal> getModalByContractId(int contractId){
+    public Modal getModalByContractId(int contractId){
         return modalMapper.getModalByContractId(contractId);
     }
 }

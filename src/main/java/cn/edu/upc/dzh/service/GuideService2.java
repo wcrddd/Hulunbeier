@@ -12,4 +12,5 @@ public interface GuideService2 {
     public List<Guide> selectGuide(int unitId,String title,String documentId);
     public void deleteGuide(int guideId);
     public List<Guide> getAllGuide();
+    public List<Guide> selectAllGuide(String title,String documentId);
 }

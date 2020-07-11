@@ -3,6 +3,7 @@ package cn.edu.upc.dzh.controller;
 import cn.edu.upc.dzh.service.RegisterLoginService;
 import cn.edu.upc.dzh.until.MD5Util;
 import cn.edu.upc.dzh.until.SendEmailUtil;
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.dzh.until.exception.BusinessException;
 import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.manage.common.CommonReturnType;
@@ -22,6 +23,7 @@ import java.util.Random;
 @CrossOrigin
 @Controller
 @RequestMapping(value="/web",method = {RequestMethod.POST,RequestMethod.GET})
+//@RequestMapping(value="/web")
 public class RegisterLoginController {
     @Autowired
     private RegisterLoginService registerLoginService;
@@ -76,7 +78,7 @@ public class RegisterLoginController {
         if(user1!=null){
             if(user1.getPassword().equals(password)){
                 session.setAttribute("user",user1);
-                session.setMaxInactiveInterval(30*60);
+                session.setMaxInactiveInterval(180*60);
                 returnMsg.put("loginTips","登陆成功");
                 System.out.println("返回权限1");
 //                returnMsg.put("userType",SysUser.getCurrentUserRole(session));
@@ -163,6 +165,18 @@ public class RegisterLoginController {
         }
 
 
+    }
+
+    /**
+     * 获取用户名
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getUserWithUnitName")
+    public CommonReturnType getUserWithUnitName(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        return CommonReturnType.create(registerLoginService.getUserWithUnitName(user.getId()));
     }
 
     /**

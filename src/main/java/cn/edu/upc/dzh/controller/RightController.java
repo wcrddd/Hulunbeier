@@ -55,8 +55,8 @@ public class RightController {
     @RequestMapping("/selectRightByRole")
     @ResponseBody
     public CommonReturnType selectRightByRole(HttpSession session){
-//        List<ViewRights> p1 = rightService.selectRightByRole(SysUser.getCurrentUserRole(session));
-        List<ViewRights> p1 = rightService.selectRightByRole(15);
+        List<ViewRights> p1 = rightService.selectRightByRole(SysUser.getCurrentUserRole(session));
+//        List<ViewRights> p1 = rightService.selectRightByRole(15);
         return CommonReturnType.create(p1);
     }
 

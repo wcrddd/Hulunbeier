@@ -60,6 +60,35 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     }
 
     /**
+     * 查询项目
+     *
+     * @param projectName
+     * @param buildYear
+     * @return
+     */
+    @Override
+    public List<ProjectStore> getProject2(String projectName, String buildYear,int unitId) {
+        System.out.println("projectName:"+projectName+" buildYear:"+buildYear);
+        List<ProjectStore> projectStoreList;
+        //当没有传参时和当传参为空时，都返回全部项目
+        if (projectName == null || buildYear == null) {
+            projectStoreList = projectStoreMapper.selectAllProject2(unitId);
+        } else if ("".equals(projectName) && "".equals(buildYear)) {
+            projectStoreList = projectStoreMapper.selectAllProject2(unitId);
+        } else if ((!"".equals(projectName)) && "".equals(buildYear)) {
+            //只根据项目名称查询
+            projectStoreList = projectStoreMapper.selectByProjectName2(projectName,unitId);
+        } else if (!"".equals(projectName)) {
+            //根据两个参数查
+            projectStoreList = projectStoreMapper.selectByProjectNameAndBuildYear2(projectName, buildYear,unitId);
+        } else {
+            //只根据年份查
+            projectStoreList = projectStoreMapper.selectByBuildYear2(buildYear,unitId);
+        }
+        return projectStoreList;
+    }
+
+    /**
      * 跟新项目状态
      * @param record
      */
@@ -84,9 +113,14 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      */
     @Override
     public ProjectStore selectProjectById(Integer id) {
-        return projectStoreMapper.selectByPrimaryKey(id);
+//        return projectStoreMapper.selectByPrimaryKey(id);
+        return projectStoreMapper.selectById(id);
     }
 
+    /**
+     * 更新项目
+     * @param projectStore
+     */
     @Override
     public void update(ProjectStore projectStore) {
         projectStore.setApprove(0);

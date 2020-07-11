@@ -99,7 +99,7 @@ public class TenderController {
     @RequestMapping("/updateApprove")
     @ResponseBody
     public CommonReturnType updateApprove(@RequestBody TenderInformation tenderInformation ){
-        tenderInformationService.updateTender(tenderInformation);
+        tenderInformationService.updateTender2(tenderInformation);
         return CommonReturnType.create(null,null,0,"审核成功");
     }
 

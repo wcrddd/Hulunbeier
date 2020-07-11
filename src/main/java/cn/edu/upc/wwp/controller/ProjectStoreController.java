@@ -1,5 +1,6 @@
 package cn.edu.upc.wwp.controller;
 
+import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.wwp.service.ProjectStoreService;
@@ -23,8 +24,8 @@ public class ProjectStoreController {
 
     @ResponseBody
     public CommonReturnType getProjectStoreList(HttpSession session, @RequestBody JSONObject jsonObject){
-//        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+        int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         String projectName = jsonObject.getString("projectName");
         List<ProjectStore> list1= projectStoreService.selectProjectStore(unitId,projectName);
         return  CommonReturnType.create(list1,"查询成功");
@@ -41,8 +42,8 @@ public class ProjectStoreController {
     @RequestMapping("/getProjectStoreByUnitId")
     @ResponseBody
     public CommonReturnType getProjectStoreByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         List<ProjectStore> list2= projectStoreService.getProjectStoreByUnitId(unitId);
         return  CommonReturnType.create(list2,"查询成功");
     }
@@ -55,8 +56,8 @@ public class ProjectStoreController {
     @RequestMapping("/getCanTenderByUnitId")
     @ResponseBody
     public CommonReturnType getCanTenderByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
     }
 
@@ -68,8 +69,8 @@ public class ProjectStoreController {
     @RequestMapping("/getCanContractByUnitId")
     @ResponseBody
     public CommonReturnType getCanContractByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
     }
 
@@ -81,8 +82,8 @@ public class ProjectStoreController {
     @RequestMapping("/getCanProgressByUnitId")
     @ResponseBody
     public CommonReturnType getCanProgressByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
         return  CommonReturnType.create(projectStoreService.getCanTenderByUnitId(unitId),"查询成功");
     }
 
@@ -94,10 +95,20 @@ public class ProjectStoreController {
      */
     @RequestMapping("/getCanDesignByUnitId")
     @ResponseBody
-    public CommonReturnType getCanDesignByUnitId(HttpSession session){
-        //        int unitId= SysUser.getCurrentUserUnitId(session);
-        int unitId=1;
-        return  CommonReturnType.create(projectStoreService.getCanDesignByUnitId(unitId),"查询成功");
+    public CommonReturnType getCanDesignByUnitId(HttpSession session,@RequestBody JSONObject jsonObject){
+        String name=jsonObject.getString("projectName");
+                int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
+        return  CommonReturnType.create(projectStoreService.selectCanDesign(unitId,name),"查询成功");
     }
+
+//    @RequestMapping("/selectCanDesign")
+//    @ResponseBody
+//    public CommonReturnType selectCanDesign(HttpSession session,@RequestBody JSONObject jsonObject){
+//        String name=jsonObject.getString("projectName");
+//        //        int unitId= SysUser.getCurrentUserUnitId(session);
+//        int unitId=1;
+//        return  CommonReturnType.create(projectStoreService.selectCanDesign(unitId,name),"查询成功");
+//    }
 
 }

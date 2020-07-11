@@ -72,4 +72,14 @@ public class UserServiceImpl implements UserService {
         }
         return userList;
     }
+
+    @Override
+    public User getByUsername(String username){
+        return userMapper.selectByUsername(username);
+    }
+
+    @Override
+    public void changePasswordByUsername(String newPassword, String username){
+        userMapper.changePasswordByUsername(newPassword,username);
+    }
 }

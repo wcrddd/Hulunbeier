@@ -2,6 +2,7 @@ package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.PredesignReport;
 import cn.edu.upc.manage.vo.PredesignReportWithProject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -63,4 +64,8 @@ public interface PredesignReportMapper {
     List<PredesignReportWithProject> getCanApproveByUnitId(int unitId);
 
     void resetApprove(int projectId);
+
+    List<PredesignReportWithProject> selectCanApprove(@Param("unitId") int unitId, @Param("projectName") String projectName);
+
+    List<PredesignReportWithProject> selectAllpredesignReport(String projectName);
 }

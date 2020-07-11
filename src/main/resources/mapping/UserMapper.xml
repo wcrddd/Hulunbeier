@@ -36,6 +36,10 @@
     <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
   </resultMap>
 
+  <resultMap id="UserUnitName" type="cn.edu.upc.manage.vo.UserUnitName" extends="BaseResultMap">
+    <result column="name" jdbcType="VARCHAR" property="nameUnit"/>
+  </resultMap>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -264,6 +268,17 @@ case user.user_type
 				end as user_type_name
 from user where del_flag=0) as a
 LEFT JOIN role on role.id=a.role_id
+
+  </select>
+
+  <update id="changePasswordByUsername">
+    update user set `password`='${newPassword}' where user_name='${username}'
+  </update>
+
+  <select id="getUserById" resultMap="UserUnitName">
+    select a.*,construction_unit.`name` from
+ (select * from `user` where id=#{id}) as a
+ LEFT JOIN construction_unit on a.department_unit_id=construction_unit.id
 
   </select>
 

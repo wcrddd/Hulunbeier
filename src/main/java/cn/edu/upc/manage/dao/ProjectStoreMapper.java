@@ -112,4 +112,17 @@ public interface ProjectStoreMapper {
      List<ProjectStore> getCanProgressByUnitId(int unitId);
 
      List<ProjectStoreApprove> getCanDesignByUnitId(int unitId);
+
+    ProjectStore selectById(Integer id);
+
+    List<ProjectStore> selectAllProject2(int unitId);
+
+    List<ProjectStore> selectByProjectNameAndBuildYear2(@Param("projectName") String projectName, @Param("buildYear") String buildYear,@Param("unitId")int unitId);
+
+    List<ProjectStore> selectByProjectName2(@Param("projectName")String projectName,@Param("unitId")int unitId);
+
+    List<ProjectStore> selectByBuildYear2(@Param("buildYear")String buildYear,@Param("unitId")int unitId);
+
+    List<ProjectStoreApprove> selectCanDesign(@Param("unitId") int unitId,@Param("projectName") String projectName);
+
 }

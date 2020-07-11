@@ -10,4 +10,5 @@ public interface ModalService {
     public void updateModal(Modal recordUp);
     public void insertModal(Modal recordIn);
     public void deleteFlag(Modal recordDel);
+    public void updateModal2(Modal recordUp);
 }

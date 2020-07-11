@@ -26,5 +26,5 @@ public interface ModalService2 {
      * @param contractId
      * @return
      */
-    public List<Modal> getModalByContractId(int contractId);
+    public Modal getModalByContractId(int contractId);
 }

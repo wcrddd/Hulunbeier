@@ -14,4 +14,5 @@ public interface ProjectStoreService {
     public List<ProjectStore> getCanContractByUnitId(int unitId);
     public List<ProjectStore> getCanProgressByUnitId(int unitId);
     public List<ProjectStoreApprove> getCanDesignByUnitId(int unitId);
+    public List<ProjectStoreApprove> selectCanDesign(int unitId,String projectName);
 }
