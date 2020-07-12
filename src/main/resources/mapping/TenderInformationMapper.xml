@@ -377,7 +377,7 @@
   <select id="getAllTender" resultMap="TenderInformationWithProjectName">
     select ti.*, ps.project_name from tender_information ti,project_store ps
     where ti.del_flag = 0 and ps.del_flag = 0 and ti.project_id = ps.id
-		ORDER BY approve
+		ORDER BY ti.id desc
   </select>
 
 <!--  根据项目id删除招标信息-->

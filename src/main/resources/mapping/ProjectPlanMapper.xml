@@ -277,7 +277,7 @@
 
        where pp1.del_flag = 0 and pp1.approve = 1  and pp1.project_id = ps2.id
     <if test="projectName != null ">
-      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by ps2.id desc
+      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by pp1.id desc
     </if>
 
   </select>
@@ -344,7 +344,7 @@
   project_plan pp1, project_store ps2
   where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=#{unitId} and pp1.approve=1 and pp1.examine=1
     <if test="projectName != null ">
-      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by ps2.id desc
+      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by pp1.id desc
     </if>
   </select>
 

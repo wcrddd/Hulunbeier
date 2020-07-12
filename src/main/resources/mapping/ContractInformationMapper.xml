@@ -332,7 +332,7 @@
 		contract_information.id=contract_tender_relation.contract_id and tender_information.id=contract_tender_relation.tender_id and contract_information.del_flag=0
 		 )as a
 		LEFT JOIN project_store on project_store.id=a.project_id
-		ORDER BY approve
+		ORDER BY a.id desc
   </select>
 
   <select id="getCompletedByUnitId" resultMap="ContractProjectNameState">
@@ -353,11 +353,12 @@ END as state
 	contract_information ci,project_store ps where ps.del_flag=0 and ps.id=ci.project_id and constru_unit_id=#{unitId}
 	and ci.approve=1 and ci.del_flag=0  and ci.id in (select contract_id from construction_progress where progress='100'))as a
 	LEFT JOIN (select * from modal where del_flag=0)as b on b.contract_id=a.id
+	ORDER BY a.id desc
   </select>
 
   <select id="getCanProgress" resultMap="ContractWithProjectName">
     select ci.*,ps.project_name from contract_information ci,project_store ps where constru_unit_id=#{unitId} and ps.del_flag=0 and ci.project_id=ps.id
-					and ci.del_flag=0 and ci.approve=1
+					and ci.del_flag=0 and ci.approve=1 ORDER BY ci.id desc
   </select>
 
   <select id="selectCanProgress" resultMap="ContractWithProjectName">

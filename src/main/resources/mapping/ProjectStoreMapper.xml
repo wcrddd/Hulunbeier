@@ -558,7 +558,7 @@ END as approve2
    project_store ps2,feasibility_research_report frr
   where  constru_unit_id=#{unitId} and ps2.approve=1 and ps2.del_flag=0  and frr.project_id=ps2.id
 	and frr.approve=1 and frr.examine=1 and frr.del_flag=0 )as a
-	LEFT JOIN predesign_report on a.id=predesign_report.project_id
+	LEFT JOIN predesign_report on a.id=predesign_report.project_id ORDER BY a.id desc
     </select>
 
     <select id="selectById" resultMap="ProjectStoreUnitName">

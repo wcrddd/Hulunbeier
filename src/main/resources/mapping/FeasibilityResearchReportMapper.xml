@@ -263,7 +263,7 @@
     	select frr.*,ps.project_name from feasibility_research_report frr, project_store ps where frr.del_flag=0 and frr.project_id=ps.id and ps.del_flag=0
 	and constru_unit_id=#{unitId}
     <if test="projectName != null ">
-      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by ps.id desc
+      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by frr.id desc
     </if>
   </select>
 
@@ -271,7 +271,7 @@
     		select frr.*,ps.project_name from feasibility_research_report frr, project_store ps where frr.del_flag=0 and frr.project_id=ps.id and ps.del_flag=0
 and frr.approve=1
     <if test="projectName != null ">
-      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by ps.id desc
+      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by frr.id desc
     </if>
   </select>
 
