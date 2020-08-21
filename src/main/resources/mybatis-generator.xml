@@ -60,7 +60,7 @@
 <!--        <table tableName="affix" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
 
-        <table tableName="project_plan" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="project_plan" enableCountByExample="true" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
 
 <!--        <table tableName = "feasibility_research_report" enableCountByExample = "false" enableDeleteByExample = "false"-->
