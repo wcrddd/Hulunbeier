@@ -18,6 +18,12 @@
     -->
     <result column="rights_name" jdbcType="LONGVARCHAR" property="rightsName" />
   </resultMap>
+
+<!--  <resultMap id="ViewRightsIdRole" type="cn.edu.upc.manage.vo.ViewRightsIdRole"-->
+<!--             extends="ResultMapWithBLOBs">-->
+<!--    <result column="rights_id" jdbcType="VARCHAR" property="rightsId"/>-->
+<!--  </resultMap>-->
+
   <sql id="Blob_Column_List">
     <!--
       WARNING - @mbg.generated
@@ -75,4 +81,13 @@
   <select id="selectByName" resultMap="ResultMapWithBLOBs">
     select * from view_rights_role where role_name like concat('%',#{name},'%')
   </select>
+
+<!--  <select id="getAllRoleRightsId" resultType="ViewRightsIdRole">-->
+<!--    select `view_right_role`.`role_id` AS `role_id`,-->
+<!--`view_right_role`.`role_name` AS `role_name`,-->
+<!--group_concat(`view_right_role`.`right_name` separator ',') AS `rights_name`,-->
+<!--group_concat(view_right_role.right_id separator ',') as rights_id-->
+<!--from `view_right_role`-->
+<!--where (`view_right_role`.`del_flag` = 0) group by `view_right_role`.`role_id`-->
+<!--  </select>-->
 </mapper>

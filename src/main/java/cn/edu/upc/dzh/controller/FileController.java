@@ -1,5 +1,8 @@
 package cn.edu.upc.dzh.controller;
 
+import cn.edu.upc.dzh.until.GetIp;
+import cn.edu.upc.dzh.until.exception.BusinessException;
+import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.manage.common.CommonReturnType;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,7 @@ import java.util.Date;
 @RequestMapping(value="/file",method = {RequestMethod.POST,RequestMethod.GET})
 public class FileController {
 //    public static String saveUrl ="/Users/weixj/Desktop/hlb/";
-    public static String saveUrl ="/root/tomcat90/webapps/hl/";
+    public static String saveUrl ="/home/pm-application/tomcat/webapps/hl/";
     @RequestMapping("/uploadFile")
     @ResponseBody
     public CommonReturnType uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
@@ -27,7 +30,7 @@ public class FileController {
 
         String fileName=file.getOriginalFilename();
         System.out.println("源文件名："+fileName);
-        File filed=new File(saveUrl+currentTime+"/"+type);
+        File filed=new File(GetIp.saveUrl+currentTime+"/"+type);
         if(!filed.exists()){
             filed.mkdirs();
         }
@@ -124,4 +127,5 @@ public class FileController {
 //        return CommonReturnType.create(currentTime+"/"+type+"/"+filename);
         return CommonReturnType.create(jsonObject);
     }
+
 }

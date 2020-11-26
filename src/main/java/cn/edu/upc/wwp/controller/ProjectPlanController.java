@@ -119,5 +119,16 @@ public class ProjectPlanController {
         return  CommonReturnType.create(projectPlanService.getAllApprovedDesign(),"查询成功");
     }
 
+    /**
+     * 根据项目id查询某个计划项目
+     * @param
+     * @return
+     */
+    @RequestMapping("/getByProjectId")
+    @ResponseBody
+    public CommonReturnType getByProjectId(@RequestBody ProjectPlan projectPlan){
+        Integer projectId = projectPlan.getProjectId();
+        return  CommonReturnType.create(projectPlanService.getByProjectId(projectId),"查询成功");
+    }
 
 }

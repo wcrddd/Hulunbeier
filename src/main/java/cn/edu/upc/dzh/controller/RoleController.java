@@ -21,7 +21,9 @@ public class RoleController {
     @RequestMapping("/getAllRole")//获取全部角色
     @ResponseBody
     public CommonReturnType getAllRole(){
-        return CommonReturnType.create(roleService.getAllRole());
+
+//        return CommonReturnType.create(roleService.getAllRole());
+        return CommonReturnType.create(roleService.getAllRoleRightsId());
     }
 
     @RequestMapping("/deleteRole")

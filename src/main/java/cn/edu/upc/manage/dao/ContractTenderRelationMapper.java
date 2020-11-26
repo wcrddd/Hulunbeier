@@ -50,4 +50,6 @@ public interface ContractTenderRelationMapper {
      * @mbg.generated Thu Jun 25 11:20:11 CST 2020
      */
     int updateByPrimaryKey(ContractTenderRelation record);
+
+    int getcontractIdByTenderId(int tenderId);
 }

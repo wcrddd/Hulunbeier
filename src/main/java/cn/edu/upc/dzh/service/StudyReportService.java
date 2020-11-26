@@ -17,5 +17,12 @@ public interface StudyReportService {
     public List<FeasibilityProjectName> getFeasibilityByUnitId(int unitId,String projectName);
     public List<StudyReport> getAppendixBuProjectId(int projectId);
     public List<FeasibilityProjectName> getAllApprovedFeasibility(String projectName);
+
+    /**
+     * 根据项目id
+     * @param projectId
+     * @return
+     */
+    FeasibilityResearchReport getByProjectId(Integer projectId);
     public void updateReport2(FeasibilityResearchReport feasibilityResearchReport);
 }

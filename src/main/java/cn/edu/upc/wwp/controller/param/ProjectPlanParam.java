@@ -10,6 +10,8 @@ public class ProjectPlanParam {
     private Integer  approve;
     private Integer examine;
     private Integer delFlag;
+    private String  approveOpinion;
+    private String  examineOpinion;
 
     public String getProjectName() {
         return projectName;
@@ -83,6 +85,22 @@ public class ProjectPlanParam {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getApproveOpinion() {
+        return approveOpinion;
+    }
+
+    public void setApproveOpinion(String approveOpinion) {
+        this.approveOpinion = approveOpinion;
+    }
+
+    public String getExamineOpinion() {
+        return examineOpinion;
+    }
+
+    public void setExamineOpinion(String examineOpinion) {
+        this.examineOpinion = examineOpinion;
     }
 
 }

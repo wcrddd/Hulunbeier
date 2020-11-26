@@ -39,6 +39,8 @@
     <result column="examine" jdbcType="INTEGER" property="examine" />
     <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="approve_opinion" jdbcType="VARCHAR" property="approveOpinion" />
+    <result column="examine_opinion" jdbcType="VARCHAR" property="examineOpinion" />
 
   </resultMap>
 
@@ -277,8 +279,9 @@
 
        where pp1.del_flag = 0 and pp1.approve = 1  and pp1.project_id = ps2.id
     <if test="projectName != null ">
-      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by pp1.id desc
+      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
     </if>
+    order by pp1.id desc
 
   </select>
 
@@ -289,8 +292,9 @@
   project_plan pp1, project_store ps2
   where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=#{unitId}
     <if test="projectName != null ">
-      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by pp1.id desc
+      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
     </if>
+    order by pp1.id desc
   </select>
 
   <update id="update" parameterType="cn.edu.upc.manage.model.ProjectPlan">
@@ -344,8 +348,9 @@
   project_plan pp1, project_store ps2
   where pp1.del_flag = 0  and pp1.project_id = ps2.id and constru_unit_id=#{unitId} and pp1.approve=1 and pp1.examine=1
     <if test="projectName != null ">
-      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by pp1.id desc
+      and ps2.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
     </if>
+    order by pp1.id desc
   </select>
 
   <select id="getCanDesignByUnitId" resultMap="ProjectPlanFlag">
@@ -373,5 +378,9 @@
   project_plan pp1, project_store ps2,predesign_report pr
   where pp1.del_flag = 0  and pp1.project_id = ps2.id  and pp1.approve=1 and pp1.examine=1
 	and pp1.project_id = pr.project_id and pr.approve=1 order by pr.examine
+  </select>
+  
+  <select id="selectByProjectId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from project_plan where project_id = #{projectId} and del_flag = 0
   </select>
 </mapper>

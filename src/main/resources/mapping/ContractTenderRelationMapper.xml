@@ -165,4 +165,8 @@
       operator_time = #{operatorTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getcontractIdByTenderId" resultType="java.lang.Integer">
+    select contract_id from contract_tender_relation where del_flag=0 and tender_id=#{tenderId}
+  </select>
 </mapper>

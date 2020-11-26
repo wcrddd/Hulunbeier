@@ -241,7 +241,7 @@
   <resultMap extends="BaseResultMap" id="ModalProjectName" type="cn.edu.upc.manage.vo.ModalProjectName">
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
     <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
-
+    <result column="contrscy_money" jdbcType="VARCHAR" property="contractMoney" />
   </resultMap>
 
 
@@ -251,10 +251,11 @@
 
 
   <select id="getAllModal" resultMap="ModalProjectName">
-    	select a.*,project_store.project_name,contract_information.contract_name from
+    	select a.*,project_store.project_name,contract_information.contract_name,contract_information.contrscy_money from
 (select * from modal where del_flag=0)as a
 LEFT JOIN project_store on a.project_id=project_store.id
 LEFT JOIN contract_information on a.contract_id=contract_information.id
+ORDER BY a.id desc
   </select>
 
   <select id="getModalByContractId" resultMap="BaseResultMap">

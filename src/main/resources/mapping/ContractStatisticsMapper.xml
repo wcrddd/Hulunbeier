@@ -30,6 +30,7 @@
 (select project_id,count(*)as signed_num,sum(contrscy_money)as signed_money from contract_information where project_id=#{projectId} and del_flag=0) as a
 LEFT JOIN(select project_id,count(*)as unsigned_num,sum(bid_money) as unsigned_money from tender_information where del_flag=0 and project_id=#{projectId} and id not in(select tender_id from contract_tender_relation))as b on a.project_id=b.project_id
 LEFT JOIN(select id,project_name from project_store)as c on c.id=a.project_id
+
     </select>
 
 </mapper>

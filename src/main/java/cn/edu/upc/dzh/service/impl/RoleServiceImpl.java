@@ -3,10 +3,13 @@ package cn.edu.upc.dzh.service.impl;
 import cn.edu.upc.dzh.service.RoleService;
 import cn.edu.upc.manage.dao.RightRoleMapper;
 import cn.edu.upc.manage.dao.RoleMapper;
+import cn.edu.upc.manage.dao.ViewRightsIdRoleIdMapper;
 import cn.edu.upc.manage.dao.ViewRightsRoleMapper;
 import cn.edu.upc.manage.model.RightRole;
 import cn.edu.upc.manage.model.Role;
+import cn.edu.upc.manage.model.ViewRightsIdRoleIdWithBLOBs;
 import cn.edu.upc.manage.model.ViewRightsRole;
+import cn.edu.upc.manage.vo.ViewRightsIdRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,8 @@ public class RoleServiceImpl implements RoleService {
     private RightRoleMapper rightRoleMapper;
     @Autowired
     private ViewRightsRoleMapper viewRightsRoleMapper;
+    @Autowired
+    private ViewRightsIdRoleIdMapper viewRightsIdRoleIdMapper;
 
     @Override
     public List<ViewRightsRole> getAllRole(){
@@ -67,5 +72,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<ViewRightsRole> selectByName(String name){
         return viewRightsRoleMapper.selectByName(name);
+    }
+
+    @Override
+    public List<ViewRightsIdRoleIdWithBLOBs> getAllRoleRightsId(){
+        return viewRightsIdRoleIdMapper.getAll();
     }
 }

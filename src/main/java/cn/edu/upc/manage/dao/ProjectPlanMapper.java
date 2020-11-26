@@ -76,4 +76,11 @@ public interface ProjectPlanMapper {
     List<ProjectPlanDesign> getDesignByUnitId(int unitId);
 
     List<ProjectPlanDesign> getAllApprovedDesign();
+
+    /**
+     * 根据项目id查询
+     * @param projectId
+     * @return
+     */
+    ProjectPlan selectByProjectId(Integer projectId);
 }

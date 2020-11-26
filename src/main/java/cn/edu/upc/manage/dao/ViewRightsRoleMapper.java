@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.ViewRightsRole;
+import cn.edu.upc.manage.vo.ViewRightsIdRole;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface ViewRightsRoleMapper {
     List<ViewRightsRole> getAllRoleRights();
 
     List<ViewRightsRole> selectByName(String name);
+
+    List<ViewRightsIdRole> getAllRoleRightsId();
 }

@@ -2,7 +2,9 @@ package cn.edu.upc.dzh.service;
 
 import cn.edu.upc.manage.model.RightRole;
 import cn.edu.upc.manage.model.Role;
+import cn.edu.upc.manage.model.ViewRightsIdRoleIdWithBLOBs;
 import cn.edu.upc.manage.model.ViewRightsRole;
+import cn.edu.upc.manage.vo.ViewRightsIdRole;
 
 import java.util.List;
 
@@ -15,5 +17,6 @@ public interface RoleService {
     public void updatetRole(Role role);
     public void updatetRoleName(int id,String roleName);
     public List<ViewRightsRole> selectByName(String name);
+    public List<ViewRightsIdRoleIdWithBLOBs> getAllRoleRightsId();
 
 }

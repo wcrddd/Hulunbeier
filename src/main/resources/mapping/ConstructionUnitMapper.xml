@@ -377,7 +377,7 @@
   </update>
 
   <select id="getConstructionUnit" resultMap="BaseResultMap">
-    select * from Construction_unit where del_flag = 0
+    select * from construction_unit where del_flag = 0
   </select>
   
   <update id="updateDelFlag" parameterType="java.lang.Integer">

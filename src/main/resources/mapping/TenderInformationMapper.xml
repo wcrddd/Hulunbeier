@@ -401,7 +401,7 @@
 				else  3
 				end as contract_state
 	from
-(select * from tender_information where del_flag = 0 and project_id = #{projectId} ) as a
+(select * from tender_information where del_flag = 0 and project_id = #{projectId} and approve=1) as a
 LEFT JOIN contract_tender_relation on a.id=contract_tender_relation.tender_id
 LEFT JOIN contract_information on contract_information.id=contract_tender_relation.contract_id
 

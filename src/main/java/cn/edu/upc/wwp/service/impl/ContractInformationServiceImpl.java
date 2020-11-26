@@ -25,6 +25,7 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     public void updateContractInformation(ContractInformation recordUp) {
         recordUp.setApprove(0);
         recordUp.setOperator("test");
+        recordUp.setId(contractTenderRelationMapper.getcontractIdByTenderId(recordUp.getId()));
         contractInformationMapper.updateByPrimaryKeySelective(recordUp);
     }
 

@@ -8,6 +8,11 @@
     <context id="context" targetRuntime="MyBatis3">
 
         <!-- 数据库的相关配置 -->
+<!--        <jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+<!--                        connectionURL="jdbc:mysql://39.99.43.178:3306/hulun?serverTimezone=UTC"-->
+<!--                        userId="hb-mysql"-->
+<!--                        password="hbMiMabhj123!@#">-->
+<!--        </jdbcConnection>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://58.87.74.112:3306/hulunbeier2020?serverTimezone=UTC"
                         userId="manage"
@@ -60,7 +65,7 @@
 <!--        <table tableName="affix" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
 
-        <table tableName="project_plan" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="guide" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
 
 <!--        <table tableName = "feasibility_research_report" enableCountByExample = "false" enableDeleteByExample = "false"-->

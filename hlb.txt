@@ -3,7 +3,7 @@
 set PORT 22
 set HOST 101.201.239.28
 set USER root
-set PASSWORD Whn39258376
+set PASSWORD Upc2020..
 
 spawn ssh -p $PORT $USER@$HOST
 expect {

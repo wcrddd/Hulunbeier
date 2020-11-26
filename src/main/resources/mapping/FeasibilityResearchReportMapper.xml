@@ -263,16 +263,18 @@
     	select frr.*,ps.project_name from feasibility_research_report frr, project_store ps where frr.del_flag=0 and frr.project_id=ps.id and ps.del_flag=0
 	and constru_unit_id=#{unitId}
     <if test="projectName != null ">
-      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by frr.id desc
+      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
     </if>
+    order by frr.id desc
   </select>
 
   <select id="getAllApprovedFeasibility" parameterType="java.lang.String" resultMap="FeasibilityProjectName">
     		select frr.*,ps.project_name from feasibility_research_report frr, project_store ps where frr.del_flag=0 and frr.project_id=ps.id and ps.del_flag=0
 and frr.approve=1
     <if test="projectName != null ">
-      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%') order by frr.id desc
+      and ps.project_name like concat('%',#{projectName,jdbcType = VARCHAR},'%')
     </if>
+    order by frr.id desc
   </select>
 
   <update id="updateReport" parameterType="cn.edu.upc.manage.model.FeasibilityResearchReport">

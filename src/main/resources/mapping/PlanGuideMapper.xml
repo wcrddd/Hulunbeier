@@ -204,7 +204,7 @@
 
 
   <select id="selectPlanGuide" resultMap="BaseResultMap">
-       select * from plan_guide where del_flag = 0
+       select * from plan_guide where del_flag = 0 order by id desc
   </select>
 
   <select id="selectPlanGuideBuildYear" resultMap="BaseResultMap">

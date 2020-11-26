@@ -66,4 +66,16 @@ public class ProjectPlanServiceImpl implements ProjectPlanService {
     public List<ProjectPlanDesign> getAllApprovedDesign(){
         return projectPlanMapper.getAllApprovedDesign();
     }
+
+    /**
+     * gsl
+     * 根据项目id查询计划项目信息
+     *
+     * @param projectId
+     * @return
+     */
+    @Override
+    public ProjectPlan getByProjectId(Integer projectId) {
+        return projectPlanMapper.selectByProjectId(projectId);
+    }
 }

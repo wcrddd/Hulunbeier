@@ -78,7 +78,7 @@ public class RegisterLoginController {
         if(user1!=null){
             if(user1.getPassword().equals(password)){
                 session.setAttribute("user",user1);
-                session.setMaxInactiveInterval(10);
+                session.setMaxInactiveInterval(120*60);
                 returnMsg.put("loginTips","登陆成功");
                 System.out.println("返回权限1");
 //                returnMsg.put("userType",SysUser.getCurrentUserRole(session));

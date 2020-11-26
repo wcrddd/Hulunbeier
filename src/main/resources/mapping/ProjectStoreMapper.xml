@@ -522,14 +522,18 @@ SELECT a.*,guide.title,
         update project_store set planed_flag = #{planedFlag} where id = #{id}
     </update>
 
-    <select id="getCanTenderByUnitId" resultMap="BaseResultMap">
-        	select * from project_store where del_flag=0 and id in
-        	(select project_id from predesign_report where approve=1 and examine=1) and constru_unit_id=#{unitId}
+    <select id="getCanTenderByUnitId" resultMap="ProjectStoreUnitName">
+        	select a.*,construction_unit.`name` from
+(select * from project_store where del_flag=0 and id in
+        	(select project_id from predesign_report where approve=1 and examine=1) and constru_unit_id=#{unitId})as a
+					LEFT JOIN construction_unit on a.constru_unit_id = construction_unit.id
     </select>
 
-    <select id="getCanContractByUnitId" resultMap="BaseResultMap">
-         	select * from project_store where del_flag=0 and id in
-        	(select project_id from tender_information where approve=1 ) and constru_unit_id=#{unitId}
+    <select id="getCanContractByUnitId" resultMap="ProjectStoreUnitName">
+        						select a.*,construction_unit.`name` from
+					(select * from project_store where del_flag=0 and id in
+        	(select project_id from tender_information where approve=1 ) and constru_unit_id=#{unitId})as a
+					LEFT JOIN construction_unit on a.constru_unit_id = construction_unit.id
     </select>
 
     <select id="getCanProgressByUnitId" resultMap="BaseResultMap">

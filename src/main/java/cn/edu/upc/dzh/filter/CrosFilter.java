@@ -3,6 +3,7 @@ package cn.edu.upc.dzh.filter;
 import cn.edu.upc.dzh.until.exception.BusinessException;
 import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.manage.model.User;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+@Controller
 public class CrosFilter implements Filter{
     private FilterConfig config = null;
     @Override
@@ -52,47 +53,42 @@ public class CrosFilter implements Filter{
         // response.setHeader( "Access-Control-Expose-Headers", "*" );
 
         System.out.println(request.getHeader("Origin"));
-        System.out.println(request.getMethod());
+        System.out.println("方法："+request.getMethod());
         System.out.println(request.getHeader("Access-Control-Request-Headers"));
 
         if (request.getMethod().equals( "OPTIONS" )) {
             response.setStatus( 200 );
             return ;
         }
-        if(!url.equals("/web/login")&&!url.equals("/web/logout")
-                &&!url.equals("/web/sendCode")&&!url.equals("/web/codeMaching")
-                &&!url.equals("/web/register")&&!url.equals("/index.jsp")
-                &&!url.equals("/post/selectPost")&&!url.equals("/unit/getUnit")
-                &&!url.equals("/web/selectusername")&&!url.equals("/hl/index.html")
-                &&!url.equals("/index.jsp")
-                &&user==null){
-            System.out.println("请登录");
-//            response.setStatus(304);
-//            throw new BusinessException(EmBusinessError.PLEASE_LOGIN);
+        else if(request.getMethod().equals( "POST" )){
+            if(!url.equals("/web/login")&&!url.equals("/web/logout")
+                    &&!url.equals("/web/sendCode")&&!url.equals("/web/codeMaching")
+                    &&!url.equals("/web/register")&&!url.equals("/index.jsp")
+                    &&!url.equals("/post/selectPost")&&!url.equals("/unit/getUnit")
+                    &&!url.equals("/web/selectusername")&&!url.equals("/guide/getOption")
+                    &&!url.equals("/guide/importExcel")
+                    &&user==null){
+                System.out.println("请登录");
 
-//            PrintWriter writer=response.getWriter();
-//            writer.write("登录超时");
-//            response.setContentType("text/plain;charset=UTF-8");
+                response.addHeader("Access-Control-Expose-Headers","Access-Control-Max-Age,Content-Type");
+//                response.setHeader( "Access-Control-Max-Age", "3000" );
 
-//            response.setHeader("Refresh","5; URL=http://www.baidu.com");
-
-
-//            response.setStatus( 200 );
-//            response.sendRedirect("http://localhost:3000/#/Login");
+//            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Type","text/html;charset=UTF-8");
+//            response.setHeader("Refresh","6; http://101.201.239.28:9080/hl/index.html#/");
 
 
 
-//            response.setStatus(302);
-//            response.setHeader("Location", "https://www.cnblogs.com/noteless/");
+            }
 
-
+            else{
+                filterChain.doFilter( servletRequest, response );
+            }
         }
-
-
         else{
-
-        filterChain.doFilter( servletRequest, response );
+            filterChain.doFilter( servletRequest, response );
         }
+
     }
 
 }
