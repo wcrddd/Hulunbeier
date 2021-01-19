@@ -2,6 +2,7 @@ package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.Right;
 import cn.edu.upc.manage.model.Rights;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,4 +58,12 @@ public interface RightsMapper {
     List<Rights> getAllRight();
 
     void deleteRight(int rightId);
+
+    List<Rights> getByLastId(@Param("lastId") Integer lastId);
+
+    List<Rights> getRightA();
+
+    List<Rights> getRightB(@Param("lastId") Integer lastId);
+
+    List<Rights> getRightC(@Param("lastId") Integer lastId);
 }

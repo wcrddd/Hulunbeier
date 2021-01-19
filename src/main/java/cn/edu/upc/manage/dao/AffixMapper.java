@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.Affix;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -74,5 +75,16 @@ public interface AffixMapper {
     List<Affix> selectAffix();
 
     List<Affix> getAffixByContractId(int contractId);
+
+    void updateApprove(@Param("affix") Affix affix);
+
+    List<Affix> getAllReport();
+
+    /**
+     * 根据项目id获取验收报告
+     * @param projectId
+     * @return
+     */
+    List<Affix> getByProjectId(@Param("projectId") Integer projectId);
 
 }

@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.StudyReport;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,4 +55,15 @@ public interface StudyReportMapper {
     int updateByPrimaryKey(StudyReport record);
 
     List<StudyReport> getAppendixBuProjectId(int projectId);
+
+    void updateApprove(@Param("studyReport") StudyReport studyReport);
+
+    /**
+     * 根据项目id获取具体可研报告
+     * @param projectId
+     * @return
+     */
+    StudyReport getByProjectId(@Param("projectId") Integer projectId);
+
+    List<StudyReport> getAllFeasibility(@Param("studyReport") StudyReport studyReport);
 }

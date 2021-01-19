@@ -67,5 +67,5 @@ public interface GuideOptionMapper {
      * @param titleB
      * @return
      */
-    List<String> getTitleC(@Param("projectId") int projectId, @Param("titleA") String titleA, @Param("titleB") String titleB);
+    List<GuideOption> getTitleC(@Param("projectId") int projectId, @Param("titleA") String titleA, @Param("titleB") String titleB);
 }

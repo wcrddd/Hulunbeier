@@ -4,6 +4,7 @@ import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.model.ContractInformation;
 import cn.edu.upc.manage.model.ContractInformationWithTenderId;
+import cn.edu.upc.manage.model.ProjectSection;
 import cn.edu.upc.wwp.service.ContractInformationService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +21,30 @@ public class ContractInformationController {
     @Autowired
     ContractInformationService contractInformationService;
 
+    /**
+     * 修改合同（改2020-12-01）
+     * @param projectSectionList
+     * @return
+     */
     @RequestMapping("/updateContractInformation")
-
     @ResponseBody
-    public CommonReturnType update(@RequestBody ContractInformation recordUp){
+    public CommonReturnType update(@RequestBody List<ProjectSection> projectSectionList){
 
-        contractInformationService.updateContractInformation(recordUp);
+        contractInformationService.updateContractInformation(projectSectionList);
 
-        return CommonReturnType.create(null,null,0,"更新成功");
+        return CommonReturnType.create(null,"更新成功");
     }
 
+    /**
+     * 上传合同（改2020-11-30）
+     * @param projectSectionList
+     * @return
+     */
     @RequestMapping("/insertContractInformation")
-
     @ResponseBody
-    public CommonReturnType insert(@RequestBody ContractInformationWithTenderId recordIn){
-        int id=contractInformationService.insertContractInformation(recordIn);
-        return CommonReturnType.create(id);
+    public CommonReturnType insert(@RequestBody List<ProjectSection> projectSectionList){
+        contractInformationService.insertContractInformation(projectSectionList);
+        return CommonReturnType.create(null);
     }
 
     @RequestMapping("/deleteContractInformation")
@@ -60,10 +69,14 @@ public class ContractInformationController {
 //        return CommonReturnType.create();
 //    }
 
+    /**
+     * 按照项目id获取合同（改2020-12-01）
+     * @param projectId
+     * @return
+     */
     @RequestMapping("/getContractByProjectId")
     @ResponseBody
-    public CommonReturnType getContractByProjectId(@RequestBody JSONObject jsonObject){
-        int projectId=jsonObject.getInteger("projectId");
+    public CommonReturnType getContractByProjectId(@RequestParam("projectId") int projectId){
         return CommonReturnType.create(contractInformationService.getContractByProjectId(projectId));
     }
 
@@ -88,11 +101,16 @@ public class ContractInformationController {
         return CommonReturnType.create(contractInformationService.getContractByTenderId(tenderId));
     }
 
+    /**
+     * 审批（改2020-12-01）
+     * @param projectSection
+     * @return
+     */
     @RequestMapping("/updateApprove")
     @ResponseBody
-    public CommonReturnType updateApprove(@RequestBody  ContractInformation contractInformation ){
-        contractInformationService.updateContractInformation2(contractInformation);
-        return CommonReturnType.create(null,null,0,"审核成功");
+    public CommonReturnType updateApprove(@RequestBody  ProjectSection projectSection){
+        contractInformationService.updateApprove(projectSection);
+        return CommonReturnType.create(null,"审核成功");
     }
 
     @RequestMapping("/getAllContractWithProjectName")

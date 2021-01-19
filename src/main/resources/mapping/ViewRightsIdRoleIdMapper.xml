@@ -76,7 +76,7 @@
   </insert>
 
   <select id="getAll" resultMap="ResultMapWithBLOBs">
-    select * from view_rights_id_role_id
+    select * from view_rights_id_role_id2
 
   </select>
 </mapper>

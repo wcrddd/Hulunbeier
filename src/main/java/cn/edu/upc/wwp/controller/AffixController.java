@@ -30,8 +30,12 @@ public class AffixController {
         return  CommonReturnType.create(list1,"查询成功");
     }
 
+    /**
+     * 修改验收报告
+     * @param recordUp
+     * @return
+     */
     @RequestMapping("/updateAffix")
-
     @ResponseBody
     public CommonReturnType update(@RequestBody Affix recordUp){
 
@@ -40,25 +44,39 @@ public class AffixController {
         return  CommonReturnType.create(null);
     }
 
-    @RequestMapping("/insertAffix")
-
+    /**
+     * 上传验收报告
+     * @param affix
+     * @return
+     */
+    @RequestMapping("/insertReport")
     @ResponseBody
-    public CommonReturnType insert(@RequestBody JSONObject jsonObject){
-
-        int projectId=jsonObject.getInteger("projectId");
-        int contractId=jsonObject.getInteger("contractId");
-        JSONArray name=jsonObject.getJSONArray("affixName");
-        JSONArray path=jsonObject.getJSONArray("affixPath");
-        Affix affix=new Affix();
-        affix.setProjectId(projectId);
-        affix.setContractId(contractId);
-        for(int i=0;i<name.size();i++){
-            affix.setAffixName(name.getString(i));
-            affix.setAffixPath(path.getString(i));
+    public CommonReturnType insertReport(@RequestBody Affix affix){
             affixService.insertAffix(affix);
-        }
-
         return  CommonReturnType.create("新增成功");
+    }
+
+    /**
+     * 审批验收报告
+     * @param affix
+     * @return
+     */
+    @RequestMapping("/updateApprove")
+    @ResponseBody
+    public CommonReturnType updateApprove(@RequestBody Affix affix){
+        affixService.updateApprove(affix);
+        return  CommonReturnType.create("审批成功");
+    }
+
+    /**
+     * 获取全部验收报告
+     * @return
+     */
+    @RequestMapping("/getAllReport")
+    @ResponseBody
+    public CommonReturnType getAllReport(){
+        List<Affix> affixList = affixService.getAllReport();
+        return  CommonReturnType.create(affixList);
     }
 
     @RequestMapping("/deleteAffix")
@@ -84,7 +102,7 @@ public class AffixController {
         JSONArray fileArray=jsonObject.getJSONArray("fileArray");
         Affix affix=new Affix();
         affix.setProjectId(projectId);
-        affix.setContractId(contractId);
+//        affix.setContractId(contractId);
         for(int i=0;i<fileArray.size();i++){
             JSONObject jsonObject1=fileArray.getJSONObject(i);
             affix.setAffixName(jsonObject1.getString("fileName"));
@@ -93,5 +111,16 @@ public class AffixController {
         }
 
         return  CommonReturnType.create("新增成功");
+    }
+
+    /**
+     * 根据项目id获取验收报告
+     * @param projectId
+     * @return
+     */
+    @RequestMapping("/getByProjectId")
+    @ResponseBody
+    public CommonReturnType getByProjectId(@RequestParam("projectId") int projectId){
+        return  CommonReturnType.create(affixService.getByProjectId(projectId));
     }
 }

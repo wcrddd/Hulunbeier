@@ -165,4 +165,30 @@
       operator_time = #{operatorTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="deleteByGuideId">
+    update guide_unit_relation set del_flag = 1
+    where guide_id = #{guideId,jdbcType = INTEGER}
+  </update>
+
+  <insert id="insertList" parameterType="cn.edu.upc.manage.model.GuideUnitRelation">
+    insert into project_section(
+    project_id,
+    section_name,
+    section_content,
+    section_money,
+    section_plan_finish_time,
+    tender_flag
+    )VALUE
+    <foreach collection="list" item="item" separator=",">
+      (
+      #{item.projectId,jdbcType=INTEGER},
+      #{item.sectionName,jdbcType=INTEGER},
+      #{item.sectionContent,jdbcType=VARCHAR},
+      #{item.sectionMoney,jdbcType=VARCHAR},
+      #{item.sectionPlanFinishTime,jdbcType=VARCHAR},
+      #{item.tenderFlag,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
 </mapper>

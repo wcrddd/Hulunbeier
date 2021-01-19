@@ -5,6 +5,7 @@ import cn.edu.upc.manage.model.Role;
 import cn.edu.upc.manage.model.ViewRightsIdRoleIdWithBLOBs;
 import cn.edu.upc.manage.model.ViewRightsRole;
 import cn.edu.upc.manage.vo.ViewRightsIdRole;
+import com.alibaba.fastjson.JSONArray;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public interface RoleService {
     public void updatetRoleName(int id,String roleName);
     public List<ViewRightsRole> selectByName(String name);
     public List<ViewRightsIdRoleIdWithBLOBs> getAllRoleRightsId();
+
+    void insertNewRole2(String roleName, JSONArray rightsList);
+
+    void updateRole2(int roleId, String roleName, JSONArray rightsList);
 
 }

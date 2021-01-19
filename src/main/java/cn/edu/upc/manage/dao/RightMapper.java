@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.Right;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -56,6 +57,8 @@ public interface RightMapper {
     List<Right> getAllRight();
 
     void deleteRight(int rightId);
+
+
 
 
 }

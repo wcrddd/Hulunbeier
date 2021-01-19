@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -37,6 +38,17 @@ public class RightController {
         return CommonReturnType.create(rightService.getAllRight());
     }
 
+    /**
+     * 获取全部权限
+     * @return
+     */
+    @RequestMapping("/getAllRightTree")
+    @ResponseBody
+    public CommonReturnType getAllRightTree(){
+        return CommonReturnType.create(rightService.getAllRightTree());
+    }
+
+
     @RequestMapping("/updateRight")//更新权限
     @ResponseBody
     public CommonReturnType updateRight(@RequestBody Rights right){
@@ -54,8 +66,9 @@ public class RightController {
 
     @RequestMapping("/selectRightByRole")
     @ResponseBody
-    public CommonReturnType selectRightByRole(HttpSession session){
-        List<ViewRights> p1 = rightService.selectRightByRole(SysUser.getCurrentUserRole(session));
+    public CommonReturnType selectRightByRole(HttpSession session, HttpServletRequest httpServletRequest){
+        List<ViewRights> p1 = rightService.selectRightByRole(SysUser.getCurrentUserRole(session,httpServletRequest));
+//        List<ViewRights> p1 = rightService.selectRightByRole(15);
 //        List<ViewRights> p1 = rightService.selectRightByRole(15);
         return CommonReturnType.create(p1);
     }

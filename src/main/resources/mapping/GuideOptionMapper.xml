@@ -209,14 +209,14 @@
   </insert>
 
   <select id="getTitleA" resultType="java.lang.String">
-    SELECT title_a FROM guide_option WHERE guide_id = #{projectId} GROUP BY title_a ORDER BY id
+    SELECT title_a FROM guide_option WHERE guide_id = #{projectId} GROUP BY title_a
   </select>
 
   <select id="getTitleB" resultType="java.lang.String">
-    SELECT title_b FROM guide_option WHERE guide_id = #{projectId} and title_a = #{titleA} GROUP BY title_b ORDER BY id
+    SELECT title_b FROM guide_option WHERE guide_id = #{projectId} and title_a = #{titleA} GROUP BY title_b
   </select>
 
-  <select id="getTitleC" resultType="java.lang.String">
-    SELECT title_c FROM guide_option WHERE guide_id = #{projectId} and title_a = #{titleA} and title_b = #{titleB} GROUP BY title_c ORDER BY id
+  <select id="getTitleC" resultMap="BaseResultMap">
+    SELECT id,title_c FROM guide_option WHERE guide_id = #{projectId} and title_a = #{titleA} and title_b = #{titleB} GROUP BY id
   </select>
 </mapper>

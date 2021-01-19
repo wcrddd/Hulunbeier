@@ -1,13 +1,32 @@
 package cn.edu.upc.gsl.service.impl;
 
+import cn.edu.upc.dzh.until.ChineseCharToEn;
+import cn.edu.upc.dzh.until.SysUser;
+import cn.edu.upc.dzh.until.exception.BusinessException;
+import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
+import cn.edu.upc.manage.dao.ConstructionUnitMapper;
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
+import cn.edu.upc.manage.dao.ProjectYearPlanMapper;
+import cn.edu.upc.manage.mo.ConstructUnitStatisticMo;
+import cn.edu.upc.manage.mo.NumStatisticsMo;
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.model.ProjectYearPlan;
+import cn.edu.upc.manage.model.User;
+import cn.edu.upc.manage.vo.ProjectStoreFlagVo;
 import cn.edu.upc.manage.vo.ProjectStoreVo;
+import cn.edu.upc.manage.vo.ProjectYearPlanVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +36,12 @@ import java.util.List;
 @Service
 public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
 
-    @Resource
-    ProjectStoreMapper projectStoreMapper;
+    @Autowired
+    private ProjectStoreMapper projectStoreMapper;
+    @Autowired
+    private ConstructionUnitMapper constructionUnitMapper;
+    @Autowired
+    private ProjectYearPlanMapper projectYearPlanMapper;
 
     /**
      * 新增项目申报
@@ -26,7 +49,38 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      * @param projectStore
      */
     @Override
-    public int addProject(ProjectStore projectStore) {
+    public int addProject(ProjectStore projectStore, HttpSession session, HttpServletRequest httpServletRequest) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        String year = simpleDateFormat.format(new Date());
+        String token = httpServletRequest.getHeader("token");
+        int unitId= SysUser.getCurrentUserUnitId2(session,token);
+
+//        int unitId = 6;
+        String unitName = "";
+        String unitCode = "";
+        if (unitId == 0){
+            unitName = "项目部";
+            unitCode = "001";
+        }else {
+            unitName = constructionUnitMapper.getUnitNameById(unitId);
+            unitCode = constructionUnitMapper.selectByPrimaryKey(unitId).getCode();
+        }
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumIntegerDigits(2);
+        numberFormat.setMinimumIntegerDigits(2);
+        System.out.println("数字编号"+numberFormat.format(projectStoreMapper.countByUnitId(unitId)));
+        String projectCode = year + unitCode + ChineseCharToEn.getAllFirstLetter(projectStore.getProjectTypeName()) + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        System.out.println("项目编号：" + projectCode);
+        projectStore.setConstruUnitId(unitId);
+        projectStore.setConstrutUnitName(unitName);
+        projectStore.setProjectId(projectCode);
+//        if(projectStore.getInvestEstimate() <= 50){
+//            projectStore.setPlanedFlag(2);
+//        }
+//        else
+        if (projectStore.getInvestEstimate() >= 1000){
+            projectStore.setImportantFlag(0);
+        }
         return projectStoreMapper.insertSelective(projectStore);
     }
 
@@ -124,6 +178,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public void update(ProjectStore projectStore) {
         projectStore.setApprove(0);
+        projectStore.setStoreFlag(0);
         projectStoreMapper.updateByPrimaryKeySelective(projectStore);
     }
 
@@ -168,5 +223,156 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public void setPlanedFlag(Integer id,Integer planedFlag) {
         projectStoreMapper.updatePlanedFlag(id,planedFlag);
+    }
+
+    /**
+     *
+     * @param projectStore 主要是三个参数
+     * id ,approve, opinion
+     * 0 未审核，1一级库 ,2二级库
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateStoreFlag( ProjectStore projectStore){
+        projectStoreMapper.updateStoreFlag(projectStore);
+    }
+
+    /**
+     * 挑选当年计划的项目
+     * @param projectYearPlanVo
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void selectYearPlan(ProjectYearPlanVo projectYearPlanVo){
+        String projectName = "";
+        List<ProjectYearPlan> projectYearPlanList = projectYearPlanVo.getProjectYearPlanList();
+        for (ProjectYearPlan item:projectYearPlanList
+             ) {
+            if(projectYearPlanMapper.getByProjectId(item.getProjectId()) > 0){
+                projectName = projectName + item.getProjectName()+"，";
+            }
+        }
+        if (!projectName.equals("")){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,projectName+"已经加入到建设计划");
+        }else {
+            projectYearPlanMapper.insertList(projectYearPlanList);
+        }
+    }
+
+    /**
+     * 挑选当年计划的项目
+     * @param projectYearPlan
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void selectYearPlan2(ProjectYearPlan projectYearPlan){
+        if (projectStoreMapper.selectByPrimaryKey(projectYearPlan.getProjectId()).getInvestEstimate() <= 50){
+            projectStoreMapper.updatePlanedFlag(projectYearPlan.getProjectId(), 2);
+        }
+        projectYearPlanMapper.insertSelective(projectYearPlan);
+    }
+
+
+
+    @Override
+    public void deleteYearPlanProject(int projectId){
+        projectYearPlanMapper.deleteYearPlanProject(projectId);
+    }
+
+    /**
+     * 二级单位浏览本单位的全部项目
+     * storeFlag = 1传一级库，storeFlag = 2传二级库，storeFlag = 99传回收站，
+     * @param projectStoreFlagVo
+     * @param unitId
+     * @return
+     */
+    @Override
+    public List<ProjectStore> getByUnitId(ProjectStoreFlagVo projectStoreFlagVo, int unitId){
+        return projectStoreMapper.getByUnitId(projectStoreFlagVo, unitId);
+    }
+
+    /**
+     * 二级单位浏览本单位的全部项目
+     * storeFlag = 1传一级库，storeFlag = 2传二级库，storeFlag = 99传回收站，
+     * @param projectStoreFlagVo
+     * @return
+     */
+    @Override
+    public List<ProjectStore> getAll(ProjectStoreFlagVo projectStoreFlagVo, User user){
+
+        return projectStoreMapper.getAll(projectStoreFlagVo,user);
+    }
+
+    /**
+     * 获取合同显示界面
+     * @param projectStoreFlagVo
+     * @param unitId
+     * @return
+     */
+    @Override
+    public List<ProjectStore> getByUnitIdConstract(ProjectStoreFlagVo projectStoreFlagVo, int unitId){
+        return projectStoreMapper.getByUnitIdConstract(projectStoreFlagVo,unitId);
+    }
+
+
+    /**
+     * 获取竣工界面显示
+     * @param projectStoreFlagVo
+     * @param unitId
+     * @return
+     */
+    @Override
+    public List<ProjectStore> getByUnitIdFinish(ProjectStoreFlagVo projectStoreFlagVo, int unitId){
+        return projectStoreMapper.getByUnitIdFinish(projectStoreFlagVo, unitId);
+    }
+
+    /**
+     * 设置重点项目
+     * @param projectId
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateImportant( int projectId){
+        projectStoreMapper.updateImportant(projectId);
+    }
+
+    /**
+     * 更新项目建议
+     * @param projectStore
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateSuggestion(ProjectStore projectStore){
+        projectStoreMapper.updateSuggestion(projectStore);
+    }
+
+    /**
+     * 获取全部项目的数量统计
+     * @return
+     */
+    @Override
+    public NumStatisticsMo getNumStatistics(){
+        return projectStoreMapper.getNumStatistics();
+    }
+
+    @Override
+    public List<ProjectStore> getProjectLocation(){
+        return projectStoreMapper.getProjectLocation();
+    }
+
+    @Override
+    public List<ConstructUnitStatisticMo> getConstructUnitStatistic(){
+        return projectStoreMapper.getConstructUnitStatistic();
+    }
+
+    /**
+     * 获取部分项目的坐标和部分信息（地图显示）
+     * @param flag
+     * @return
+     */
+    @Override
+    public List<ProjectStore> getProjectLocationClass(int flag){
+        return projectStoreMapper.getProjectLocationClass(flag);
     }
 }

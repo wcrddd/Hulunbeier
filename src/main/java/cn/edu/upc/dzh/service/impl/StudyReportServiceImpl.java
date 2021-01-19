@@ -2,9 +2,11 @@ package cn.edu.upc.dzh.service.impl;
 
 import cn.edu.upc.dzh.service.StudyReportService;
 import cn.edu.upc.manage.dao.FeasibilityResearchReportMapper;
+import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.dao.StudyReportMapper;
 import cn.edu.upc.manage.dao.ViewStudyReportMapper;
 import cn.edu.upc.manage.model.FeasibilityResearchReport;
+import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.manage.model.StudyReport;
 import cn.edu.upc.manage.model.ViewStudyReport;
 import cn.edu.upc.manage.vo.FeasibilityProjectName;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +25,8 @@ public class StudyReportServiceImpl implements StudyReportService {
     private FeasibilityResearchReportMapper feasibilityResearchReportMapper;
     @Autowired
     private ViewStudyReportMapper viewStudyReportMapper;
+    @Autowired
+    private ProjectStoreMapper projectStoreMapper;
 
 
     @Transactional
@@ -30,12 +35,11 @@ public class StudyReportServiceImpl implements StudyReportService {
         studyReportMapper.insertSelective(studyReport);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void insertReport(FeasibilityResearchReport feasibilityResearchReport){
-        int projectId=feasibilityResearchReport.getProjectId();
-        if(feasibilityResearchReportMapper.getByProjectId(projectId)==null)
-        {feasibilityResearchReportMapper.insertSelective(feasibilityResearchReport);}
+    public void insertReport(StudyReport studyReport){
+        studyReportMapper.insertSelective(studyReport);
+        projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1);
     }
 
     @Override
@@ -43,14 +47,14 @@ public class StudyReportServiceImpl implements StudyReportService {
         return viewStudyReportMapper.getReportByProjectId(projectId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteAppendix(StudyReport studyReport){
         studyReport.setDelFlag(studyReport.getId());
         studyReportMapper.updateByPrimaryKeySelective(studyReport);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateReport(FeasibilityResearchReport feasibilityResearchReport){
         feasibilityResearchReport.setApprove(0);
@@ -79,19 +83,41 @@ public class StudyReportServiceImpl implements StudyReportService {
     }
 
     @Override
-    public List<FeasibilityProjectName> getAllApprovedFeasibility(String projectName){
-        return feasibilityResearchReportMapper.getAllApprovedFeasibility(projectName);
+    public List<StudyReport> getAllApprovedFeasibility(StudyReport studyReport){
+        return studyReportMapper.getAllFeasibility(studyReport);
     }
 
     /**
-     * 根据项目id查询可研报告
+     * 根据项目id查询可研报告（改2020-12-01）
      *
      * @param projectId
      * @return
      */
     @Override
-    public FeasibilityResearchReport getByProjectId(Integer projectId) {
-        return feasibilityResearchReportMapper.getByProjectId(projectId);
+    public StudyReport getByProjectId(Integer projectId) {
+        return studyReportMapper.getByProjectId(projectId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateReport(StudyReport studyReport){
+        studyReport.setApprove(0);
+        studyReportMapper.updateByPrimaryKeySelective(studyReport);
+        projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateApprove(StudyReport studyReport){
+        studyReport.setApproveTime(new Date());
+//        studyReportMapper.updateApprove(studyReport);
+        studyReportMapper.updateByPrimaryKeySelective(studyReport);
+        int approve = studyReport.getApprove();
+        if (approve == 1){
+            projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),2);
+        }else {
+            projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),3);
+        }
     }
 
 }

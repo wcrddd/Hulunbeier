@@ -64,6 +64,8 @@ public interface UserMapper {
 
     public User selectByEmail(@Param("email") String email);
 
+    User selectByTel(@Param("tel") String tel);
+
     public void changePassword(@Param("newPassword") String newPassword,@Param("id") String id);
 
     public void deleteUser(@Param("userId") int userId);
@@ -74,4 +76,6 @@ public interface UserMapper {
     public void changePasswordByUsername(@Param("newPassword") String newPassword,@Param("username") String username);
 
     public UserUnitName getUserById(int id);
+
+    public UserUnitName getUserById2(int id);
 }

@@ -3,9 +3,11 @@ package cn.edu.upc.dzh.controller;
 import cn.edu.upc.dzh.service.PredesignReportService;
 import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.manage.common.CommonReturnType;
+import cn.edu.upc.manage.mo.PredesignReportMo;
 import cn.edu.upc.manage.model.PredesignReport;
 import cn.edu.upc.manage.model.PredesignReportAppendix;
 import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.vo.PredesignReportVo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,4 +116,89 @@ public CommonReturnType insertAppendix(@RequestBody JSONObject jsonObject){
         String name=jsonObject.getString("projectName");
         return CommonReturnType.create(predesignReportService.selectAllpredesignReport(name));
     }
+
+    /**
+     * 新增初步设计
+     * @param predesignReportVo
+     * @return
+     */
+    @RequestMapping("/insertReport")
+    @ResponseBody
+    public CommonReturnType insertReport(@RequestBody PredesignReportVo predesignReportVo){
+        predesignReportService.insertReport(predesignReportVo);
+        return CommonReturnType.create(null);
+    }
+
+    /**
+     * 修改初步设计
+     * @param predesignReportVo
+     * @return
+     */
+    @RequestMapping("/updateReport")
+    @ResponseBody
+    public CommonReturnType updateReport(@RequestBody PredesignReportVo predesignReportVo){
+        predesignReportService.updateReport(predesignReportVo);
+        return CommonReturnType.create(null);
+    }
+
+    /**
+     * 删除标段
+     * @param sectionId
+     * @return
+     */
+    @RequestMapping("/deleteSection")
+    @ResponseBody
+    public CommonReturnType deleteSection(@RequestParam("sectionId") int sectionId){
+        predesignReportService.deleteSection(sectionId);
+        return CommonReturnType.create(null);
+    }
+
+    /**
+     * 根据项目id获取某个具体的初步设计
+     * @param projectId
+     * @return
+     */
+    @RequestMapping("/getByProjectId")
+    @ResponseBody
+    public CommonReturnType getByProjectId(@RequestParam("projectId") int projectId ){
+        PredesignReportMo predesignReportMo = predesignReportService.getByProjectId(projectId);
+        return CommonReturnType.create(predesignReportMo);
+    }
+
+    /**
+     * 新增备案
+     * @param predesignReport
+     * @return
+     */
+    @RequestMapping("/insertKeepRecord")
+    @ResponseBody
+    public CommonReturnType insertKeepRecord(@RequestBody PredesignReport predesignReport){
+        predesignReportService.insertKeepRecord(predesignReport);
+        return CommonReturnType.create(null);
+    }
+
+    /**
+     * 审批
+     * @param predesignReport
+     * @return
+     */
+    @RequestMapping("/updateKeepApprove")
+    @ResponseBody
+    public CommonReturnType updateKeepApprove(@RequestBody PredesignReport predesignReport){
+        predesignReportService.updateKeepApprove(predesignReport);
+        return CommonReturnType.create(null);
+    }
+
+    /**
+     * 根据项目id获取某个项目的备案
+     * @param projectId
+     * @return
+     */
+    @RequestMapping("/getKeepByProjectId")
+    @ResponseBody
+    public CommonReturnType getKeepByProjectId(@RequestParam("projectId") int projectId){
+        return CommonReturnType.create(predesignReportService.getKeepByProjectId(projectId));
+    }
+
+
 }

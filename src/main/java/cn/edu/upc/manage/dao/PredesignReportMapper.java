@@ -68,4 +68,26 @@ public interface PredesignReportMapper {
     List<PredesignReportWithProject> selectCanApprove(@Param("unitId") int unitId, @Param("projectName") String projectName);
 
     List<PredesignReportWithProject> selectAllpredesignReport(String projectName);
+
+    /**
+     * 审批
+     * @param predesignReport
+     */
+    void updateApproveExamine2(@Param("predesignReport") PredesignReport predesignReport);
+
+    /**
+     * 根据项目id获取初步设计
+     * @param projectId
+     * @return
+     */
+    PredesignReport getByProjectId(@Param("projectId") Integer projectId);
+
+    /**
+     * 根据项目id获取备案
+     * @param projectId
+     * @return
+     */
+    PredesignReport getKeepByProjectId(@Param("projectId")Integer projectId);
+
+    void updateApproveFlag(@Param("projectId")Integer projectId);
 }

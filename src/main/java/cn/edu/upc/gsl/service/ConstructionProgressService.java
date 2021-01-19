@@ -1,7 +1,11 @@
 package cn.edu.upc.gsl.service;
 
+import cn.edu.upc.manage.mo.ConstructionProgressMo;
+import cn.edu.upc.manage.mo.SectionProgressMo;
 import cn.edu.upc.manage.model.ConstructionProgress;
+import cn.edu.upc.manage.vo.ConstructionProgressParamVo;
 import cn.edu.upc.manage.vo.ConstructionProgressVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,9 +17,9 @@ import java.util.List;
 public interface ConstructionProgressService {
     /**
      * 新增建设单位信息
-     * @param constructionProgress
+     * @param constructionProgressParamVo
      */
-    void insert(ConstructionProgress constructionProgress);
+    void insert(ConstructionProgressParamVo constructionProgressParamVo);
 
     /**
      * 修改
@@ -38,4 +42,11 @@ public interface ConstructionProgressService {
      * @return
      */
     ConstructionProgressVo selectArray(Integer projectId, Integer contractId);
+
+    /**
+     * 根据项目id获取施工进度
+     * @param projectId
+     * @return
+     */
+    List<SectionProgressMo> getByProjectId( int projectId);
 }

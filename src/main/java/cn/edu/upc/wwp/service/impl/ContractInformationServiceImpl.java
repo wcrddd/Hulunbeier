@@ -1,51 +1,85 @@
 package cn.edu.upc.wwp.service.impl;
 
-import cn.edu.upc.manage.dao.ContractInformationMapper;
-import cn.edu.upc.manage.dao.ContractStatisticsMapper;
-import cn.edu.upc.manage.dao.ContractTenderRelationMapper;
+import cn.edu.upc.manage.dao.*;
 import cn.edu.upc.manage.model.*;
 import cn.edu.upc.wwp.service.ContractInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service("contractInformationService")
 public class ContractInformationServiceImpl  implements ContractInformationService {
 
-    @Resource
-    ContractInformationMapper contractInformationMapper;
     @Autowired
-    ContractTenderRelationMapper contractTenderRelationMapper;
+    private ContractInformationMapper contractInformationMapper;
     @Autowired
-    ContractStatisticsMapper contractStatisticsMapper;
+    private ContractTenderRelationMapper contractTenderRelationMapper;
+    @Autowired
+    private ContractStatisticsMapper contractStatisticsMapper;
+    @Autowired
+    private ProjectSectionMapper projectSectionMapper;
+    @Autowired
+    private ProjectStoreMapper projectStoreMapper;
 
     @Override
-    public void updateContractInformation(ContractInformation recordUp) {
-        recordUp.setApprove(0);
-        recordUp.setOperator("test");
-        recordUp.setId(contractTenderRelationMapper.getcontractIdByTenderId(recordUp.getId()));
-        contractInformationMapper.updateByPrimaryKeySelective(recordUp);
+    @Transactional(rollbackFor = Exception.class)
+    public void updateContractInformation(List<ProjectSection> projectSectionList) {
+        for (ProjectSection item:projectSectionList
+             ) {
+            item.setContractApprove(0);
+        }
+//        projectSection.setContractApprove(0);
+        projectSectionMapper.updateContractList(projectSectionList);
+        projectStoreMapper.updatePlanedFlag(projectSectionList.get(0).getProjectId(),13);
     }
 
     @Override
-    public void updateContractInformation2(ContractInformation recordUp) {
+    @Transactional(rollbackFor = Exception.class)
+    public void updateApprove(ProjectSection projectSection) {
+        projectSection.setContractApproveTime(new Date());
+        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
+        int projectId = projectSection.getProjectId();
+        int approve = projectSection.getContractApprove();
+        int sectionNum = projectSectionMapper.count(projectId,1);
+        int sectionContractApproveNum = projectSectionMapper.count(projectId,4);
+        if (sectionNum == sectionContractApproveNum){
 
-        recordUp.setOperator("test");
-        contractInformationMapper.updateByPrimaryKeySelective(recordUp);
+//            if (approve == 1){
+                projectStoreMapper.updatePlanedFlag(projectId,14);
+//            }else {
+//                projectStoreMapper.updatePlanedFlag(projectId,15);
+//            }
+        }else if(approve == 2){
+            projectStoreMapper.updatePlanedFlag(projectId,15);
+        }
+
     }
 
     @Override
-    public int insertContractInformation(ContractInformationWithTenderId recordIn) {
-        recordIn.setOperator("test");
-        contractInformationMapper.insertSelective(recordIn);
-        int contractInformationId=contractInformationMapper.selectLastInsert();
-        ContractTenderRelation contractTenderRelation=new ContractTenderRelation();
-        contractTenderRelation.setTenderId(recordIn.getTenderId());
-        contractTenderRelation.setContractId(contractInformationId);
-        contractTenderRelationMapper.insertSelective(contractTenderRelation);
-        return contractInformationId;
+    @Transactional(rollbackFor = Exception.class)
+    public void insertContractInformation(List<ProjectSection> projectSectionList) {
+
+//        contractInformationMapper.insertSelective(recordIn);
+//        int contractInformationId=contractInformationMapper.selectLastInsert();
+//        ContractTenderRelation contractTenderRelation=new ContractTenderRelation();
+//        contractTenderRelation.setTenderId(recordIn.getTenderId());
+//        contractTenderRelation.setContractId(contractInformationId);
+//        contractTenderRelationMapper.insertSelective(contractTenderRelation);
+//        return contractInformationId;
+        for (ProjectSection item:projectSectionList
+             ) {
+            item.setContractTime(new Date());
+        }
+        projectSectionMapper.updateTenderList(projectSectionList);
+//        projectSectionMapper.insertContract(projectSection);
+        int projectId = projectSectionList.get(0).getProjectId();
+//        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
+        projectStoreMapper.updatePlanedFlag(projectId,13);
+
     }
 
     @Override
@@ -62,9 +96,14 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
         return contractInformationMapper.getAllContractInformation();
     }
 
+    /**
+     * 根据项目id获取合同信息
+     * @param projectId
+     * @return
+     */
     @Override
-    public List<ContractInformation> getContractByProjectId(int projectId){
-        return contractInformationMapper.getContractByProjectId(projectId);
+    public List<ProjectSection> getContractByProjectId(int projectId){
+        return projectSectionMapper.getContractByProjectId(projectId);
     }
 
     @Override

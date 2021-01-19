@@ -37,14 +37,44 @@ public class StudyReportController {
         return CommonReturnType.create(null,"新增成功");
     }
 
-    @RequestMapping("/insertReport")//上传填报内容
+    /**
+     * 上传可研报告
+     * @param studyReport
+     * @return
+     */
+    @RequestMapping("/insertReport")
     @ResponseBody
-    public CommonReturnType insertReport(@RequestBody FeasibilityResearchReport feasibilityResearchReport){
-        studyReportService.insertReport(feasibilityResearchReport);
+    public CommonReturnType insertReport(@RequestBody StudyReport studyReport){
+        studyReportService.insertReport(studyReport);
         return CommonReturnType.create(null,"新增成功");
     }
 
-//    @RequestMapping("/deleteReport")
+    /**
+     * 更新可研报告
+     * @param studyReport
+     * @return
+     */
+    @RequestMapping("/updateReport2")
+    @ResponseBody
+    public CommonReturnType updateReport2(@RequestBody StudyReport studyReport){
+        studyReportService.updateReport(studyReport);
+        return CommonReturnType.create(null,"修改成功");
+    }
+
+    /**
+     * 审批
+     * @param studyReport
+     * @return
+     */
+    @RequestMapping("/updateApprove")
+    @ResponseBody
+    public CommonReturnType updateApprove(@RequestBody StudyReport studyReport){
+        studyReportService.updateApprove(studyReport);
+        return CommonReturnType.create(null,"审批成功");
+    }
+
+
+    //    @RequestMapping("/deleteReport")
 //    @ResponseBody
 //    public CommonReturnType deleteReport(@RequestBody JSONObject jsonObject ){
 //        int
@@ -118,26 +148,24 @@ public class StudyReportController {
     }
 
     /**
-     * 获取所以单位审核通过的可研报告填报内容（即approve=1  ），用于审批
+     * 获取所以单位审核通过的可研报告填报内容（即approve=1  ），用于审批（改2020-12-01）
      * @param
      * @return
      */
     @RequestMapping("/getAllApprovedFeasibility")
     @ResponseBody
-    public CommonReturnType getAllApprovedFeasibility(@RequestBody JSONObject jsonObject){
-        String projectName = jsonObject.getString("projectName");
-        return  CommonReturnType.create(studyReportService.getAllApprovedFeasibility(projectName));
+    public CommonReturnType getAllApprovedFeasibility(@RequestBody StudyReport studyReport){
+        return  CommonReturnType.create(studyReportService.getAllApprovedFeasibility(studyReport));
     }
 
     /**
-     * 根据项目id获取特定的可研报告
-     * @param feasibilityResearchReport
+     * 根据项目id获取特定的可研报告（改2020-12-01）
+     * @param projectId
      * @return
      */
     @RequestMapping("/getByProjectId")
     @ResponseBody
-    public CommonReturnType getByProjectId(@RequestBody FeasibilityResearchReport feasibilityResearchReport){
-        Integer projectId = feasibilityResearchReport.getProjectId();
+    public CommonReturnType getByProjectId(@RequestParam("projectId") int projectId){
         return CommonReturnType.create(studyReportService.getByProjectId(projectId),"获取成功");
     }
 

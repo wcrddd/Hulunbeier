@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.ConstructionUnit;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -62,4 +63,7 @@ public interface ConstructionUnitMapper {
     void updateDelFlag(Integer id);
 
     String getUnitNameById(Integer departmentUnitId);
+
+
+    Integer[] getByGuideId(@Param("guideId") Integer guideId);
 }

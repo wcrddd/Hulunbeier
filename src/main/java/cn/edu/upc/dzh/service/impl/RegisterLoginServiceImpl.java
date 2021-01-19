@@ -36,8 +36,18 @@ public class RegisterLoginServiceImpl implements RegisterLoginService {
     }
 
     @Override
-    public UserUnitName getUserWithUnitName(int id){
-        return userMapper.getUserById(id);
+    public UserUnitName getUserWithUnitName(User user){
+        if(user.getUserType() == 1){
+            return userMapper.getUserById(user.getId());
+        }else{
+            return userMapper.getUserById2(user.getId());
+        }
+
+    }
+
+    @Override
+    public User selectByTel(String tel){
+        return userMapper.selectByTel(tel);
     }
 
 }

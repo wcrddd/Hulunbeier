@@ -1,6 +1,7 @@
 package cn.edu.upc.manage.dao;
 
 import cn.edu.upc.manage.model.GuideUnitRelation;
+import org.apache.ibatis.annotations.Param;
 
 public interface GuideUnitRelationMapper {
     /**
@@ -50,4 +51,8 @@ public interface GuideUnitRelationMapper {
      * @mbg.generated Sun May 10 15:39:38 CST 2020
      */
     int updateByPrimaryKey(GuideUnitRelation record);
+
+    void deleteByGuideId(@Param("guideId") Integer guideId);
+
+    void insertList(@Param("list") Integer[] list);
 }

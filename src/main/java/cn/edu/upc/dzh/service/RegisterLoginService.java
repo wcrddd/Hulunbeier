@@ -8,5 +8,7 @@ public interface RegisterLoginService {
     public User selectByUsername(String username);
     public void changePasswordByEmail(String newPassword,String email);
     public User selectByEmail(String email);
-    public UserUnitName getUserWithUnitName(int id);
+    public UserUnitName getUserWithUnitName(User user);
+
+    User selectByTel(String tel);
 }

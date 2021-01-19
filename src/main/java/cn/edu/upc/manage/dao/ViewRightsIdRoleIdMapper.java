@@ -22,4 +22,6 @@ public interface ViewRightsIdRoleIdMapper {
     int insertSelective(ViewRightsIdRoleIdWithBLOBs record);
 
     List<ViewRightsIdRoleIdWithBLOBs> getAll();
+
+    List<ViewRightsIdRoleIdWithBLOBs> getAll2();
 }

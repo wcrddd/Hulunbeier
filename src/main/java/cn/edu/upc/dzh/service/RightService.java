@@ -2,6 +2,7 @@ package cn.edu.upc.dzh.service;
 
 import cn.edu.upc.manage.model.Rights;
 import cn.edu.upc.manage.model.ViewRights;
+import cn.edu.upc.manage.vo.RightA;
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface RightService {
     public List<ViewRights> selectByName(String name);
     public void insertRight2(Rights right);
     public List<ViewRights> selectRightByRole(int roleId);
+    List<RightA> getAllRightTree();
 
 }

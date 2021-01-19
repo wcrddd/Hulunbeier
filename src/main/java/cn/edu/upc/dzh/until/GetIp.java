@@ -6,8 +6,9 @@ import javax.servlet.http.HttpServletRequest;
  * @author 董志涵
  */
 public class GetIp {
-        public static String saveUrl ="/Users/weixj/Desktop/hlb/";
-//    public static String saveUrl ="/home/pm-application/tomcat/webapps/hl/";
+//        public static String saveUrl ="/Users/weixj/Desktop/hlb/";
+    public static String saveUrl ="/home/pm-application/tomcat/webapps/upload/";
+//public static String saveUrl = "/root/tomcat90/webapps/upload2/";
     /**
      * 获取登录用户IP地址
      * @param request

@@ -1,9 +1,19 @@
 package cn.edu.upc.gsl.service.impl;
 
 import cn.edu.upc.gsl.service.ConstructionProgressService;
+import cn.edu.upc.manage.dao.ConstructionProgressAppendixMapper;
 import cn.edu.upc.manage.dao.ConstructionProgressMapper;
+import cn.edu.upc.manage.dao.ProjectSectionMapper;
+import cn.edu.upc.manage.dao.ProjectStoreMapper;
+import cn.edu.upc.manage.mo.ConstructionProgressMo;
+import cn.edu.upc.manage.mo.SectionProgressMo;
 import cn.edu.upc.manage.model.ConstructionProgress;
+import cn.edu.upc.manage.model.ConstructionProgressAppendix;
+import cn.edu.upc.manage.model.ProjectSection;
+import cn.edu.upc.manage.model.ProjectStore;
+import cn.edu.upc.manage.vo.ConstructionProgressParamVo;
 import cn.edu.upc.manage.vo.ConstructionProgressVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +31,36 @@ public class ConstructionProgressServiceImpl implements ConstructionProgressServ
 
     @Autowired
     private ConstructionProgressMapper constructionProgressMapper;
+    @Autowired
+    private ConstructionProgressAppendixMapper constructionProgressAppendixMapper;
+    @Autowired
+    private ProjectSectionMapper projectSectionMapper;
+    @Autowired
+    private ProjectStoreMapper projectStoreMapper;
 
     /**
-     * 新增建设单位信息
-     * insert和 insertSelective的区别在于
-     * 前者是会把所有的值插入，及时没有传进来
-     * 后者会判空，只把传进来的值插入
-     *
-     * @param constructionProgress
+     * @param constructionProgressParamVo
      */
     @Override
-    public void insert(ConstructionProgress constructionProgress) {
+    public void insert(ConstructionProgressParamVo constructionProgressParamVo) {
+        ConstructionProgress constructionProgress = new ConstructionProgress();
+        BeanUtils.copyProperties(constructionProgressParamVo,constructionProgress);
+        List<ConstructionProgressAppendix> constructionProgressAppendixList = constructionProgressParamVo.getConstructionProgressAppendixList();
         constructionProgressMapper.insertSelective(constructionProgress);
+        if (constructionProgressAppendixList.size() > 0){
+            int progressId = constructionProgress.getId();
+            for (ConstructionProgressAppendix iem:constructionProgressAppendixList
+            ) {
+                iem.setProgressId(progressId);
+            }
+            constructionProgressAppendixMapper.insertList(constructionProgressAppendixList);
+        }
+        projectStoreMapper.updatePlanedFlag(constructionProgressParamVo.getProjectId(),19);
+//        if (constructionProgress.getProgress().equals("100")){
+        if (constructionProgress.getProgress() == 100){
+            projectStoreMapper.updateSectionFinishNum(constructionProgressParamVo.getProjectId());
+        }
+
     }
 
     /**
@@ -80,11 +108,11 @@ public class ConstructionProgressServiceImpl implements ConstructionProgressServ
         ConstructionProgressVo constructionProgressVo = new ConstructionProgressVo();
         //建立List，以接收数据
         List<String> reportTimeList = new ArrayList<>();
-        List<String> expendMoneyList = new ArrayList<>();
-        List<String> progressList = new ArrayList<>();
+        List<Float> expendMoneyList = new ArrayList<>();
+        List<Integer> progressList = new ArrayList<>();
         //通过循环，把想要的值取出来
         for (ConstructionProgress constructionProgress : constructionProgressList) {
-            reportTimeList.add(constructionProgress.getReportTime());
+//            reportTimeList.add(constructionProgress.getReportTime());
             expendMoneyList.add(constructionProgress.getExpendMoney());
             progressList.add(constructionProgress.getProgress());
         }
@@ -103,5 +131,35 @@ public class ConstructionProgressServiceImpl implements ConstructionProgressServ
         constructionProgressVo.setProgress(progress);
 
         return constructionProgressVo;
+    }
+
+    @Override
+    public List<SectionProgressMo> getByProjectId(int projectId){
+        List<SectionProgressMo> sectionProgressMoList = new ArrayList<>();
+        List<ProjectSection> projectSectionList = projectSectionMapper.getSectionByProjectId(projectId);
+        for (ProjectSection p1:projectSectionList
+             ) {
+            int sectionId = p1.getId();
+            List<ConstructionProgress> constructionProgressList = constructionProgressMapper.getBySectionId(sectionId);
+            SectionProgressMo sectionProgressMo = new SectionProgressMo();
+            sectionProgressMo.setSectionId(sectionId);
+            sectionProgressMo.setSectionName(p1.getSectionName());
+            sectionProgressMo.setProjectId(p1.getProjectId());
+            List<ConstructionProgressMo> constructionProgressMoList = new ArrayList<>();
+            for (ConstructionProgress p2:constructionProgressList
+                 ) {
+
+                int progressId = p2.getId();
+                List<ConstructionProgressAppendix> constructionProgressAppendixList = constructionProgressAppendixMapper.getByProgressId(progressId);
+                ConstructionProgressMo constructionProgressMo = new ConstructionProgressMo();
+                constructionProgressMo.setConstructionProgressAppendixList(constructionProgressAppendixList);
+//                constructionProgressMo.setProgress(p2.getProgress());
+                BeanUtils.copyProperties(p2,constructionProgressMo);
+                constructionProgressMoList.add(constructionProgressMo);
+            }
+            sectionProgressMo.setConstructionProgressMoList(constructionProgressMoList);
+            sectionProgressMoList.add(sectionProgressMo);
+        }
+        return sectionProgressMoList;
     }
 }

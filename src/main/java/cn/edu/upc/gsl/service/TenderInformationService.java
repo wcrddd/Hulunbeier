@@ -1,6 +1,8 @@
 package cn.edu.upc.gsl.service;
 
+import cn.edu.upc.manage.model.ProjectSection;
 import cn.edu.upc.manage.model.TenderInformation;
+import cn.edu.upc.manage.vo.ProjectSectionVo;
 import cn.edu.upc.manage.vo.TenderInformationContractState;
 import cn.edu.upc.manage.vo.TenderInformationVo;
 
@@ -18,9 +20,9 @@ public interface TenderInformationService {
 
     /**
      * 修改
-     * @param tenderInformation
+     * @param projectSectionList
      */
-    void updateTender(TenderInformation tenderInformation);
+    void updateTender(List<ProjectSection> projectSectionList);
 
     /**
      * 删除(一般采用软删除)
@@ -44,11 +46,11 @@ public interface TenderInformationService {
     List<TenderInformationVo> getAllTender();
 
     /**
-     * 根据项目id获取招标列表
+     * 根据项目id获取招标列表（改2020-12-01）
      * @param projectId
      * @return
      */
-    List<TenderInformation> selectByProjectId(Integer projectId);
+    List<ProjectSection> selectByProjectId(Integer projectId);
 
     /**
      * 根据项目id删除一些招标信息
@@ -65,7 +67,13 @@ public interface TenderInformationService {
 
     /**
      * 审核
-     * @param tenderInformation
+     * @param projectSection
      */
-    void updateTender2(TenderInformation tenderInformation);
+    void updateTender2(ProjectSection projectSection);
+
+    /**
+     * 新增招标
+     * @param projectSectionList
+     */
+    void addTender2(List<ProjectSection> projectSectionList);
 }

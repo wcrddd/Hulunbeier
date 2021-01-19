@@ -4,6 +4,7 @@ import cn.edu.upc.dzh.service.RegisterLoginService;
 import cn.edu.upc.dzh.until.MD5Util;
 import cn.edu.upc.dzh.until.SendEmailUtil;
 import cn.edu.upc.dzh.until.SysUser;
+import cn.edu.upc.dzh.until.UUIDUtil;
 import cn.edu.upc.dzh.until.exception.BusinessException;
 import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.manage.common.CommonReturnType;
@@ -72,15 +73,19 @@ public class RegisterLoginController {
         System.out.println("1用户名和密码："+loginName+password);
 //        Subject subject = SecurityUtils.getSubject();
         System.out.println("2用户名和密码："+loginName+password);
-        UsernamePasswordToken token = new UsernamePasswordToken(loginName,password);
+//        UsernamePasswordToken token = new UsernamePasswordToken(loginName,password);
         Map<String,Object> returnMsg = new HashMap<String, Object>();
         User user1 = registerLoginService.selectByUsername(loginName);
         if(user1!=null){
             if(user1.getPassword().equals(password)){
+                String token = user1.getId().toString()+'_'+ UUIDUtil.uuid();
+                session.setAttribute(token,user1);
                 session.setAttribute("user",user1);
                 session.setMaxInactiveInterval(120*60);
+                System.out.println("sessionId:"+session.getId());
                 returnMsg.put("loginTips","登陆成功");
-                System.out.println("返回权限1");
+                returnMsg.put("token",token);
+                returnMsg.put("role",user1.getRoleId());
 //                returnMsg.put("userType",SysUser.getCurrentUserRole(session));
                 return CommonReturnType.create(returnMsg);
             }else{
@@ -124,13 +129,13 @@ public class RegisterLoginController {
 
         if(user!=null){
 //            if(user.getRealName().equals(realName)){
-                String code2=smsCode();
-                System.out.println(code2);
-                SendEmailUtil.sendEMail(email,code2);
+            String code2=smsCode();
+            System.out.println(code2);
+            SendEmailUtil.sendEMail(email,code2);
 
-                final HttpSession session = request.getSession();
-                session.setAttribute("code",code2);
-                return CommonReturnType.create("发送成功");
+            final HttpSession session = request.getSession();
+            session.setAttribute("code",code2);
+            return CommonReturnType.create("发送成功");
 //            }else {
 //                return CommonReturnType.create("真实姓名不正确");
 //            }
@@ -174,9 +179,10 @@ public class RegisterLoginController {
      */
     @ResponseBody
     @RequestMapping("/getUserWithUnitName")
-    public CommonReturnType getUserWithUnitName(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        return CommonReturnType.create(registerLoginService.getUserWithUnitName(user.getId()));
+    public CommonReturnType getUserWithUnitName(HttpSession session, HttpServletRequest httpServletRequest){
+        String token = httpServletRequest.getHeader("token");
+        User user = (User) session.getAttribute(token);
+        return CommonReturnType.create(registerLoginService.getUserWithUnitName(user));
     }
 
     /**

@@ -115,7 +115,7 @@
   </select>
 
   <select id="selectRightByRole" resultMap="BaseResultMap">
-    select * from view_rights where id in(
+    select * from view_rights2 where id in(
     select right_id from right_role where del_flag=0 and role_id=#{roleId}) and (del_flag = 0 and id!=0)
   </select>
 </mapper>

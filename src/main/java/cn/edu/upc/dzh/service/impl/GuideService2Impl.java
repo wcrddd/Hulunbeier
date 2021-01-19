@@ -3,16 +3,16 @@ package cn.edu.upc.dzh.service.impl;
 import cn.edu.upc.dzh.service.GuideService2;
 import cn.edu.upc.dzh.until.GetIp;
 import cn.edu.upc.manage.common.CommonReturnType;
+import cn.edu.upc.manage.dao.ConstructionUnitMapper;
 import cn.edu.upc.manage.dao.GuideMapper;
 import cn.edu.upc.manage.dao.GuideOptionMapper;
 import cn.edu.upc.manage.dao.GuideUnitRelationMapper;
+import cn.edu.upc.manage.mo.GuideMo;
+import cn.edu.upc.manage.model.Construction;
 import cn.edu.upc.manage.model.Guide;
 import cn.edu.upc.manage.model.GuideOption;
 import cn.edu.upc.manage.model.GuideUnitRelation;
-import cn.edu.upc.manage.vo.GuideTitleA;
-import cn.edu.upc.manage.vo.GuideTitleB;
-import cn.edu.upc.manage.vo.GuideUnitVo;
-import cn.edu.upc.manage.vo.GuideVo;
+import cn.edu.upc.manage.vo.*;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -39,26 +39,43 @@ public class GuideService2Impl implements GuideService2 {
     private GuideUnitRelationMapper guideUnitRelationMapper;
     @Autowired
     private GuideOptionMapper guideOptionMapper;
+    @Autowired
+    private ConstructionUnitMapper constructionUnitMapper;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void insertGuide(GuideUnitVo guideUnitVo){
 //         guideMapper.insertSelective(guide);
 //         return guideMapper.selectLastInsert();
         Guide guide = new Guide();
         guide.setCreateTime(new Date());
+        guide.setDelFlag(0);
         BeanUtils.copyProperties(guideUnitVo,guide);
-        guideMapper.updateByPrimaryKeySelective(guide);
-        Integer[] unitId = guideUnitVo.getUnitId();
-        GuideUnitRelation guideUnitRelation = new GuideUnitRelation();
-        guideUnitRelation.setGuideId(guideUnitVo.getId());
-        for(Object uId: unitId){
-            guideUnitRelation.setUnitId((Integer) uId);
-            guideUnitRelationMapper.insertSelective(guideUnitRelation);
+        if(guideUnitVo.getId() == 0){
+            guide.setDelFlag(0);
+            guideMapper.insertSelective(guide);
+            Integer[] unitId = guideUnitVo.getUnitId();
+            GuideUnitRelation guideUnitRelation = new GuideUnitRelation();
+            guideUnitRelation.setGuideId(guideMapper.selectLastInsert());
+            for(Object uId: unitId){
+                guideUnitRelation.setUnitId((Integer) uId);
+                guideUnitRelationMapper.insertSelective(guideUnitRelation);
+            }
+        }else{
+            guide.setDelFlag(0);
+            guideMapper.updateByPrimaryKeySelective(guide);
+            Integer[] unitId = guideUnitVo.getUnitId();
+            GuideUnitRelation guideUnitRelation = new GuideUnitRelation();
+            guideUnitRelation.setGuideId(guideUnitVo.getId());
+            for(Object uId: unitId){
+                guideUnitRelation.setUnitId((Integer) uId);
+                guideUnitRelationMapper.insertSelective(guideUnitRelation);
+            }
         }
+
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void inserGuideUnitRelation(GuideUnitRelation guideUnitRelation){
         guideUnitRelationMapper.insertSelective(guideUnitRelation);
@@ -107,11 +124,14 @@ public class GuideService2Impl implements GuideService2 {
         int rowNumber=sheet0.getPhysicalNumberOfRows();
 
         String rowValue = "";
+        String title = "";
         double rowDouble = 0;
+        double rowDouble1 = 0;
         System.out.println("rowNumber:"+rowNumber);
         for (int i = 1; i < rowNumber; i++){
             XSSFRow row = sheet0.getRow(i);
             CellType cellType = row.getCell(0).getCellType();
+            CellType cellType1 = row.getCell(1).getCellType();
             if (cellType == CellType.NUMERIC){
                 rowDouble = row.getCell(0).getNumericCellValue();
                 rowValue = String.valueOf(rowDouble);
@@ -119,16 +139,28 @@ public class GuideService2Impl implements GuideService2 {
             }else if (cellType == CellType.STRING){
                 rowValue = row.getCell(0).getStringCellValue();
             }
+
+            if (cellType1 == CellType.NUMERIC){
+                rowDouble1 = row.getCell(1).getNumericCellValue();
+                title = String.valueOf((int)rowDouble1);
+
+            }else if (cellType1 == CellType.STRING){
+                title = row.getCell(1).getStringCellValue();
+            }
+
+            rowValue.replace("(","（");
+            rowValue.replace(")","）");
+
             if(rowValue.equals("一") || rowValue.equals("二") || rowValue.equals("三")){
-                title1 = row.getCell(1).getStringCellValue();
+                title1 = title;
             }
 
             else if (rowValue.contains("（")){
-                title2 = row.getCell(1).getStringCellValue();
+                title2 = title;
             }
 
             else if (rowDouble > 0){
-                title3 = row.getCell(1).getStringCellValue();
+                title3 = title;
                 rowDouble = 0;
             }
 
@@ -175,19 +207,62 @@ public class GuideService2Impl implements GuideService2 {
              ) {
             List<String> titleB = guideOptionMapper.getTitleB(projectId, s1);
             GuideTitleA guideTitleA = new GuideTitleA();
-            guideTitleA.setTitleA(s1);
+            guideTitleA.setTitle(s1);
+            guideTitleA.setDisabled(true);
             List<GuideTitleB> guideTitleBList = new ArrayList<>();
             for (String s2:titleB
                  ) {
-                List<String> titleC = guideOptionMapper.getTitleC(projectId, s1, s2);
+                List<GuideOption> titleC = guideOptionMapper.getTitleC(projectId, s1, s2);
+                List<GuideTitleC> tc = new ArrayList<>();
+//                for (int i=0; i<titleC.size(); i++){
+//                    GuideTitleC guideTitleC = new GuideTitleC();
+//                    guideTitleC.setTitle(titleC.get(i).getTitleC());
+//                    guideTitleC.setValue(titleC.get(i).getTitleC());
+//                    guideTitleC.setKey(titleC.get(i).getId());
+//                    tc.add(guideTitleC);
+//                }
+                for (GuideOption guideOption:titleC
+                     ) {
+                    GuideTitleC guideTitleC = new GuideTitleC();
+                    guideTitleC.setTitle(guideOption.getTitleC());
+                    guideTitleC.setValue(guideOption.getId());
+                    guideTitleC.setKey(guideOption.getId());
+                    tc.add(guideTitleC);
+                }
                 GuideTitleB guideTitleB = new GuideTitleB();
-                guideTitleB.setTitleB(s2);
-                guideTitleB.setTitleCList(titleC);
+                guideTitleB.setTitle(s2);
+                guideTitleB.setChildren(tc);
+                guideTitleB.setDisabled(true);
                 guideTitleBList.add(guideTitleB);
             }
-            guideTitleA.setTitleBList(guideTitleBList);
+            guideTitleA.setChildren(guideTitleBList);
             guideTitleAList.add(guideTitleA);
         }
         return guideTitleAList;
+    }
+
+    @Override
+    public GuideUnitVo getGuideByUnit(int guideId){
+        GuideUnitVo guideUnitVo = new GuideUnitVo();
+        Guide guide = guideMapper.selectByPrimaryKey(guideId);
+        BeanUtils.copyProperties(guide,guideUnitVo);
+        guideUnitVo.setUnitId(constructionUnitMapper.getByGuideId(guideId));
+        return guideUnitVo;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateGuide(GuideUnitVo guideUnitVo){
+        Guide guide = new Guide();
+        BeanUtils.copyProperties(guideUnitVo,guide);
+        guideMapper.updateByPrimaryKeySelective(guide);
+        guideUnitRelationMapper.deleteByGuideId(guide.getId());
+        Integer[] unitId = guideUnitVo.getUnitId();
+        GuideUnitRelation guideUnitRelation = new GuideUnitRelation();
+        guideUnitRelation.setGuideId(guide.getId());
+        for(Object uId: unitId){
+            guideUnitRelation.setUnitId((Integer) uId);
+            guideUnitRelationMapper.insertSelective(guideUnitRelation);
+        }
     }
 }

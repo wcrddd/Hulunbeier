@@ -47,7 +47,7 @@ public class CrosFilter implements Filter{
         // 多少秒内，不需要再发送预检验请求，可以缓存该结果
         response.setHeader( "Access-Control-Max-Age", "3600" );
         // 表明它允许跨域请求包含xxx头
-        response.setHeader( "Access-Control-Allow-Headers", "x-auth-token,Origin,Access-Token,X-Requested-With,Content-Type, Accept" );
+        response.setHeader( "Access-Control-Allow-Headers", "x-auth-token,Origin,Access-Token,X-Requested-With,Content-Type, Accept, token" );
         //是否允许浏览器携带用户身份信息（cookie）
         response.setHeader( "Access-Control-Allow-Credentials", "true" );
         // response.setHeader( "Access-Control-Expose-Headers", "*" );
@@ -74,7 +74,7 @@ public class CrosFilter implements Filter{
 //                response.setHeader( "Access-Control-Max-Age", "3000" );
 
 //            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Type","text/html;charset=UTF-8");
+                response.setHeader("Content-Type","text/html;charset=UTF-8");
 //            response.setHeader("Refresh","6; http://101.201.239.28:9080/hl/index.html#/");
 
 

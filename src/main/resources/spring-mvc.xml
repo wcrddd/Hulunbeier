@@ -20,13 +20,13 @@
     <mvc:default-servlet-handler/>
 
     <!--跨域-->
-    <!--    <mvc:cors>-->
-    <!--        <mvc:mapping path="/**"-->
-    <!--                     allowed-origins="http://localhost:3000"-->
-    <!--                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"-->
-    <!--                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"-->
-    <!--                     allow-credentials="true" />-->
-    <!--    </mvc:cors>-->
+        <mvc:cors>
+            <mvc:mapping path="/**"
+                         allowed-origins="*"
+                         allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+                         allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                         allow-credentials="true" />
+        </mvc:cors>
 
     <!-- 配置返回视图的路径，以及识别后缀是jsp文件 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -43,7 +43,7 @@
         <property name="defaultEncoding" value="UTF-8"></property>
 
         <!-- 设定文件上传的最大值50MB，5*10*1024*1024 -->
-        <property name="maxUploadSize" value="52428800"></property>
+        <property name="maxUploadSize" value="209715200"></property>
 
 
     </bean>

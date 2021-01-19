@@ -1,10 +1,7 @@
 package cn.edu.upc.wwp.service;
 
 import cn.edu.upc.manage.dao.ContractInformationMapper;
-import cn.edu.upc.manage.model.ContractInformation;
-import cn.edu.upc.manage.model.ContractInformationWithTenderId;
-import cn.edu.upc.manage.model.ContractStatistics;
-import cn.edu.upc.manage.model.ContractWithProjectName;
+import cn.edu.upc.manage.model.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,17 +9,33 @@ import java.util.List;
 public interface ContractInformationService {
 
 
-    public void updateContractInformation(ContractInformation recordUp);
-    public int insertContractInformation(ContractInformationWithTenderId recordIn);
+    /**
+     * 修改合同
+     * @param projectSectionList
+     */
+    public void updateContractInformation(List<ProjectSection> projectSectionList);
+
+    /**
+     * 上传合同
+     * @param projectSectionList
+     * @return
+     */
+    public void insertContractInformation(List<ProjectSection> projectSectionList);
     public void deleteFlag(ContractInformation recordDel);
     public List<ContractInformation> getAllContractInformation();
-    public List<ContractInformation> getContractByProjectId(int projectId);
+
+    /**
+     * 根据项目id获取
+     * @param projectId
+     * @return
+     */
+    public List<ProjectSection> getContractByProjectId(int projectId);
     public ContractInformation getContractBytId(int id);
     public ContractStatistics getContractStatistics(int projectId);
     public ContractInformation getContractByTenderId(int tenderId);
     public List<ContractWithProjectName> getAllContractWithProjectName();
     public List<ContractWithProjectName> getCompletedByUnitId(int unitId);
-    public void updateContractInformation2(ContractInformation recordUp);
+    public void updateApprove(ProjectSection projectSection);
     public List<ContractWithProjectName> getCanProgress(int unitId);
     public List<ContractWithProjectName> selectCanProgress(int unitId,String projectName);
 }

@@ -1,13 +1,19 @@
 package cn.edu.upc.gsl.service.impl;
 
 import cn.edu.upc.gsl.service.TenderInformationService;
+import cn.edu.upc.manage.dao.ProjectSectionMapper;
+import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.dao.TenderInformationMapper;
+import cn.edu.upc.manage.model.ProjectSection;
 import cn.edu.upc.manage.model.TenderInformation;
+import cn.edu.upc.manage.vo.ProjectSectionVo;
 import cn.edu.upc.manage.vo.TenderInformationContractState;
 import cn.edu.upc.manage.vo.TenderInformationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +26,11 @@ import java.util.List;
 public class TenderInformationServiceImpl implements TenderInformationService {
 
     @Autowired
-    TenderInformationMapper tenderInformationMapper;
+    private TenderInformationMapper tenderInformationMapper;
+    @Autowired
+    private ProjectSectionMapper projectSectionMapper;
+    @Autowired
+    private ProjectStoreMapper projectStoreMapper;
 
     /**
      * 新增招标信息
@@ -54,21 +64,48 @@ public class TenderInformationServiceImpl implements TenderInformationService {
     /**
      * 修改
      *
-     * @param tenderInformation
+     * @param projectSectionList
      */
     @Override
-    public void updateTender(TenderInformation tenderInformation) {
-        tenderInformation.setApprove(0);
-        tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
+    @Transactional(rollbackFor = Exception.class)
+    public void updateTender(List<ProjectSection> projectSectionList) {
+//        tenderInformation.setApprove(0);
+//        tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
+//        List<ProjectSection> projectSectionList = projectSectionVo.getProjectSectionList();
+        for (ProjectSection item:projectSectionList
+             ) {
+            item.setTenderApprove(0);
+        }
+//        projectSection.setTenderApprove(0);
+//        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
+        projectSectionMapper.updateTenderList(projectSectionList);
+        projectStoreMapper.updatePlanedFlag(projectSectionList.get(0).getProjectId(),10);
     }
 
     /**
      * 审核
-     * @param tenderInformation
+     * @param projectSection
      */
     @Override
-    public void updateTender2(TenderInformation tenderInformation) {
-        tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
+    @Transactional(rollbackFor = Exception.class)
+    public void updateTender2(ProjectSection projectSection) {
+        projectSection.setTenderApproveTime(new Date());
+//        tenderInformationMapper.updateByPrimaryKeySelective(tenderInformation);
+        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
+        int projectId = projectSection.getProjectId();
+        int approve = projectSection.getTenderApprove();
+        int sectionTenderNum = projectSectionMapper.count(projectId,2);
+        int sectionTenderApproveNum = projectSectionMapper.count(projectId,3);
+        if(sectionTenderApproveNum == sectionTenderNum){
+//            if (approve == 1){
+                projectStoreMapper.updatePlanedFlag(projectId,11);
+//            }else {
+//                projectStoreMapper.updatePlanedFlag(projectId,12);
+//            }
+        }else if(approve == 2){
+            projectStoreMapper.updatePlanedFlag(projectId,12);
+        }
+
     }
 
     /**
@@ -81,13 +118,13 @@ public class TenderInformationServiceImpl implements TenderInformationService {
     }
 
     /**
-     * 根据项目id查询招标
+     * 根据项目id查询招标（改2020-12-01）
      * @param projectId
      * @return
      */
     @Override
-    public List<TenderInformation> selectByProjectId(Integer projectId) {
-        return tenderInformationMapper.selectByProjectId(projectId);
+    public List<ProjectSection> selectByProjectId(Integer projectId) {
+        return projectSectionMapper.getTenderByProjectId(projectId);
     }
 
     /**
@@ -107,5 +144,20 @@ public class TenderInformationServiceImpl implements TenderInformationService {
     @Override
     public List<TenderInformationContractState> getTenderContractState(int projectId){
         return tenderInformationMapper.getTenderContractState(projectId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void addTender2(List<ProjectSection> projectSectionList){
+//        List<ProjectSection> projectSectionList = projectSectionVo.getProjectSectionList();
+        for (ProjectSection item:projectSectionList
+             ) {
+            item.setTenderTime(new Date());
+        }
+//        projectSectionMapper.insertTender(projectSection);
+//        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
+        projectSectionMapper.updateTenderList(projectSectionList);
+        int projectId = projectSectionList.get(0).getProjectId();
+        projectStoreMapper.updatePlanedFlag(projectId,10);
     }
 }

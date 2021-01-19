@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -72,10 +73,10 @@ public class UserController {
 
     @RequestMapping("/changePassword")
     @ResponseBody
-    public CommonReturnType changePassword(@RequestBody JSONObject jsonObject, HttpSession session){
+    public CommonReturnType changePassword(@RequestBody JSONObject jsonObject, HttpServletRequest httpServletRequest, HttpSession session){
         String oldPassword=jsonObject.getString("oldPassword");
         String newPassword=jsonObject.getString("newPassword");
-        User user=userService.getByUsername(SysUser.getUsername(session));
+        User user=userService.getByUsername(SysUser.getUsername(session,httpServletRequest));
         if(MD5Util.md5(oldPassword).equals(user.getPassword())){
             userService.changePasswordByUsername(MD5Util.md5(newPassword),user.getUserName());
         }else{

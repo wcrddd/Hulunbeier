@@ -1,5 +1,6 @@
 package cn.edu.upc.dzh.service;
 
+import cn.edu.upc.manage.mo.GuideMo;
 import cn.edu.upc.manage.model.Guide;
 import cn.edu.upc.manage.model.GuideUnitRelation;
 import cn.edu.upc.manage.vo.GuideTitleA;
@@ -21,4 +22,8 @@ public interface GuideService2 {
     public List<Guide> selectAllGuide(String title,String documentId);
     GuideVo importExcel(MultipartFile file) throws IOException;
     List<GuideTitleA> getOption(int projectId);
+
+    GuideUnitVo getGuideByUnit(int guideId);
+
+    void updateGuide(GuideUnitVo guideUnitVo);
 }

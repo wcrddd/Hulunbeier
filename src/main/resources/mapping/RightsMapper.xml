@@ -192,10 +192,23 @@
   </update>
 
   <select id="getAllRight" resultMap="BaseResultMap">
-    select * from rights
+    select * from rights where del_flag = 0
   </select>
 
   <update id="deleteRight">
     update rights set del_flag=1 where id=#{rightId} or last_id=#{rightId}
   </update>
+
+  <select id="getByLastId" resultMap="BaseResultMap">
+    select * from rights where del_flag = 0 and last_id=#{lastId}
+  </select>
+
+  <select id="getRightA" resultMap="BaseResultMap">
+    select id,right_name from rights where del_flag = 0 and id = last_id
+  </select>
+
+  <select id="getRightB" resultMap="BaseResultMap">
+    select id,right_name from rights where del_flag = 0 and last_id=#{lastId} and id != last_id
+  </select>
+
 </mapper>

@@ -67,4 +67,11 @@ public interface ConstructionProgressMapper {
      * @param id
      */
     void updateDelFlag(@Param("id") Integer id);
+
+    /**
+     * 根据标段id获取进度
+     * @param sectionId
+     * @return
+     */
+    List<ConstructionProgress> getBySectionId(@Param("sectionId") Integer sectionId);
 }

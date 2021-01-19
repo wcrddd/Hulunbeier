@@ -6,6 +6,7 @@ import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.dzh.until.exception.BusinessException;
 import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.manage.common.CommonReturnType;
+import cn.edu.upc.manage.mo.GuideMo;
 import cn.edu.upc.manage.model.Guide;
 import cn.edu.upc.manage.model.GuideUnitRelation;
 import cn.edu.upc.manage.model.User;
@@ -14,12 +15,14 @@ import cn.edu.upc.manage.vo.GuideUnitVo;
 import cn.edu.upc.manage.vo.GuideVo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
@@ -66,10 +69,9 @@ public class GuideController2 {
 
     @RequestMapping("/getGuideByUnitId")
     @ResponseBody
-    public CommonReturnType getGuideByUnitId(HttpSession session) throws ParseException {
-//        int userId= SysUser.getCurrentUserUnitId(session);
-        User user = (User) session.getAttribute("user");
-//        int unitId=user.getDepartmentUnitId();
+    public CommonReturnType getGuideByUnitId(HttpSession session, HttpServletRequest httpServletRequest) throws ParseException {
+        String token = httpServletRequest.getHeader("token");
+        User user = (User) session.getAttribute(token);
         if(user.getUserType()==2){
 //            int unitId = 1;
             List<Guide> guideList = guideService2.getGuideByUnitId(user.getDepartmentUnitId());
@@ -77,6 +79,8 @@ public class GuideController2 {
         }else{
             return CommonReturnType.create(guideService2.getAllGuide());
         }
+//        List<Guide> guideList = guideService2.getGuideByUnitId(6);
+//        return CommonReturnType.create(guideList);
 
     }
 
@@ -92,11 +96,11 @@ public class GuideController2 {
 
     @RequestMapping("/selectGuide")//
     @ResponseBody
-    public CommonReturnType selectGuide(@RequestBody JSONObject param,HttpSession session) {
+    public CommonReturnType selectGuide(@RequestBody JSONObject param,HttpSession session,HttpServletRequest httpServletRequest) {
 //        guideService.insertGuide(guide);
 //        int unitId = 1;
         int unitId=SysUser.getCurrentUserUnitId(session);
-        int userType=SysUser.getUserType(session);
+        int userType=SysUser.getUserType(session,httpServletRequest);
         String title = param.getString("title");
         String documentId = param.getString("documentId");
         if(userType==2){
@@ -116,7 +120,7 @@ public class GuideController2 {
 //        guideService.insertGuide(guide);
         int guideId = param.getInteger("guideId");
         guideService2.deleteGuide(guideId);
-        return CommonReturnType.create(null, null, 0, "删除成功");
+        return CommonReturnType.create(null,  "删除成功");
     }
 
     @RequestMapping("/getAllGuide")
@@ -142,9 +146,35 @@ public class GuideController2 {
 
     @RequestMapping("/getOption")
     @ResponseBody
-    public CommonReturnType getOption(int projectId){
+    public CommonReturnType getOption(int guideId){
         List<GuideTitleA> guideTitleAList = new ArrayList<>();
-        guideTitleAList = guideService2.getOption(projectId);
+        guideTitleAList = guideService2.getOption(guideId);
         return CommonReturnType.create(guideTitleAList);
     }
+
+    /**
+     * 获取指南以及单位
+     * @param guideId
+     * @return
+     */
+    @RequestMapping("/getGuideByUnit")
+    @ResponseBody
+    public CommonReturnType getGuideByUnit(@Param("guideId") int guideId){
+        GuideUnitVo guideMo = guideService2.getGuideByUnit(guideId);
+        return CommonReturnType.create(guideMo);
+    }
+
+    /**
+     * 修改指南
+     * @param guideUnitVo
+     * @return
+     */
+    @RequestMapping("/updateGuide")
+    @ResponseBody
+    public CommonReturnType updateGuide(@RequestBody GuideUnitVo guideUnitVo){
+        guideService2.updateGuide(guideUnitVo);
+        return CommonReturnType.create("修改成功");
+    }
+
+
 }
