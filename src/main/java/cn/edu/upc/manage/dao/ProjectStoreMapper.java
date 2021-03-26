@@ -236,4 +236,14 @@ public interface ProjectStoreMapper {
      * @return
      */
     List<ConstructUnitStatisticMo> getConstructUnitStatistic();
+
+    /**
+     * 审批项目的审价
+     * @param projectStore
+     * @return
+     */
+    void updateVerificationApprove(@Param("projectStore") ProjectStore projectStore);
+
+    List<ProjectStore> getTest();
+
 }

@@ -2,6 +2,7 @@ package cn.edu.upc.wwp.service;
 
 import cn.edu.upc.manage.dao.ContractInformationMapper;
 import cn.edu.upc.manage.model.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,4 +39,10 @@ public interface ContractInformationService {
     public void updateApprove(ProjectSection projectSection);
     public List<ContractWithProjectName> getCanProgress(int unitId);
     public List<ContractWithProjectName> selectCanProgress(int unitId,String projectName);
+
+    /**
+     * 追加合同
+     * @param projectSection
+     */
+    void continueInsertContractInformation(ProjectSection projectSection);
 }

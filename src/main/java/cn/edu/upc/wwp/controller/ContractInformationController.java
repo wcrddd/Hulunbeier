@@ -145,7 +145,17 @@ public class ContractInformationController {
         return CommonReturnType.create(contractInformationService.selectCanProgress(unitId,name));
     }
 
-
+    /**
+     * 追加合同
+     * @param projectSection
+     * @return
+     */
+    @RequestMapping("/continueInsertContractInformation")
+    @ResponseBody
+    public CommonReturnType continueInsertContractInformation(@RequestBody ProjectSection projectSection){
+        contractInformationService.continueInsertContractInformation(projectSection);
+        return CommonReturnType.create(null);
+    }
 
 
 }

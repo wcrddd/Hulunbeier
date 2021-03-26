@@ -24,6 +24,12 @@ public class ProjectStoreFlagVo {
 
     private String buildYear;
 
+    private String thisYear;
+
+    private String projectType;
+
+    private String constructionUnit;
+
     public int getStoreFlag() {
         return storeFlag;
     }
@@ -102,5 +108,29 @@ public class ProjectStoreFlagVo {
 
     public void setBuildYear(String year) {
         this.buildYear = year;
+    }
+
+    public String getThisYear() {
+        return thisYear;
+    }
+
+    public void setThisYear(String thisYear) {
+        this.thisYear = thisYear;
+    }
+
+    public String getProjectType() {
+        return projectType;
+    }
+
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+
+    public String getConstructionUnit() {
+        return constructionUnit;
+    }
+
+    public void setConstructionUnit(String constructionUnit) {
+        this.constructionUnit = constructionUnit;
     }
 }

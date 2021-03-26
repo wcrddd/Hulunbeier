@@ -140,4 +140,11 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
     public List<ContractWithProjectName> selectCanProgress(int unitId,String projectName){
         return contractInformationMapper.selectCanProgress(unitId,projectName);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void continueInsertContractInformation(ProjectSection projectSection){
+        projectSection.setTenderFlag(0);
+        projectSectionMapper.insertSelective(projectSection);
+    }
 }

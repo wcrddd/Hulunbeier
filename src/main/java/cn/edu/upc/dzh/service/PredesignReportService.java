@@ -64,4 +64,6 @@ public interface PredesignReportService {
      * @return
      */
     void updateReport( PredesignReportVo predesignReportVo);
+
+    public void updateApproveExamine2();
 }

@@ -2,15 +2,9 @@ package cn.edu.upc.dzh.service.impl;
 
 import cn.edu.upc.dzh.service.PredesignReportService;
 import cn.edu.upc.dzh.until.Message;
-import cn.edu.upc.manage.dao.PredesignReportAppendixMapper;
-import cn.edu.upc.manage.dao.PredesignReportMapper;
-import cn.edu.upc.manage.dao.ProjectSectionMapper;
-import cn.edu.upc.manage.dao.ProjectStoreMapper;
+import cn.edu.upc.manage.dao.*;
 import cn.edu.upc.manage.mo.PredesignReportMo;
-import cn.edu.upc.manage.model.FeasibilityResearchReport;
-import cn.edu.upc.manage.model.PredesignReport;
-import cn.edu.upc.manage.model.PredesignReportAppendix;
-import cn.edu.upc.manage.model.ProjectSection;
+import cn.edu.upc.manage.model.*;
 import cn.edu.upc.manage.vo.PredesignReportVo;
 import cn.edu.upc.manage.vo.PredesignReportWithProject;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +26,8 @@ public class predesignReportServiceImpl implements PredesignReportService {
     private ProjectSectionMapper projectSectionMapper;
     @Autowired
     private ProjectStoreMapper projectStoreMapper;
+    @Autowired
+    private ProjectVerificationMapper projectVerificationMapper;
 
     @Transactional
     @Override
@@ -50,7 +46,7 @@ public class predesignReportServiceImpl implements PredesignReportService {
         return predesignReportAppendixMapper.getAppendixByProjectId(projectId);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateAppendix(PredesignReportAppendix predesignReportAppendix){
          predesignReportAppendixMapper.updateByPrimaryKeySelective(predesignReportAppendix);
@@ -64,9 +60,147 @@ public class predesignReportServiceImpl implements PredesignReportService {
         int approve = predesignReport.getApprove();
         if (approve == 1){
             projectStoreMapper.updatePlanedFlag(predesignReport.getProjectId(),5);
+            List<ProjectVerification> projectVerificationList = new ArrayList<>();
+            ProjectVerification projectVerification = new ProjectVerification();
+            projectVerification.setProjectId(predesignReport.getProjectId());
+            projectVerification.setVerificationFlag(0);
+            projectVerification.setVerificationName("审价1");
+            projectVerificationList.add(projectVerification);
+            ProjectVerification projectVerification2 = new ProjectVerification();
+            projectVerification2.setProjectId(predesignReport.getProjectId());
+            projectVerification2.setVerificationFlag(0);
+            projectVerification2.setVerificationName("审价2");
+            projectVerificationList.add(projectVerification2);
+            ProjectVerification projectVerification3 = new ProjectVerification();
+            projectVerification3.setProjectId(predesignReport.getProjectId());
+            projectVerification3.setVerificationFlag(0);
+            projectVerification3.setVerificationName("审价3");
+            projectVerificationList.add(projectVerification3);
+            ProjectVerification projectVerification4 = new ProjectVerification();
+            projectVerification4.setProjectId(predesignReport.getProjectId());
+            projectVerification4.setVerificationFlag(0);
+            projectVerification4.setVerificationName("审价4");
+            projectVerificationList.add(projectVerification4);
+            ProjectVerification projectVerification5 = new ProjectVerification();
+            projectVerification5.setProjectId(predesignReport.getProjectId());
+            projectVerification5.setVerificationFlag(0);
+            projectVerification5.setVerificationName("审价5");
+            projectVerificationList.add(projectVerification5);
+            ProjectVerification projectVerification6 = new ProjectVerification();
+            projectVerification6.setProjectId(predesignReport.getProjectId());
+            projectVerification6.setVerificationFlag(0);
+            projectVerification6.setVerificationName("审价6");
+            projectVerificationList.add(projectVerification6);
+            ProjectVerification projectVerification7 = new ProjectVerification();
+            projectVerification7.setProjectId(predesignReport.getProjectId());
+            projectVerification7.setVerificationFlag(0);
+            projectVerification7.setVerificationName("审价7");
+            projectVerificationList.add(projectVerification7);
+            ProjectVerification projectVerification8 = new ProjectVerification();
+            projectVerification8.setProjectId(predesignReport.getProjectId());
+            projectVerification8.setVerificationFlag(0);
+            projectVerification8.setVerificationName("审价8");
+            projectVerificationList.add(projectVerification8);
+            ProjectVerification projectVerification9 = new ProjectVerification();
+            projectVerification9.setProjectId(predesignReport.getProjectId());
+            projectVerification9.setVerificationFlag(0);
+            projectVerification9.setVerificationName("审价9");
+            projectVerificationList.add(projectVerification9);
+            ProjectVerification projectVerification10 = new ProjectVerification();
+            projectVerification10.setProjectId(predesignReport.getProjectId());
+            projectVerification10.setVerificationFlag(0);
+            projectVerification10.setVerificationName("审价10");
+            projectVerificationList.add(projectVerification10);
+            ProjectVerification projectVerification11 = new ProjectVerification();
+            projectVerification11.setProjectId(predesignReport.getProjectId());
+            projectVerification11.setVerificationFlag(0);
+            projectVerification11.setVerificationName("审价11");
+            projectVerificationList.add(projectVerification11);
+            ProjectVerification projectVerification12 = new ProjectVerification();
+            projectVerification12.setProjectId(predesignReport.getProjectId());
+            projectVerification12.setVerificationFlag(0);
+            projectVerification12.setVerificationName("审价12");
+            projectVerificationList.add(projectVerification12);
+            projectVerificationMapper.insertVerificationList(projectVerificationList);
         }else {
             projectStoreMapper.updatePlanedFlag(predesignReport.getProjectId(),6);
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateApproveExamine2(){
+        List<ProjectStore> projectStores = new ArrayList<>();
+        projectStores = projectStoreMapper.getTest();
+        for (ProjectStore item:projectStores
+             ) {
+            if(item.getId()!=170 && item.getId() != 174){
+                List<ProjectVerification> projectVerificationList = new ArrayList<>();
+                ProjectVerification projectVerification = new ProjectVerification();
+                projectVerification.setProjectId(item.getId());
+                projectVerification.setVerificationFlag(0);
+                projectVerification.setVerificationName("审价1");
+                projectVerificationList.add(projectVerification);
+                ProjectVerification projectVerification2 = new ProjectVerification();
+                projectVerification2.setProjectId(item.getId());
+                projectVerification2.setVerificationFlag(0);
+                projectVerification2.setVerificationName("审价2");
+                projectVerificationList.add(projectVerification2);
+                ProjectVerification projectVerification3 = new ProjectVerification();
+                projectVerification3.setProjectId(item.getId());
+                projectVerification3.setVerificationFlag(0);
+                projectVerification3.setVerificationName("审价3");
+                projectVerificationList.add(projectVerification3);
+                ProjectVerification projectVerification4 = new ProjectVerification();
+                projectVerification4.setProjectId(item.getId());
+                projectVerification4.setVerificationFlag(0);
+                projectVerification4.setVerificationName("审价4");
+                projectVerificationList.add(projectVerification4);
+                ProjectVerification projectVerification5 = new ProjectVerification();
+                projectVerification5.setProjectId(item.getId());
+                projectVerification5.setVerificationFlag(0);
+                projectVerification5.setVerificationName("审价5");
+                projectVerificationList.add(projectVerification5);
+                ProjectVerification projectVerification6 = new ProjectVerification();
+                projectVerification6.setProjectId(item.getId());
+                projectVerification6.setVerificationFlag(0);
+                projectVerification6.setVerificationName("审价6");
+                projectVerificationList.add(projectVerification6);
+                ProjectVerification projectVerification7 = new ProjectVerification();
+                projectVerification7.setProjectId(item.getId());
+                projectVerification7.setVerificationFlag(0);
+                projectVerification7.setVerificationName("审价7");
+                projectVerificationList.add(projectVerification7);
+                ProjectVerification projectVerification8 = new ProjectVerification();
+                projectVerification8.setProjectId(item.getId());
+                projectVerification8.setVerificationFlag(0);
+                projectVerification8.setVerificationName("审价8");
+                projectVerificationList.add(projectVerification8);
+                ProjectVerification projectVerification9 = new ProjectVerification();
+                projectVerification9.setProjectId(item.getId());
+                projectVerification9.setVerificationFlag(0);
+                projectVerification9.setVerificationName("审价9");
+                projectVerificationList.add(projectVerification9);
+                ProjectVerification projectVerification10 = new ProjectVerification();
+                projectVerification10.setProjectId(item.getId());
+                projectVerification10.setVerificationFlag(0);
+                projectVerification10.setVerificationName("审价10");
+                projectVerificationList.add(projectVerification10);
+                ProjectVerification projectVerification11 = new ProjectVerification();
+                projectVerification11.setProjectId(item.getId());
+                projectVerification11.setVerificationFlag(0);
+                projectVerification11.setVerificationName("审价11");
+                projectVerificationList.add(projectVerification11);
+                ProjectVerification projectVerification12 = new ProjectVerification();
+                projectVerification12.setProjectId(item.getId());
+                projectVerification12.setVerificationFlag(0);
+                projectVerification12.setVerificationName("审价12");
+                projectVerificationList.add(projectVerification12);
+                projectVerificationMapper.insertVerificationList(projectVerificationList);
+
+            }
+        }
+
     }
 
     @Override

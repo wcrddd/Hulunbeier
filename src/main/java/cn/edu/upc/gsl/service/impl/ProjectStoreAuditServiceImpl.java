@@ -6,10 +6,12 @@ import cn.edu.upc.dzh.until.exception.BusinessException;
 import cn.edu.upc.dzh.until.exception.EmBusinessError;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.dao.ConstructionUnitMapper;
+import cn.edu.upc.manage.dao.ProjectEvaluateMapper;
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.dao.ProjectYearPlanMapper;
 import cn.edu.upc.manage.mo.ConstructUnitStatisticMo;
 import cn.edu.upc.manage.mo.NumStatisticsMo;
+import cn.edu.upc.manage.model.ProjectEvaluate;
 import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.manage.model.ProjectYearPlan;
 import cn.edu.upc.manage.model.User;
@@ -42,6 +44,8 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     private ConstructionUnitMapper constructionUnitMapper;
     @Autowired
     private ProjectYearPlanMapper projectYearPlanMapper;
+    @Autowired
+    private ProjectEvaluateMapper projectEvaluateMapper;
 
     /**
      * 新增项目申报
@@ -58,6 +62,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
 //        int unitId = 6;
         String unitName = "";
         String unitCode = "";
+        String projectCode = "";
         if (unitId == 0){
             unitName = "项目部";
             unitCode = "001";
@@ -66,10 +71,23 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
             unitCode = constructionUnitMapper.selectByPrimaryKey(unitId).getCode();
         }
         NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumIntegerDigits(2);
-        numberFormat.setMinimumIntegerDigits(2);
-        System.out.println("数字编号"+numberFormat.format(projectStoreMapper.countByUnitId(unitId)));
-        String projectCode = year + unitCode + ChineseCharToEn.getAllFirstLetter(projectStore.getProjectTypeName()) + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        numberFormat.setMaximumIntegerDigits(3);
+        numberFormat.setMinimumIntegerDigits(3);
+
+        int typeCode = projectStore.getProjectType();
+        if (typeCode == 31){
+            projectCode = year + unitCode + "01" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        }else if (typeCode == 2){
+            projectCode = year + unitCode + "02" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        }else if (typeCode == 3){
+            projectCode = year + unitCode + "03" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        }else if (typeCode == 4){
+            projectCode = year + unitCode + "04" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        }else if (typeCode == 5){
+            projectCode = year + unitCode + "05" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        }
+
+//        String projectCode = year + unitCode + ChineseCharToEn.getAllFirstLetter(projectStore.getProjectTypeName()) + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
         System.out.println("项目编号：" + projectCode);
         projectStore.setConstruUnitId(unitId);
         projectStore.setConstrutUnitName(unitName);
@@ -288,6 +306,9 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      */
     @Override
     public List<ProjectStore> getByUnitId(ProjectStoreFlagVo projectStoreFlagVo, int unitId){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        String year = simpleDateFormat.format(new Date());
+        projectStoreFlagVo.setThisYear(year);
         return projectStoreMapper.getByUnitId(projectStoreFlagVo, unitId);
     }
 
@@ -299,7 +320,9 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      */
     @Override
     public List<ProjectStore> getAll(ProjectStoreFlagVo projectStoreFlagVo, User user){
-
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        String year = simpleDateFormat.format(new Date());
+        projectStoreFlagVo.setThisYear(year);
         return projectStoreMapper.getAll(projectStoreFlagVo,user);
     }
 
@@ -374,5 +397,25 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public List<ProjectStore> getProjectLocationClass(int flag){
         return projectStoreMapper.getProjectLocationClass(flag);
+    }
+
+    /**
+     * 新增评价
+     * @param projectEvaluate
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void addEvaluate(ProjectEvaluate projectEvaluate){
+        projectEvaluateMapper.insertSelective(projectEvaluate);
+    }
+
+    /**
+     * 获取评价
+     * @param projectId
+     * @return
+     */
+    @Override
+    public ProjectEvaluate getEvaluate(int projectId){
+        return projectEvaluateMapper.getEvaluate(projectId);
     }
 }

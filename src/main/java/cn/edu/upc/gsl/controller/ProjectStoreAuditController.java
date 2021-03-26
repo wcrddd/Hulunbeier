@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.controller;
 import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.gsl.service.ProjectStoreAuditService;
 import cn.edu.upc.manage.common.CommonReturnType;
+import cn.edu.upc.manage.model.ProjectEvaluate;
 import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.manage.model.ProjectYearPlan;
 import cn.edu.upc.manage.model.User;
@@ -330,6 +331,29 @@ public class ProjectStoreAuditController {
     @ResponseBody
     public CommonReturnType getProjectLocationClass(int flag){
         return CommonReturnType.create(projectStoreAuditService.getProjectLocationClass(flag));
+    }
+
+    /**
+     * 新增项目评价
+     * @param projectEvaluate
+     * @return
+     */
+    @RequestMapping(value = "/addEvaluate")
+    @ResponseBody
+    public CommonReturnType addEvaluate(@RequestBody ProjectEvaluate projectEvaluate){
+        projectStoreAuditService.addEvaluate(projectEvaluate);
+        return CommonReturnType.create(null,"新增成功");
+    }
+
+    /**
+     * 获取项目评价
+     * @param projectId
+     * @return
+     */
+    @RequestMapping(value = "/getEvaluate")
+    @ResponseBody
+    public CommonReturnType getEvaluate(int projectId){
+        return CommonReturnType.create(projectStoreAuditService.getEvaluate(projectId));
     }
 
 }

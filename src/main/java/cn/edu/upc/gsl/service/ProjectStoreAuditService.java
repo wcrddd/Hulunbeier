@@ -3,6 +3,7 @@ package cn.edu.upc.gsl.service;
 import cn.edu.upc.manage.common.CommonReturnType;
 import cn.edu.upc.manage.mo.ConstructUnitStatisticMo;
 import cn.edu.upc.manage.mo.NumStatisticsMo;
+import cn.edu.upc.manage.model.ProjectEvaluate;
 import cn.edu.upc.manage.model.ProjectStore;
 import cn.edu.upc.manage.model.ProjectYearPlan;
 import cn.edu.upc.manage.model.User;
@@ -172,4 +173,17 @@ public interface ProjectStoreAuditService {
      * @return
      */
     List<ConstructUnitStatisticMo> getConstructUnitStatistic();
+
+    /**
+     * 新增评价
+     * @param projectEvaluate
+     */
+    void addEvaluate(ProjectEvaluate projectEvaluate);
+
+    /**
+     * 获取评价
+     * @param projectId
+     * @return
+     */
+    ProjectEvaluate getEvaluate(int projectId);
 }

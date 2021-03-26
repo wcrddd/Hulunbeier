@@ -11,8 +11,10 @@ public class ProjectStoreWithUnitName extends ProjectStore {
 
     public void setConstructionUnitName(String constructionUnitName){this.constructionUnitName=constructionUnitName;}
 
+    @Override
     public String getGuideName(){return guideName;}
 
+    @Override
     public void setGuideName(String guideName){this.guideName=guideName;}
 
     public String getApplyTypeName(){return applyTypeName;}

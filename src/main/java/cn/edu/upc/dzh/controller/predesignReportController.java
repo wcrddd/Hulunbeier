@@ -76,6 +76,13 @@ public CommonReturnType insertAppendix(@RequestBody JSONObject jsonObject){
         return  CommonReturnType.create("审核成功");
     }
 
+    @RequestMapping("/updateApproveExamine2")//审核
+    @ResponseBody
+    public CommonReturnType updateApproveExamine2(){
+        predesignReportService.updateApproveExamine2();
+        return  CommonReturnType.create("审核成功");
+    }
+
     /*****
      * 获取全部项目的初步设计报告用于审批
      * @param
