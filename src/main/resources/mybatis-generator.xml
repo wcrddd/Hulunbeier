@@ -8,16 +8,16 @@
     <context id="context" targetRuntime="MyBatis3">
 
         <!-- 数据库的相关配置 -->
-<!--        <jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
-<!--                        connectionURL="jdbc:mysql://39.99.43.178:3306/hulun?serverTimezone=UTC"-->
-<!--                        userId="hb-mysql"-->
-<!--                        password="hbMiMabhj123!@#">-->
-<!--        </jdbcConnection>-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://58.87.74.112:3306/hulunbeier2020?serverTimezone=UTC"
-                        userId="manage"
-                        password="upc2020">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://39.99.43.178:3306/hlbe_project_manage?serverTimezone=Asia/Shanghai"
+                        userId="hb-mysql"
+                        password="hbMiMabhj123!@#">
         </jdbcConnection>
+<!--        <jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+<!--                        connectionURL="jdbc:mysql://58.87.74.112:3306/hulunbeier2020?serverTimezone=UTC"-->
+<!--                        userId="manage"-->
+<!--                        password="upc2020">-->
+<!--        </jdbcConnection>-->
         <!-- 实体类生成的位置 -->
         <javaModelGenerator targetPackage="cn.edu.upc.manage.model" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
@@ -65,10 +65,10 @@
 <!--        <table tableName="affix" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               enableUpdateByExample="false"/>-->
 
-        <table tableName="project_plan" enableCountByExample="true" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="project_store" enableCountByExample="true" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
 
-<!--        <table tableName = "feasibility_research_report" enableCountByExample = "false" enableDeleteByExample = "false"-->
+<!--        <table tableName = "construction_progress_appendix" enableCountByExample = "false" enableDeleteByExample = "false"-->
 <!--               enableSelectByExample="false" enableUpdateByExample = "false"/>-->
 
 

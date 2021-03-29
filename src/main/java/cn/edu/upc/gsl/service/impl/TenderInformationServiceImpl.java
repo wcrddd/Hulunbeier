@@ -79,7 +79,7 @@ public class TenderInformationServiceImpl implements TenderInformationService {
 //        projectSection.setTenderApprove(0);
 //        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
         projectSectionMapper.updateTenderList(projectSectionList);
-        projectStoreMapper.updatePlanedFlag(projectSectionList.get(0).getProjectId(),10);
+        projectStoreMapper.updatePlanedFlag(projectSectionList.get(0).getProjectId(),10,10);
     }
 
     /**
@@ -98,12 +98,12 @@ public class TenderInformationServiceImpl implements TenderInformationService {
         int sectionTenderApproveNum = projectSectionMapper.count(projectId,3);
         if(sectionTenderApproveNum == sectionTenderNum){
 //            if (approve == 1){
-                projectStoreMapper.updatePlanedFlag(projectId,11);
+                projectStoreMapper.updatePlanedFlag(projectId,11,12);
 //            }else {
 //                projectStoreMapper.updatePlanedFlag(projectId,12);
 //            }
         }else if(approve == 2){
-            projectStoreMapper.updatePlanedFlag(projectId,12);
+            projectStoreMapper.updatePlanedFlag(projectId,12,11);
         }
 
     }
@@ -158,6 +158,6 @@ public class TenderInformationServiceImpl implements TenderInformationService {
 //        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
         projectSectionMapper.updateTenderList(projectSectionList);
         int projectId = projectSectionList.get(0).getProjectId();
-        projectStoreMapper.updatePlanedFlag(projectId,10);
+        projectStoreMapper.updatePlanedFlag(projectId,10,10);
     }
 }

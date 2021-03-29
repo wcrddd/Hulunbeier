@@ -39,7 +39,7 @@ public class StudyReportServiceImpl implements StudyReportService {
     @Override
     public void insertReport(StudyReport studyReport){
         studyReportMapper.insertSelective(studyReport);
-        projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1);
+        projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1,1);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class StudyReportServiceImpl implements StudyReportService {
     public void updateReport(StudyReport studyReport){
         studyReport.setApprove(0);
         studyReportMapper.updateByPrimaryKeySelective(studyReport);
-        projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1);
+        projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1,1);
     }
 
     @Override
@@ -114,9 +114,9 @@ public class StudyReportServiceImpl implements StudyReportService {
         studyReportMapper.updateByPrimaryKeySelective(studyReport);
         int approve = studyReport.getApprove();
         if (approve == 1){
-            projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),2);
+            projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),2,3);
         }else {
-            projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),3);
+            projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),3,2);
         }
     }
 

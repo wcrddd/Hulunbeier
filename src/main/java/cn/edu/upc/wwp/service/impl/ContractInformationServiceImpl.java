@@ -34,7 +34,7 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
         }
 //        projectSection.setContractApprove(0);
         projectSectionMapper.updateContractList(projectSectionList);
-        projectStoreMapper.updatePlanedFlag(projectSectionList.get(0).getProjectId(),13);
+        projectStoreMapper.updatePlanedFlag(projectSectionList.get(0).getProjectId(),13,13);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
         if (sectionNum == sectionContractApproveNum){
 
 //            if (approve == 1){
-                projectStoreMapper.updatePlanedFlag(projectId,14);
+                projectStoreMapper.updatePlanedFlag(projectId,14,15);
 //            }else {
 //                projectStoreMapper.updatePlanedFlag(projectId,15);
 //            }
         }else if(approve == 2){
-            projectStoreMapper.updatePlanedFlag(projectId,15);
+            projectStoreMapper.updatePlanedFlag(projectId,15,14);
         }
 
     }
@@ -78,7 +78,7 @@ public class ContractInformationServiceImpl  implements ContractInformationServi
 //        projectSectionMapper.insertContract(projectSection);
         int projectId = projectSectionList.get(0).getProjectId();
 //        projectSectionMapper.updateByPrimaryKeySelective(projectSection);
-        projectStoreMapper.updatePlanedFlag(projectId,13);
+        projectStoreMapper.updatePlanedFlag(projectId,13,13);
 
     }
 

@@ -29,7 +29,7 @@ public class StartReportServiceImpl implements StartReportService {
     @Transactional(rollbackFor = Exception.class)
     public void addReport( StartReport startReport){
         startReportMapper.insertSelective(startReport);
-        projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),16);
+        projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),16,16);
     }
 
     /**
@@ -44,9 +44,9 @@ public class StartReportServiceImpl implements StartReportService {
 
         int approve = startReport.getApprove();
         if (approve == 1){
-            projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),17);
+            projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),17,18);
         }else {
-            projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),18);
+            projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),18,17);
         }
     }
 
@@ -59,7 +59,7 @@ public class StartReportServiceImpl implements StartReportService {
     public void updateReport( StartReport startReport){
         startReport.setApprove(0);
         startReportMapper.updateByPrimaryKeySelective(startReport);
-        projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),16);
+        projectStoreMapper.updatePlanedFlag(startReport.getProjectId(),16,16);
     }
 
     /**

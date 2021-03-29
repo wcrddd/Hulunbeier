@@ -240,7 +240,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
      */
     @Override
     public void setPlanedFlag(Integer id,Integer planedFlag) {
-        projectStoreMapper.updatePlanedFlag(id,planedFlag);
+        projectStoreMapper.updatePlanedFlag(id,planedFlag,1);
     }
 
     /**
@@ -285,7 +285,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Transactional(rollbackFor = Exception.class)
     public void selectYearPlan2(ProjectYearPlan projectYearPlan){
         if (projectStoreMapper.selectByPrimaryKey(projectYearPlan.getProjectId()).getInvestEstimate() <= 50){
-            projectStoreMapper.updatePlanedFlag(projectYearPlan.getProjectId(), 2);
+            projectStoreMapper.updatePlanedFlag(projectYearPlan.getProjectId(), 2,3);
         }
         projectYearPlanMapper.insertSelective(projectYearPlan);
     }

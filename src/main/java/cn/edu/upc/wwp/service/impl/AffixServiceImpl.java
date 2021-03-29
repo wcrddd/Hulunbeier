@@ -30,14 +30,14 @@ public class AffixServiceImpl implements AffixService {
     public void updateAffix(Affix recordUp) {
         recordUp.setApprove(0);
         affixMapper.updateByPrimaryKeySelective(recordUp);
-        projectStoreMapper.updatePlanedFlag(recordUp.getProjectId(),20);
+        projectStoreMapper.updatePlanedFlag(recordUp.getProjectId(),20,20);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void insertAffix(Affix recordIn) {
         affixMapper.insertSelective(recordIn);
-        projectStoreMapper.updatePlanedFlag(recordIn.getProjectId(),20);
+        projectStoreMapper.updatePlanedFlag(recordIn.getProjectId(),20,20);
     }
 
     @Override
@@ -47,9 +47,9 @@ public class AffixServiceImpl implements AffixService {
         affixMapper.updateApprove(affix);
         int approve = affix.getApprove();
         if (approve == 1){
-            projectStoreMapper.updatePlanedFlag(affix.getProjectId(),21);
+            projectStoreMapper.updatePlanedFlag(affix.getProjectId(),21,22);
         }else {
-            projectStoreMapper.updatePlanedFlag(affix.getProjectId(),22);
+            projectStoreMapper.updatePlanedFlag(affix.getProjectId(),22,21);
         }
     }
 

@@ -55,7 +55,7 @@ public class ConstructionProgressServiceImpl implements ConstructionProgressServ
             }
             constructionProgressAppendixMapper.insertList(constructionProgressAppendixList);
         }
-        projectStoreMapper.updatePlanedFlag(constructionProgressParamVo.getProjectId(),19);
+        projectStoreMapper.updatePlanedFlag(constructionProgressParamVo.getProjectId(),19,19);
 //        if (constructionProgress.getProgress().equals("100")){
         if (constructionProgress.getProgress() == 100){
             projectStoreMapper.updateSectionFinishNum(constructionProgressParamVo.getProjectId());
