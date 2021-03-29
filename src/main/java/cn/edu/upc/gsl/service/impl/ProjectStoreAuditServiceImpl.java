@@ -96,7 +96,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
 //            projectStore.setPlanedFlag(2);
 //        }
 //        else
-        if (projectStore.getInvestEstimate() >= 1000){
+        if (projectStore.getInvestEstimate() >= 500){
             projectStore.setImportantFlag(0);
         }
         return projectStoreMapper.insertSelective(projectStore);
