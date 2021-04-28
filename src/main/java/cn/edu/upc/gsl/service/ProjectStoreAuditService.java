@@ -1,6 +1,7 @@
 package cn.edu.upc.gsl.service;
 
 import cn.edu.upc.manage.common.CommonReturnType;
+import cn.edu.upc.manage.mo.ApproveStatistic;
 import cn.edu.upc.manage.mo.ConstructUnitStatisticMo;
 import cn.edu.upc.manage.mo.NumStatisticsMo;
 import cn.edu.upc.manage.model.ProjectEvaluate;
@@ -186,4 +187,23 @@ public interface ProjectStoreAuditService {
      * @return
      */
     ProjectEvaluate getEvaluate(int projectId);
+
+    /**
+     * 获取审批的统计
+     * @param departmentUnitId
+     * @return
+     */
+    ApproveStatistic getApproveStatistics(int departmentUnitId);
+
+    /**
+     * 删除一个项目
+     * @param id
+     * @return
+     */
+    void delete(int id);
+
+    /**
+     * 每日给手机发送审批信息
+     */
+    void sendApproveMessage();
 }

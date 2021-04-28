@@ -1,5 +1,6 @@
 package cn.edu.upc.manage.dao;
 
+import cn.edu.upc.manage.mo.ApproveStatistic;
 import cn.edu.upc.manage.mo.ConstructUnitStatisticMo;
 import cn.edu.upc.manage.mo.NumStatisticsMo;
 import cn.edu.upc.manage.model.ProjectStore;
@@ -245,5 +246,21 @@ public interface ProjectStoreMapper {
     void updateVerificationApprove(@Param("projectStore") ProjectStore projectStore);
 
     List<ProjectStore> getTest();
+
+    /**
+     * 删除一个项目
+     * @param id
+     * @return
+     */
+    void delete(@Param("id") Integer id);
+
+    /**
+     * 获取审批的统计
+     * @param departmentUnitId
+     * @return
+     */
+    ApproveStatistic getApproveStatistics(@Param("departmentUnitId") Integer departmentUnitId);
+
+
 
 }

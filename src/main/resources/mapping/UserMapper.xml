@@ -359,5 +359,9 @@ LEFT JOIN role on role.id=a.role_id
     select * from user where email='${tel}' and del_flag=0
   </select>
 
+  <select id="getByDepartment" resultMap="BaseResultMap">
+    select distinct * from user where department_unit_id = #{departmentUnitId} and user_type = #{userType} and del_flag = 0
+  </select>
+
 
 </mapper>

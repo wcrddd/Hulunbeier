@@ -1,5 +1,6 @@
 package cn.edu.upc.gsl.service.impl;
 
+import cn.edu.upc.dzh.until.GetMessageCode;
 import cn.edu.upc.gsl.service.ConstructionProgressService;
 import cn.edu.upc.manage.dao.ConstructionProgressAppendixMapper;
 import cn.edu.upc.manage.dao.ConstructionProgressMapper;
@@ -56,6 +57,8 @@ public class ConstructionProgressServiceImpl implements ConstructionProgressServ
             constructionProgressAppendixMapper.insertList(constructionProgressAppendixList);
         }
         projectStoreMapper.updatePlanedFlag(constructionProgressParamVo.getProjectId(),19,19);
+        GetMessageCode.sendMessageToLeader(projectStoreMapper.selectByPrimaryKey(constructionProgressParamVo.getProjectId()),
+                "施工，"+constructionProgressParamVo.getSectionName()+" 部分已完成"+constructionProgressParamVo.getProgress()+"%");
 //        if (constructionProgress.getProgress().equals("100")){
         if (constructionProgress.getProgress() == 100){
             projectStoreMapper.updateSectionFinishNum(constructionProgressParamVo.getProjectId());

@@ -1,6 +1,7 @@
 package cn.edu.upc.gsl.service.impl;
 
 import cn.edu.upc.dzh.until.ChineseCharToEn;
+import cn.edu.upc.dzh.until.GetMessageCode;
 import cn.edu.upc.dzh.until.SysUser;
 import cn.edu.upc.dzh.until.exception.BusinessException;
 import cn.edu.upc.dzh.until.exception.EmBusinessError;
@@ -9,6 +10,7 @@ import cn.edu.upc.manage.dao.ConstructionUnitMapper;
 import cn.edu.upc.manage.dao.ProjectEvaluateMapper;
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.dao.ProjectYearPlanMapper;
+import cn.edu.upc.manage.mo.ApproveStatistic;
 import cn.edu.upc.manage.mo.ConstructUnitStatisticMo;
 import cn.edu.upc.manage.mo.NumStatisticsMo;
 import cn.edu.upc.manage.model.ProjectEvaluate;
@@ -19,6 +21,7 @@ import cn.edu.upc.manage.vo.ProjectStoreFlagVo;
 import cn.edu.upc.manage.vo.ProjectStoreVo;
 import cn.edu.upc.manage.vo.ProjectYearPlanVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,6 +88,8 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
             projectCode = year + unitCode + "04" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
         }else if (typeCode == 5){
             projectCode = year + unitCode + "05" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
+        }else if (typeCode == 35){
+            projectCode = year + unitCode + "06" + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
         }
 
 //        String projectCode = year + unitCode + ChineseCharToEn.getAllFirstLetter(projectStore.getProjectTypeName()) + numberFormat.format(projectStoreMapper.countByUnitId(unitId));
@@ -167,6 +172,7 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public void updateState(ProjectStore record) {
         projectStoreMapper.updateByPrimaryKeySelective(record);
+
     }
 
     /**
@@ -253,6 +259,9 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Transactional(rollbackFor = Exception.class)
     public void updateStoreFlag( ProjectStore projectStore){
         projectStoreMapper.updateStoreFlag(projectStore);
+        if (projectStore.getStoreFlag() != 99){
+            GetMessageCode.sendMessageToLeader(projectStore, "申报完成");
+        }
     }
 
     /**
@@ -323,7 +332,16 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
         String year = simpleDateFormat.format(new Date());
         projectStoreFlagVo.setThisYear(year);
-        return projectStoreMapper.getAll(projectStoreFlagVo,user);
+        System.out.println("user:"+user);
+        if (user == null){
+            User user1 = new User();
+            user1.setUserType(0);
+            user1.setDepartmentUnitId(0);
+            return projectStoreMapper.getAll(projectStoreFlagVo,user1);
+        }else {
+            return projectStoreMapper.getAll(projectStoreFlagVo,user);
+        }
+
     }
 
     /**
@@ -417,5 +435,51 @@ public class ProjectStoreAuditServiceImpl implements ProjectStoreAuditService {
     @Override
     public ProjectEvaluate getEvaluate(int projectId){
         return projectEvaluateMapper.getEvaluate(projectId);
+    }
+
+    /**
+     * 获取审批的统计
+     * @param departmentUnitId
+     * @return
+     */
+    @Override
+    public ApproveStatistic getApproveStatistics(int departmentUnitId){
+        return projectStoreMapper.getApproveStatistics(departmentUnitId);
+    }
+
+    /**
+     * 删除一个项目
+     * @param id
+     * @return
+     */
+    @Override
+    public void delete(int id){
+        projectStoreMapper.delete(id);
+    }
+
+    /**
+     * 每日（下午两点）给手机发送审批信息
+     */
+    @Override
+    public void sendApproveMessage(){
+        ApproveStatistic approveStatistic = new ApproveStatistic();
+        for (int i = 1; i < 8; i++){
+            approveStatistic = projectStoreMapper.getApproveStatistics(i);
+            if (approveStatistic.getStudyReportNum() > 0 || approveStatistic.getPredesignReportNum() > 0 ||
+                approveStatistic.getKeepRecordNum() > 0 || approveStatistic.getStartReportNum() > 0 ||
+                    approveStatistic.getAffixReportNum() > 0
+            ){
+                GetMessageCode.sendMessage2(i);
+            }
+        }
+        approveStatistic = projectStoreMapper.getApproveStatistics(1);
+        if (approveStatistic.getProjectReportNum() > 0){
+            GetMessageCode.sendMessage2(40);
+        }else if (approveStatistic.getContractNum() > 0){
+            GetMessageCode.sendMessage2(41);
+        }else if (approveStatistic.getTenderNum() > 0){
+            GetMessageCode.sendMessage2(42);
+        }
+
     }
 }

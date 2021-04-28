@@ -12,6 +12,7 @@ import cn.edu.upc.manage.vo.ProjectStoreVo;
 import cn.edu.upc.manage.vo.ProjectYearPlanVo;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -354,6 +355,43 @@ public class ProjectStoreAuditController {
     @ResponseBody
     public CommonReturnType getEvaluate(int projectId){
         return CommonReturnType.create(projectStoreAuditService.getEvaluate(projectId));
+    }
+
+    /**
+     * 获取审批的统计
+     * @param departmentUnitId
+     * @return
+     */
+    @RequestMapping(value = "/getApproveStatistics")
+    @ResponseBody
+    public CommonReturnType getApproveStatistics(int departmentUnitId){
+        return CommonReturnType.create(projectStoreAuditService.getApproveStatistics(departmentUnitId));
+    }
+
+    /**
+     * 删除一个项目
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public CommonReturnType delete(int id){
+        projectStoreAuditService.delete(id);
+        return CommonReturnType.create(null);
+    }
+
+    /**
+     * 每日给手机发送审批信息
+     * @param
+     * @return
+     */
+    @Scheduled(cron = "0 0 14 * * ?")
+//    @Scheduled(cron = "0 0 1 ? * L")
+    @RequestMapping(value = "/sendApproveMessage")
+    @ResponseBody
+    public void sendApproveMessage(){
+        System.out.println("执行");
+        projectStoreAuditService.sendApproveMessage();
     }
 
 }

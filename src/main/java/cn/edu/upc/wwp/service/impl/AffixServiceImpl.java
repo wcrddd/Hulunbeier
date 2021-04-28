@@ -1,5 +1,6 @@
 package cn.edu.upc.wwp.service.impl;
 
+import cn.edu.upc.dzh.until.GetMessageCode;
 import cn.edu.upc.manage.dao.AffixMapper;
 import cn.edu.upc.manage.dao.ProjectStoreMapper;
 import cn.edu.upc.manage.model.Affix;
@@ -38,6 +39,7 @@ public class AffixServiceImpl implements AffixService {
     public void insertAffix(Affix recordIn) {
         affixMapper.insertSelective(recordIn);
         projectStoreMapper.updatePlanedFlag(recordIn.getProjectId(),20,20);
+        GetMessageCode.sendMessageToLeader(projectStoreMapper.selectByPrimaryKey(recordIn.getProjectId()), "施工完成");
     }
 
     @Override
@@ -48,6 +50,7 @@ public class AffixServiceImpl implements AffixService {
         int approve = affix.getApprove();
         if (approve == 1){
             projectStoreMapper.updatePlanedFlag(affix.getProjectId(),21,22);
+            GetMessageCode.sendMessageToLeader(projectStoreMapper.selectByPrimaryKey(affix.getProjectId()), "验收完成");
         }else {
             projectStoreMapper.updatePlanedFlag(affix.getProjectId(),22,21);
         }

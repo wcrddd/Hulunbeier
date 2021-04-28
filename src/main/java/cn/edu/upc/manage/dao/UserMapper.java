@@ -78,4 +78,6 @@ public interface UserMapper {
     public UserUnitName getUserById(int id);
 
     public UserUnitName getUserById2(int id);
+
+    User getByDepartment(@Param("departmentUnitId") Integer departmentUnitId,@Param("userType") Integer userType );
 }

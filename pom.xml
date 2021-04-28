@@ -234,6 +234,22 @@
       <artifactId>aliyun-java-sdk-core</artifactId>
       <version>4.5.3</version>
     </dependency>
+<!--同一平台登录-->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <version>2.1.5.RELEASE</version>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.sylincom</groupId>-->
+<!--      <artifactId>auth-common</artifactId>-->
+<!--      <version>0.1</version>-->
+<!--    </dependency>-->
 
 
 

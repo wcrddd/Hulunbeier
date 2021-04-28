@@ -771,6 +771,17 @@
         <result column="examine" jdbcType="INTEGER" property="examine" />
     </resultMap>
 
+  <resultMap id="ApproveStatistic" type="cn.edu.upc.manage.mo.ApproveStatistic">
+    <result column="projectReport_num" jdbcType="INTEGER" property="projectReportNum" />
+    <result column="studyReport_num" jdbcType="INTEGER" property="studyReportNum" />
+    <result column="predesignReport_num" jdbcType="INTEGER" property="predesignReportNum" />
+    <result column="keepRecord_num" jdbcType="INTEGER" property="keepRecordNum" />
+    <result column="tender_num" jdbcType="INTEGER" property="tenderNum" />
+    <result column="contract_num" jdbcType="INTEGER" property="contractNum" />
+    <result column="startReport_num" jdbcType="INTEGER" property="startReportNum" />
+    <result column="affixReport_num" jdbcType="INTEGER" property="affixReportNum" />
+  </resultMap>
+
     <!-- 返回所有项目库中的项目,返回中加上建设单位名称-->
     <select id="selectAllProject" resultMap="ProjectStoreWithUnitName">
 --         select project_store.*,construction_unit.name
@@ -1149,6 +1160,10 @@ END as approve2
         )
       </if>
     </if>
+    <if test="projectStoreFlagVo.storeFlag == 98 and projectStoreFlagVo.planedFlagA == -1">
+        and
+        planed_flag = #{projectStoreFlagVo.planedFlagB}
+    </if>
     <if test="user.departmentUnitId == 1 and user.userType == 1">
       and important_flag = 0
     </if>
@@ -1455,5 +1470,174 @@ from
     SELECT * from project_store where
     store_flag &gt; 0 and store_flag &lt; 3 and (planed_flag = 5 or planed_flag &gt; 6) and del_flag = 0
   </select>
+
+  <select id="getApproveStatistics" resultMap="ApproveStatistic">
+    SELECT a.*, b.*, c.*, d.*, e.*, f.*, g.*, h.* FROM
+(SELECT COUNT(id) as projectReport_num FROM project_store where del_flag = 0 and store_flag = 0) as a
+LEFT JOIN
+(SELECT COUNT(id) as studyReport_num FROM project_store where del_flag = 0 and planed_flag = 1
+
+      <if test="departmentUnitId == 1">
+        and important_flag = 0
+      </if>
+      <if test="departmentUnitId == 2">
+        and project_nature = '企业自筹资金' and important_flag = 1
+      </if>
+      <if test="departmentUnitId == 3">
+        and project_nature = '上级财政资金' and important_flag = 1
+        and project_type = 31
+      </if>
+      <if test="departmentUnitId == 4">
+        and project_nature = '上级财政资金' and important_flag = 1
+        and project_type = 2
+      </if>
+      <if test="departmentUnitId == 5">
+        and project_nature = '上级财政资金' and important_flag = 1
+        and project_type = 3
+      </if>
+      <if test="departmentUnitId == 6">
+        and project_nature = '上级财政资金' and important_flag = 1
+        and project_type = 4
+      </if>
+      <if test="departmentUnitId == 7">
+        and project_nature = '上级财政资金' and important_flag = 1
+        and project_type = 5
+      </if>
+
+) as b on 1=1
+LEFT JOIN
+(SELECT COUNT(id) as predesignReport_num FROM project_store where del_flag = 0 and planed_flag = 4
+
+    <if test="departmentUnitId == 1">
+      and important_flag = 0
+    </if>
+    <if test="departmentUnitId == 2">
+      and project_nature = '企业自筹资金' and important_flag = 1
+    </if>
+    <if test="departmentUnitId == 3">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 31
+    </if>
+    <if test="departmentUnitId == 4">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 2
+    </if>
+    <if test="departmentUnitId == 5">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 3
+    </if>
+    <if test="departmentUnitId == 6">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 4
+    </if>
+    <if test="departmentUnitId == 7">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 5
+    </if>
+
+) as c on 1=1
+LEFT JOIN
+(SELECT COUNT(id) as keepRecord_num FROM project_store where del_flag = 0 and planed_flag = 7
+
+    <if test="departmentUnitId == 1">
+      and important_flag = 0
+    </if>
+    <if test="departmentUnitId == 2">
+      and project_nature = '企业自筹资金' and important_flag = 1
+    </if>
+    <if test="departmentUnitId == 3">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 31
+    </if>
+    <if test="departmentUnitId == 4">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 2
+    </if>
+    <if test="departmentUnitId == 5">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 3
+    </if>
+    <if test="departmentUnitId == 6">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 4
+    </if>
+    <if test="departmentUnitId == 7">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 5
+    </if>
+
+) as d on 1=1
+LEFT JOIN
+(SELECT COUNT(id) as tender_num FROM project_store where del_flag = 0 and planed_flag = 10) as e on 1=1
+LEFT JOIN
+(SELECT COUNT(id) as contract_mum FROM project_store where del_flag = 0 and planed_flag = 13) as f on 1=1
+LEFT JOIN
+(SELECT COUNT(id) as startReport_num FROM project_store where del_flag = 0 and planed_flag = 16
+
+    <if test="departmentUnitId == 1">
+      and important_flag = 0
+    </if>
+    <if test="departmentUnitId == 2">
+      and project_nature = '企业自筹资金' and important_flag = 1
+    </if>
+    <if test="departmentUnitId == 3">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 31
+    </if>
+    <if test="departmentUnitId == 4">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 2
+    </if>
+    <if test="departmentUnitId == 5">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 3
+    </if>
+    <if test="departmentUnitId == 6">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 4
+    </if>
+    <if test="departmentUnitId == 7">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 5
+    </if>
+
+) as g on 1=1
+LEFT JOIN
+(SELECT COUNT(id) as affixReport_num FROM project_store where del_flag = 0 and planed_flag = 20
+
+    <if test="departmentUnitId == 1">
+      and important_flag = 0
+    </if>
+    <if test="departmentUnitId == 2">
+      and project_nature = '企业自筹资金' and important_flag = 1
+    </if>
+    <if test="departmentUnitId == 3">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 31
+    </if>
+    <if test="departmentUnitId == 4">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 2
+    </if>
+    <if test="departmentUnitId == 5">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 3
+    </if>
+    <if test="departmentUnitId == 6">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 4
+    </if>
+    <if test="departmentUnitId == 7">
+      and project_nature = '上级财政资金' and important_flag = 1
+      and project_type = 5
+    </if>
+
+) as h on 1=1
+
+  </select>
+
+  <update id="delete">
+    update project_store set del_flag = 1 where id = #{id}
+  </update>
 
 </mapper>

@@ -1,14 +1,9 @@
 package cn.edu.upc.dzh.service.impl;
 
 import cn.edu.upc.dzh.service.StudyReportService;
-import cn.edu.upc.manage.dao.FeasibilityResearchReportMapper;
-import cn.edu.upc.manage.dao.ProjectStoreMapper;
-import cn.edu.upc.manage.dao.StudyReportMapper;
-import cn.edu.upc.manage.dao.ViewStudyReportMapper;
-import cn.edu.upc.manage.model.FeasibilityResearchReport;
-import cn.edu.upc.manage.model.ProjectStore;
-import cn.edu.upc.manage.model.StudyReport;
-import cn.edu.upc.manage.model.ViewStudyReport;
+import cn.edu.upc.dzh.until.GetMessageCode;
+import cn.edu.upc.manage.dao.*;
+import cn.edu.upc.manage.model.*;
 import cn.edu.upc.manage.vo.FeasibilityProjectName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +22,8 @@ public class StudyReportServiceImpl implements StudyReportService {
     private ViewStudyReportMapper viewStudyReportMapper;
     @Autowired
     private ProjectStoreMapper projectStoreMapper;
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Transactional
@@ -40,6 +37,7 @@ public class StudyReportServiceImpl implements StudyReportService {
     public void insertReport(StudyReport studyReport){
         studyReportMapper.insertSelective(studyReport);
         projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1,1);
+//        GetMessageCode.sendMessage(studyReport.getProjectId());
     }
 
     @Override
@@ -101,9 +99,13 @@ public class StudyReportServiceImpl implements StudyReportService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateReport(StudyReport studyReport){
+        int approve = studyReport.getApprove();
         studyReport.setApprove(0);
         studyReportMapper.updateByPrimaryKeySelective(studyReport);
         projectStoreMapper.updatePlanedFlag(studyReport.getProjectId(),1,1);
+        if (approve == 3){
+//            GetMessageCode.sendMessage(studyReport.getProjectId());
+        }
     }
 
     @Override
